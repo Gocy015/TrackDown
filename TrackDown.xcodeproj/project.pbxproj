@@ -7,25 +7,76 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		B338FD996373729E95720F5E /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 00618E33F2B256E017D24A5C /* libPods.a */; };
+		C39A8D581D33774B00FAF484 /* StoryboardManager.m in Sources */ = {isa = PBXBuildFile; fileRef = C39A8D571D33774B00FAF484 /* StoryboardManager.m */; };
+		C39A8D5B1D337A2E00FAF484 /* WorkoutActionViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C39A8D5A1D337A2E00FAF484 /* WorkoutActionViewController.m */; };
+		C39A8D5E1D3380CE00FAF484 /* AddWorkoutViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C39A8D5D1D3380CE00FAF484 /* AddWorkoutViewController.m */; };
+		C39A8D631D3394F200FAF484 /* NSArray+Map.m in Sources */ = {isa = PBXBuildFile; fileRef = C39A8D621D3394F200FAF484 /* NSArray+Map.m */; };
 		C3AA37871D30F3E100D5930E /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = C3AA37861D30F3E100D5930E /* main.m */; };
 		C3AA378A1D30F3E100D5930E /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = C3AA37891D30F3E100D5930E /* AppDelegate.m */; };
-		C3AA378D1D30F3E100D5930E /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C3AA378C1D30F3E100D5930E /* ViewController.m */; };
 		C3AA37901D30F3E100D5930E /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C3AA378E1D30F3E100D5930E /* Main.storyboard */; };
 		C3AA37921D30F3E100D5930E /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = C3AA37911D30F3E100D5930E /* Assets.xcassets */; };
 		C3AA37951D30F3E100D5930E /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C3AA37931D30F3E100D5930E /* LaunchScreen.storyboard */; };
+		C3AA37AD1D30FE2500D5930E /* CYWorkoutManager.m in Sources */ = {isa = PBXBuildFile; fileRef = C3AA37AB1D30FE2500D5930E /* CYWorkoutManager.m */; };
+		C3AA37B11D30FECE00D5930E /* TargetMuscle.m in Sources */ = {isa = PBXBuildFile; fileRef = C3AA37B01D30FECE00D5930E /* TargetMuscle.m */; };
+		C3AA37B41D30FEED00D5930E /* WorkoutAction.m in Sources */ = {isa = PBXBuildFile; fileRef = C3AA37B31D30FEED00D5930E /* WorkoutAction.m */; };
+		C3AA37BA1D31013200D5930E /* CYWorkoutDataParser.m in Sources */ = {isa = PBXBuildFile; fileRef = C3AA37B91D31013200D5930E /* CYWorkoutDataParser.m */; };
+		C3AA37BD1D3105B500D5930E /* workouts.json in Resources */ = {isa = PBXBuildFile; fileRef = C3AA37BC1D3105B500D5930E /* workouts.json */; };
+		C3AA37C21D310C7B00D5930E /* WorkoutMuscleViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C3AA37C11D310C7B00D5930E /* WorkoutMuscleViewController.m */; };
+		C3AA37C51D3112DB00D5930E /* MainViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C3AA37C41D3112DB00D5930E /* MainViewController.m */; };
+		C3C05CEA1D3485AF0021C407 /* Management.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C3C05CE81D3485AF0021C407 /* Management.storyboard */; };
+		C3C05CED1D3486DA0021C407 /* Training.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C3C05CEB1D3486DA0021C407 /* Training.storyboard */; };
+		C3C05CF11D348B2A0021C407 /* WorkoutPlanningViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C3C05CF01D348B2A0021C407 /* WorkoutPlanningViewController.m */; };
+		C3C05CF91D34D3C40021C407 /* PopTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C3C05CF71D34D3C40021C407 /* PopTableViewController.m */; };
+		C3C05CFD1D34D5270021C407 /* CheckboxTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = C3C05CFC1D34D5270021C407 /* CheckboxTableViewCell.m */; };
+		C3C05D031D34EE640021C407 /* UIImage+Resize.m in Sources */ = {isa = PBXBuildFile; fileRef = C3C05D021D34EE640021C407 /* UIImage+Resize.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		00618E33F2B256E017D24A5C /* libPods.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libPods.a; sourceTree = BUILT_PRODUCTS_DIR; };
+		35299049CACFDDE8E4C21654 /* Pods.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.release.xcconfig; path = "Pods/Target Support Files/Pods/Pods.release.xcconfig"; sourceTree = "<group>"; };
+		753CC187249A2F5A0D5277BB /* Pods.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.debug.xcconfig; path = "Pods/Target Support Files/Pods/Pods.debug.xcconfig"; sourceTree = "<group>"; };
+		C39A8D561D33774B00FAF484 /* StoryboardManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = StoryboardManager.h; sourceTree = "<group>"; };
+		C39A8D571D33774B00FAF484 /* StoryboardManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = StoryboardManager.m; sourceTree = "<group>"; };
+		C39A8D591D337A2E00FAF484 /* WorkoutActionViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WorkoutActionViewController.h; sourceTree = "<group>"; };
+		C39A8D5A1D337A2E00FAF484 /* WorkoutActionViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WorkoutActionViewController.m; sourceTree = "<group>"; };
+		C39A8D5C1D3380CE00FAF484 /* AddWorkoutViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AddWorkoutViewController.h; sourceTree = "<group>"; };
+		C39A8D5D1D3380CE00FAF484 /* AddWorkoutViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AddWorkoutViewController.m; sourceTree = "<group>"; };
+		C39A8D5F1D33884500FAF484 /* PreDefines.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PreDefines.h; sourceTree = "<group>"; };
+		C39A8D611D3394F200FAF484 /* NSArray+Map.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSArray+Map.h"; sourceTree = "<group>"; };
+		C39A8D621D3394F200FAF484 /* NSArray+Map.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSArray+Map.m"; sourceTree = "<group>"; };
 		C3AA37821D30F3E100D5930E /* TrackDown.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = TrackDown.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		C3AA37861D30F3E100D5930E /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		C3AA37881D30F3E100D5930E /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		C3AA37891D30F3E100D5930E /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
-		C3AA378B1D30F3E100D5930E /* ViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ViewController.h; sourceTree = "<group>"; };
-		C3AA378C1D30F3E100D5930E /* ViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ViewController.m; sourceTree = "<group>"; };
 		C3AA378F1D30F3E100D5930E /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		C3AA37911D30F3E100D5930E /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		C3AA37941D30F3E100D5930E /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		C3AA37961D30F3E100D5930E /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		C3AA37AA1D30FE2500D5930E /* CYWorkoutManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CYWorkoutManager.h; sourceTree = "<group>"; };
+		C3AA37AB1D30FE2500D5930E /* CYWorkoutManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CYWorkoutManager.m; sourceTree = "<group>"; };
+		C3AA37AC1D30FE2500D5930E /* PathDefines.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PathDefines.h; sourceTree = "<group>"; };
+		C3AA37AF1D30FECE00D5930E /* TargetMuscle.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TargetMuscle.h; sourceTree = "<group>"; };
+		C3AA37B01D30FECE00D5930E /* TargetMuscle.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TargetMuscle.m; sourceTree = "<group>"; };
+		C3AA37B21D30FEED00D5930E /* WorkoutAction.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WorkoutAction.h; sourceTree = "<group>"; };
+		C3AA37B31D30FEED00D5930E /* WorkoutAction.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WorkoutAction.m; sourceTree = "<group>"; };
+		C3AA37B81D31013200D5930E /* CYWorkoutDataParser.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CYWorkoutDataParser.h; sourceTree = "<group>"; };
+		C3AA37B91D31013200D5930E /* CYWorkoutDataParser.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CYWorkoutDataParser.m; sourceTree = "<group>"; };
+		C3AA37BC1D3105B500D5930E /* workouts.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = workouts.json; sourceTree = "<group>"; };
+		C3AA37C01D310C7B00D5930E /* WorkoutMuscleViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WorkoutMuscleViewController.h; sourceTree = "<group>"; };
+		C3AA37C11D310C7B00D5930E /* WorkoutMuscleViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WorkoutMuscleViewController.m; sourceTree = "<group>"; };
+		C3AA37C31D3112DB00D5930E /* MainViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MainViewController.h; sourceTree = "<group>"; };
+		C3AA37C41D3112DB00D5930E /* MainViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MainViewController.m; sourceTree = "<group>"; };
+		C3C05CE91D3485AF0021C407 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Management.storyboard; sourceTree = "<group>"; };
+		C3C05CEC1D3486DA0021C407 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Training.storyboard; sourceTree = "<group>"; };
+		C3C05CEF1D348B2A0021C407 /* WorkoutPlanningViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WorkoutPlanningViewController.h; sourceTree = "<group>"; };
+		C3C05CF01D348B2A0021C407 /* WorkoutPlanningViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WorkoutPlanningViewController.m; sourceTree = "<group>"; };
+		C3C05CF61D34D3C40021C407 /* PopTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PopTableViewController.h; sourceTree = "<group>"; };
+		C3C05CF71D34D3C40021C407 /* PopTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PopTableViewController.m; sourceTree = "<group>"; };
+		C3C05CFB1D34D5270021C407 /* CheckboxTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CheckboxTableViewCell.h; sourceTree = "<group>"; };
+		C3C05CFC1D34D5270021C407 /* CheckboxTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CheckboxTableViewCell.m; sourceTree = "<group>"; };
+		C3C05D011D34EE640021C407 /* UIImage+Resize.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIImage+Resize.h"; sourceTree = "<group>"; };
+		C3C05D021D34EE640021C407 /* UIImage+Resize.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIImage+Resize.m"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -33,17 +84,48 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				B338FD996373729E95720F5E /* libPods.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		57307B15DD3B0D289CE09BE3 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				00618E33F2B256E017D24A5C /* libPods.a */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		9C19F570AE0C5CD7D5F18EEF /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				753CC187249A2F5A0D5277BB /* Pods.debug.xcconfig */,
+				35299049CACFDDE8E4C21654 /* Pods.release.xcconfig */,
+			);
+			name = Pods;
+			sourceTree = "<group>";
+		};
+		C39A8D601D3394CE00FAF484 /* Extensions */ = {
+			isa = PBXGroup;
+			children = (
+				C39A8D611D3394F200FAF484 /* NSArray+Map.h */,
+				C39A8D621D3394F200FAF484 /* NSArray+Map.m */,
+				C3C05D011D34EE640021C407 /* UIImage+Resize.h */,
+				C3C05D021D34EE640021C407 /* UIImage+Resize.m */,
+			);
+			path = Extensions;
+			sourceTree = "<group>";
+		};
 		C3AA37791D30F3E100D5930E = {
 			isa = PBXGroup;
 			children = (
 				C3AA37841D30F3E100D5930E /* TrackDown */,
 				C3AA37831D30F3E100D5930E /* Products */,
+				9C19F570AE0C5CD7D5F18EEF /* Pods */,
+				57307B15DD3B0D289CE09BE3 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -58,13 +140,12 @@
 		C3AA37841D30F3E100D5930E /* TrackDown */ = {
 			isa = PBXGroup;
 			children = (
-				C3AA37881D30F3E100D5930E /* AppDelegate.h */,
-				C3AA37891D30F3E100D5930E /* AppDelegate.m */,
-				C3AA378B1D30F3E100D5930E /* ViewController.h */,
-				C3AA378C1D30F3E100D5930E /* ViewController.m */,
-				C3AA378E1D30F3E100D5930E /* Main.storyboard */,
-				C3AA37911D30F3E100D5930E /* Assets.xcassets */,
-				C3AA37931D30F3E100D5930E /* LaunchScreen.storyboard */,
+				C3AA37BB1D3105B500D5930E /* Resources */,
+				C3AA37BE1D310C6700D5930E /* Views */,
+				C3AA37AE1D30FE9C00D5930E /* DataModel */,
+				C3AA37A91D30FE2500D5930E /* Utils */,
+				C3AA379E1D30F46C00D5930E /* UI */,
+				C3AA379D1D30F44C00D5930E /* Supports */,
 				C3AA37961D30F3E100D5930E /* Info.plist */,
 				C3AA37851D30F3E100D5930E /* Supporting Files */,
 			);
@@ -79,6 +160,107 @@
 			name = "Supporting Files";
 			sourceTree = "<group>";
 		};
+		C3AA379D1D30F44C00D5930E /* Supports */ = {
+			isa = PBXGroup;
+			children = (
+				C3AA37881D30F3E100D5930E /* AppDelegate.h */,
+				C3AA37891D30F3E100D5930E /* AppDelegate.m */,
+				C39A8D5F1D33884500FAF484 /* PreDefines.h */,
+			);
+			name = Supports;
+			sourceTree = "<group>";
+		};
+		C3AA379E1D30F46C00D5930E /* UI */ = {
+			isa = PBXGroup;
+			children = (
+				C39A8D561D33774B00FAF484 /* StoryboardManager.h */,
+				C39A8D571D33774B00FAF484 /* StoryboardManager.m */,
+				C3AA378E1D30F3E100D5930E /* Main.storyboard */,
+				C3C05CE81D3485AF0021C407 /* Management.storyboard */,
+				C3C05CEB1D3486DA0021C407 /* Training.storyboard */,
+				C3AA37911D30F3E100D5930E /* Assets.xcassets */,
+				C3AA37931D30F3E100D5930E /* LaunchScreen.storyboard */,
+			);
+			name = UI;
+			sourceTree = "<group>";
+		};
+		C3AA37A91D30FE2500D5930E /* Utils */ = {
+			isa = PBXGroup;
+			children = (
+				C39A8D601D3394CE00FAF484 /* Extensions */,
+				C3AA37B81D31013200D5930E /* CYWorkoutDataParser.h */,
+				C3AA37B91D31013200D5930E /* CYWorkoutDataParser.m */,
+				C3AA37AA1D30FE2500D5930E /* CYWorkoutManager.h */,
+				C3AA37AB1D30FE2500D5930E /* CYWorkoutManager.m */,
+				C3AA37AC1D30FE2500D5930E /* PathDefines.h */,
+			);
+			path = Utils;
+			sourceTree = "<group>";
+		};
+		C3AA37AE1D30FE9C00D5930E /* DataModel */ = {
+			isa = PBXGroup;
+			children = (
+				C3AA37AF1D30FECE00D5930E /* TargetMuscle.h */,
+				C3AA37B01D30FECE00D5930E /* TargetMuscle.m */,
+				C3AA37B21D30FEED00D5930E /* WorkoutAction.h */,
+				C3AA37B31D30FEED00D5930E /* WorkoutAction.m */,
+			);
+			path = DataModel;
+			sourceTree = "<group>";
+		};
+		C3AA37BB1D3105B500D5930E /* Resources */ = {
+			isa = PBXGroup;
+			children = (
+				C3AA37BC1D3105B500D5930E /* workouts.json */,
+			);
+			path = Resources;
+			sourceTree = "<group>";
+		};
+		C3AA37BE1D310C6700D5930E /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				C3C05CF21D3499CE0021C407 /* CustomViews */,
+				C3C05CEE1D3486F00021C407 /* Training */,
+				C3AA37BF1D310C6700D5930E /* Management */,
+				C3AA37C31D3112DB00D5930E /* MainViewController.h */,
+				C3AA37C41D3112DB00D5930E /* MainViewController.m */,
+			);
+			path = Views;
+			sourceTree = "<group>";
+		};
+		C3AA37BF1D310C6700D5930E /* Management */ = {
+			isa = PBXGroup;
+			children = (
+				C3AA37C01D310C7B00D5930E /* WorkoutMuscleViewController.h */,
+				C3AA37C11D310C7B00D5930E /* WorkoutMuscleViewController.m */,
+				C39A8D591D337A2E00FAF484 /* WorkoutActionViewController.h */,
+				C39A8D5A1D337A2E00FAF484 /* WorkoutActionViewController.m */,
+				C39A8D5C1D3380CE00FAF484 /* AddWorkoutViewController.h */,
+				C39A8D5D1D3380CE00FAF484 /* AddWorkoutViewController.m */,
+			);
+			path = Management;
+			sourceTree = "<group>";
+		};
+		C3C05CEE1D3486F00021C407 /* Training */ = {
+			isa = PBXGroup;
+			children = (
+				C3C05CEF1D348B2A0021C407 /* WorkoutPlanningViewController.h */,
+				C3C05CF01D348B2A0021C407 /* WorkoutPlanningViewController.m */,
+			);
+			path = Training;
+			sourceTree = "<group>";
+		};
+		C3C05CF21D3499CE0021C407 /* CustomViews */ = {
+			isa = PBXGroup;
+			children = (
+				C3C05CF61D34D3C40021C407 /* PopTableViewController.h */,
+				C3C05CF71D34D3C40021C407 /* PopTableViewController.m */,
+				C3C05CFB1D34D5270021C407 /* CheckboxTableViewCell.h */,
+				C3C05CFC1D34D5270021C407 /* CheckboxTableViewCell.m */,
+			);
+			path = CustomViews;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -86,9 +268,12 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = C3AA37991D30F3E100D5930E /* Build configuration list for PBXNativeTarget "TrackDown" */;
 			buildPhases = (
+				87067831366420148F44E4E8 /* Check Pods Manifest.lock */,
 				C3AA377E1D30F3E100D5930E /* Sources */,
 				C3AA377F1D30F3E100D5930E /* Frameworks */,
 				C3AA37801D30F3E100D5930E /* Resources */,
+				B7FD7750801694B9372AC5CB /* Embed Pods Frameworks */,
+				07C3BEFD7B4B644889D17926 /* Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -110,6 +295,7 @@
 				TargetAttributes = {
 					C3AA37811D30F3E100D5930E = {
 						CreatedOnToolsVersion = 7.3;
+						DevelopmentTeam = H4V332SS59;
 					};
 				};
 			};
@@ -136,22 +322,86 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				C3C05CED1D3486DA0021C407 /* Training.storyboard in Resources */,
+				C3C05CEA1D3485AF0021C407 /* Management.storyboard in Resources */,
 				C3AA37951D30F3E100D5930E /* LaunchScreen.storyboard in Resources */,
 				C3AA37921D30F3E100D5930E /* Assets.xcassets in Resources */,
 				C3AA37901D30F3E100D5930E /* Main.storyboard in Resources */,
+				C3AA37BD1D3105B500D5930E /* workouts.json in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		07C3BEFD7B4B644889D17926 /* Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Copy Pods Resources";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods/Pods-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		87067831366420148F44E4E8 /* Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Check Pods Manifest.lock";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [[ $? != 0 ]] ; then\n    cat << EOM\nerror: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\nEOM\n    exit 1\nfi\n";
+			showEnvVarsInLog = 0;
+		};
+		B7FD7750801694B9372AC5CB /* Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Embed Pods Frameworks";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods/Pods-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
 		C3AA377E1D30F3E100D5930E /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				C3AA378D1D30F3E100D5930E /* ViewController.m in Sources */,
+				C39A8D5B1D337A2E00FAF484 /* WorkoutActionViewController.m in Sources */,
+				C3C05CF11D348B2A0021C407 /* WorkoutPlanningViewController.m in Sources */,
+				C3AA37B41D30FEED00D5930E /* WorkoutAction.m in Sources */,
+				C39A8D581D33774B00FAF484 /* StoryboardManager.m in Sources */,
 				C3AA378A1D30F3E100D5930E /* AppDelegate.m in Sources */,
+				C3AA37C21D310C7B00D5930E /* WorkoutMuscleViewController.m in Sources */,
+				C3AA37C51D3112DB00D5930E /* MainViewController.m in Sources */,
 				C3AA37871D30F3E100D5930E /* main.m in Sources */,
+				C3AA37B11D30FECE00D5930E /* TargetMuscle.m in Sources */,
+				C3C05D031D34EE640021C407 /* UIImage+Resize.m in Sources */,
+				C3C05CF91D34D3C40021C407 /* PopTableViewController.m in Sources */,
+				C3AA37BA1D31013200D5930E /* CYWorkoutDataParser.m in Sources */,
+				C39A8D631D3394F200FAF484 /* NSArray+Map.m in Sources */,
+				C39A8D5E1D3380CE00FAF484 /* AddWorkoutViewController.m in Sources */,
+				C3AA37AD1D30FE2500D5930E /* CYWorkoutManager.m in Sources */,
+				C3C05CFD1D34D5270021C407 /* CheckboxTableViewCell.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -172,6 +422,22 @@
 				C3AA37941D30F3E100D5930E /* Base */,
 			);
 			name = LaunchScreen.storyboard;
+			sourceTree = "<group>";
+		};
+		C3C05CE81D3485AF0021C407 /* Management.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				C3C05CE91D3485AF0021C407 /* Base */,
+			);
+			name = Management.storyboard;
+			sourceTree = "<group>";
+		};
+		C3C05CEB1D3486DA0021C407 /* Training.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				C3C05CEC1D3486DA0021C407 /* Base */,
+			);
+			name = Training.storyboard;
 			sourceTree = "<group>";
 		};
 /* End PBXVariantGroup section */
@@ -261,8 +527,10 @@
 		};
 		C3AA379A1D30F3E100D5930E /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 753CC187249A2F5A0D5277BB /* Pods.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
 				INFOPLIST_FILE = TrackDown/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.gocy.TrackDown;
@@ -272,8 +540,10 @@
 		};
 		C3AA379B1D30F3E100D5930E /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 35299049CACFDDE8E4C21654 /* Pods.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
 				INFOPLIST_FILE = TrackDown/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.gocy.TrackDown;
@@ -300,6 +570,7 @@
 				C3AA379B1D30F3E100D5930E /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};

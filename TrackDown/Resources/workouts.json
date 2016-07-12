@@ -1,0 +1,18 @@
+[
+ {
+    "TargetMuscle":"胸部训练",
+    "WorkoutActions":[
+        "上斜杠铃卧推",
+        "平板杠铃卧推",
+        "器械夹胸"
+    ]
+ },
+ {
+    "TargetMuscle":"背部训练",
+    "WorkoutActions":[
+        "引体向上",
+        "高位下拉",
+        "俯身杠铃划船(正握)"
+    ]
+ }
+]

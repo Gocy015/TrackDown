@@ -1,5 +1,5 @@
 //
-//  ViewController.h
+//  WorkoutManagmentViewController.h
 //  TrackDown
 //
 //  Created by Gocy on 16/7/9.
@@ -8,8 +8,7 @@
 
 #import <UIKit/UIKit.h>
 
-@interface ViewController : UIViewController
+@interface WorkoutMuscleViewController : UIViewController
 
 
 @end
-

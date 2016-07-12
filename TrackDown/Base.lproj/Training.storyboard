@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="10116" systemVersion="15D21" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="10085"/>
+        <capability name="Constraints with non-1.0 multipliers" minToolsVersion="5.1"/>
+    </dependencies>
+    <scenes>
+        <!--Workout Planning View Controller-->
+        <scene sceneID="m4E-VK-IUP">
+            <objects>
+                <viewController storyboardIdentifier="WorkoutPlanningViewController" id="fQR-rl-Per" customClass="WorkoutPlanningViewController" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="ePO-qN-2wf"/>
+                        <viewControllerLayoutGuide type="bottom" id="Y6V-Zx-cso"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="el1-sa-hc3">
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <pickerView contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="sDX-52-fqk">
+                                <rect key="frame" x="30" y="180" width="541" height="210"/>
+                            </pickerView>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="p1Z-8v-Js4">
+                                <rect key="frame" x="285" y="435" width="30" height="30"/>
+                                <state key="normal" title="添加"/>
+                                <connections>
+                                    <action selector="addAction:" destination="fQR-rl-Per" eventType="touchUpInside" id="u7v-pB-Rn3"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="eWE-Zd-GQe">
+                                <rect key="frame" x="245" y="500" width="110" height="39"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="22"/>
+                                <state key="normal" title="开始训练！"/>
+                                <connections>
+                                    <action selector="beginTrainning:" destination="fQR-rl-Per" eventType="touchUpInside" id="MJB-1l-24k"/>
+                                </connections>
+                            </button>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="eWE-Zd-GQe" firstAttribute="top" secondItem="p1Z-8v-Js4" secondAttribute="bottom" constant="35" id="MY9-fC-L7n"/>
+                            <constraint firstItem="sDX-52-fqk" firstAttribute="height" secondItem="el1-sa-hc3" secondAttribute="height" multiplier="0.35" id="XRb-Ba-OVW"/>
+                            <constraint firstItem="sDX-52-fqk" firstAttribute="centerX" secondItem="el1-sa-hc3" secondAttribute="centerX" id="YNj-zK-lwc"/>
+                            <constraint firstItem="p1Z-8v-Js4" firstAttribute="centerX" secondItem="el1-sa-hc3" secondAttribute="centerX" id="cUb-WQ-Ue2"/>
+                            <constraint firstItem="eWE-Zd-GQe" firstAttribute="centerX" secondItem="p1Z-8v-Js4" secondAttribute="centerX" id="rsO-b6-D3a"/>
+                            <constraint firstItem="sDX-52-fqk" firstAttribute="width" secondItem="el1-sa-hc3" secondAttribute="width" multiplier="0.9" constant="1" id="xxS-y7-L7f"/>
+                            <constraint firstItem="p1Z-8v-Js4" firstAttribute="top" secondItem="sDX-52-fqk" secondAttribute="bottom" constant="45" id="y0l-YS-Bc2"/>
+                            <constraint firstItem="sDX-52-fqk" firstAttribute="centerY" secondItem="el1-sa-hc3" secondAttribute="centerY" multiplier="0.95" id="yLt-k3-Q9d"/>
+                        </constraints>
+                    </view>
+                    <connections>
+                        <outlet property="actionPicker" destination="sDX-52-fqk" id="zq8-w9-Nyr"/>
+                        <outlet property="addButton" destination="p1Z-8v-Js4" id="gLp-lW-Rn7"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="rKu-0X-Wxd" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="289" y="507"/>
+        </scene>
+    </scenes>
+</document>
