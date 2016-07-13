@@ -18,4 +18,13 @@
     return [[NSArray alloc]initWithArray:arr];
 }
 
+-(NSNumber *)sum{
+    double sum = 0;
+    for (NSObject *obj in self) {
+        NSAssert([obj isKindOfClass:[NSNumber class]], @"calling sum on an non-numeric array");
+        sum += [((NSNumber *)obj) doubleValue];
+    }
+    return @(sum);
+}
+
 @end

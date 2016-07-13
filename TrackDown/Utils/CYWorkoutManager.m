@@ -13,6 +13,7 @@
 #import "WorkoutAction.h"
 #import "CYDataBaseManager.h"
 #import "WorkoutStatistic.h"
+#import "NSArray+Map.h"
 
 #define m_fileManager [NSFileManager defaultManager]
 
@@ -144,6 +145,8 @@ NSString *const n_DeleteActionSuccessNotification = @"n_DeleteActionSuccessNotif
 //    [[CYDataBaseManager sharedManager] storeWorkoutPlan:[self mergeActionsWithSameMuscle:workoutPlan] forDate:[NSDate date]];
     
     [[CYDataBaseManager sharedManager] storeWorkoutPlan:[self mergeConsecutiveMuscle:workoutPlan] forDate:[NSDate date]];
+    
+    
 }
 
 
@@ -183,25 +186,43 @@ NSString *const n_DeleteActionSuccessNotification = @"n_DeleteActionSuccessNotif
 }
 
 -(NSArray <WorkoutStatistic *> *)convertPlanIntoStatistics:(NSArray<TargetMuscle *> *)plan{
-    NSMutableDictionary *muscleDic = [NSMutableDictionary dictionary];
-    NSMutableDictionary *actionDic = [NSMutableDictionary dictionary];
+    NSMutableDictionary <NSString *,WorkoutStatistic *>*muscleDic = [NSMutableDictionary dictionary];
+    NSMutableDictionary <NSString *,WorkoutStatistic *>*actionDic = [NSMutableDictionary dictionary];
+    
+    NSArray *mergedPlan = [self mergeActionsWithSameMuscle:plan];
+    
+    for (TargetMuscle *m in mergedPlan) {
+        double weight = 0;
+        for (WorkoutAction *act in m.actions) {
+            if ([actionDic objectForKey:act.actionName] != nil) {
+                
+            }else{
+                WorkoutStatistic *stat = [WorkoutStatistic new];
+                stat.type = StatTypeAction;
+                stat.key = act.actionName;
+                stat.data = @{@"weight":[act.weightPerSet sum],@"sets":@(act.sets),@"reps":[act.repeatsPerSet sum]};
+                [actionDic setObject:stat forKey:act.actionName];
+            }
+        }
+    }
+    
     NSMutableArray *statArr = [NSMutableArray new];
     return [statArr copy];
 }
 
-//-(NSArray<TargetMuscle *> *)mergeActionsWithSameMuscle:(NSArray<TargetMuscle *> *)plan{
-//    NSMutableDictionary <NSString *,TargetMuscle *>*dic = [NSMutableDictionary dictionary];
-//    NSMutableArray *mergedArr = [NSMutableArray new];
-//    for (TargetMuscle *m in plan) {
-//        if ([dic objectForKey:m.muscle] != nil) {
-//            [[dic objectForKey:m.muscle].actions addObjectsFromArray:m.actions];
-//        }else{
-//            [dic setObject:m forKey:m.muscle];
-//            [mergedArr addObject:m];
-//        }
-//    }
-//    return [mergedArr copy];
-//}
+-(NSArray<TargetMuscle *> *)mergeActionsWithSameMuscle:(NSArray<TargetMuscle *> *)plan{
+    NSMutableDictionary <NSString *,TargetMuscle *>*dic = [NSMutableDictionary dictionary];
+    NSMutableArray *mergedArr = [NSMutableArray new];
+    for (TargetMuscle *m in plan) {
+        if ([dic objectForKey:m.muscle] != nil) {
+            [[dic objectForKey:m.muscle].actions addObjectsFromArray:m.actions];
+        }else{
+            [dic setObject:m forKey:m.muscle];
+            [mergedArr addObject:m];
+        }
+    }
+    return [mergedArr copy];
+}
 
 
 #pragma mark - Get workout whereabouts

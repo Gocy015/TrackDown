@@ -11,5 +11,6 @@
 @interface NSArray(Map)
 
 -(NSArray *)map:(NSObject * (^)(__kindof NSObject *))mapblock;
+-(NSNumber *)sum;
 
 @end
