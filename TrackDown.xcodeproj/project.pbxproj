@@ -8,6 +8,10 @@
 
 /* Begin PBXBuildFile section */
 		B338FD996373729E95720F5E /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 00618E33F2B256E017D24A5C /* libPods.a */; };
+		C34234DD1D35F0820014348A /* CYDataBaseManager.m in Sources */ = {isa = PBXBuildFile; fileRef = C34234DC1D35F0820014348A /* CYDataBaseManager.m */; };
+		C34234E01D361CE90014348A /* NSDate+Components.m in Sources */ = {isa = PBXBuildFile; fileRef = C34234DF1D361CE90014348A /* NSDate+Components.m */; };
+		C34234E31D363D830014348A /* TrainingViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C34234E21D363D830014348A /* TrainingViewController.m */; };
+		C34234E61D3648640014348A /* WorkoutStatistic.m in Sources */ = {isa = PBXBuildFile; fileRef = C34234E51D3648640014348A /* WorkoutStatistic.m */; };
 		C39A8D581D33774B00FAF484 /* StoryboardManager.m in Sources */ = {isa = PBXBuildFile; fileRef = C39A8D571D33774B00FAF484 /* StoryboardManager.m */; };
 		C39A8D5B1D337A2E00FAF484 /* WorkoutActionViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C39A8D5A1D337A2E00FAF484 /* WorkoutActionViewController.m */; };
 		C39A8D5E1D3380CE00FAF484 /* AddWorkoutViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C39A8D5D1D3380CE00FAF484 /* AddWorkoutViewController.m */; };
@@ -36,6 +40,14 @@
 		00618E33F2B256E017D24A5C /* libPods.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libPods.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		35299049CACFDDE8E4C21654 /* Pods.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.release.xcconfig; path = "Pods/Target Support Files/Pods/Pods.release.xcconfig"; sourceTree = "<group>"; };
 		753CC187249A2F5A0D5277BB /* Pods.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.debug.xcconfig; path = "Pods/Target Support Files/Pods/Pods.debug.xcconfig"; sourceTree = "<group>"; };
+		C34234DB1D35F0820014348A /* CYDataBaseManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CYDataBaseManager.h; sourceTree = "<group>"; };
+		C34234DC1D35F0820014348A /* CYDataBaseManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CYDataBaseManager.m; sourceTree = "<group>"; };
+		C34234DE1D361CE90014348A /* NSDate+Components.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSDate+Components.h"; sourceTree = "<group>"; };
+		C34234DF1D361CE90014348A /* NSDate+Components.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSDate+Components.m"; sourceTree = "<group>"; };
+		C34234E11D363D830014348A /* TrainingViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TrainingViewController.h; sourceTree = "<group>"; };
+		C34234E21D363D830014348A /* TrainingViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TrainingViewController.m; sourceTree = "<group>"; };
+		C34234E41D3648640014348A /* WorkoutStatistic.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WorkoutStatistic.h; sourceTree = "<group>"; };
+		C34234E51D3648640014348A /* WorkoutStatistic.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WorkoutStatistic.m; sourceTree = "<group>"; };
 		C39A8D561D33774B00FAF484 /* StoryboardManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = StoryboardManager.h; sourceTree = "<group>"; };
 		C39A8D571D33774B00FAF484 /* StoryboardManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = StoryboardManager.m; sourceTree = "<group>"; };
 		C39A8D591D337A2E00FAF484 /* WorkoutActionViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WorkoutActionViewController.h; sourceTree = "<group>"; };
@@ -115,6 +127,8 @@
 				C39A8D621D3394F200FAF484 /* NSArray+Map.m */,
 				C3C05D011D34EE640021C407 /* UIImage+Resize.h */,
 				C3C05D021D34EE640021C407 /* UIImage+Resize.m */,
+				C34234DE1D361CE90014348A /* NSDate+Components.h */,
+				C34234DF1D361CE90014348A /* NSDate+Components.m */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -192,6 +206,8 @@
 				C3AA37B91D31013200D5930E /* CYWorkoutDataParser.m */,
 				C3AA37AA1D30FE2500D5930E /* CYWorkoutManager.h */,
 				C3AA37AB1D30FE2500D5930E /* CYWorkoutManager.m */,
+				C34234DB1D35F0820014348A /* CYDataBaseManager.h */,
+				C34234DC1D35F0820014348A /* CYDataBaseManager.m */,
 				C3AA37AC1D30FE2500D5930E /* PathDefines.h */,
 			);
 			path = Utils;
@@ -204,6 +220,8 @@
 				C3AA37B01D30FECE00D5930E /* TargetMuscle.m */,
 				C3AA37B21D30FEED00D5930E /* WorkoutAction.h */,
 				C3AA37B31D30FEED00D5930E /* WorkoutAction.m */,
+				C34234E41D3648640014348A /* WorkoutStatistic.h */,
+				C34234E51D3648640014348A /* WorkoutStatistic.m */,
 			);
 			path = DataModel;
 			sourceTree = "<group>";
@@ -246,6 +264,8 @@
 			children = (
 				C3C05CEF1D348B2A0021C407 /* WorkoutPlanningViewController.h */,
 				C3C05CF01D348B2A0021C407 /* WorkoutPlanningViewController.m */,
+				C34234E11D363D830014348A /* TrainingViewController.h */,
+				C34234E21D363D830014348A /* TrainingViewController.m */,
 			);
 			path = Training;
 			sourceTree = "<group>";
@@ -388,6 +408,8 @@
 			files = (
 				C39A8D5B1D337A2E00FAF484 /* WorkoutActionViewController.m in Sources */,
 				C3C05CF11D348B2A0021C407 /* WorkoutPlanningViewController.m in Sources */,
+				C34234E01D361CE90014348A /* NSDate+Components.m in Sources */,
+				C34234DD1D35F0820014348A /* CYDataBaseManager.m in Sources */,
 				C3AA37B41D30FEED00D5930E /* WorkoutAction.m in Sources */,
 				C39A8D581D33774B00FAF484 /* StoryboardManager.m in Sources */,
 				C3AA378A1D30F3E100D5930E /* AppDelegate.m in Sources */,
@@ -400,8 +422,10 @@
 				C3AA37BA1D31013200D5930E /* CYWorkoutDataParser.m in Sources */,
 				C39A8D631D3394F200FAF484 /* NSArray+Map.m in Sources */,
 				C39A8D5E1D3380CE00FAF484 /* AddWorkoutViewController.m in Sources */,
+				C34234E61D3648640014348A /* WorkoutStatistic.m in Sources */,
 				C3AA37AD1D30FE2500D5930E /* CYWorkoutManager.m in Sources */,
 				C3C05CFD1D34D5270021C407 /* CheckboxTableViewCell.m in Sources */,
+				C34234E31D363D830014348A /* TrainingViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

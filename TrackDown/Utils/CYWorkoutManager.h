@@ -40,4 +40,6 @@ extern NSString *const n_DeleteActionSuccessNotification;
 -(void)addAction:(WorkoutAction *)act toMuscle:(TargetMuscle *)m writeToDiskImmediatly:(BOOL)writeNow;
 -(void)deleteAction:(WorkoutAction *)act fromMuscle:(TargetMuscle *)m writeToDiskImmediatly:(BOOL)writeNow;
 
+-(void)didFinishWorkoutPlan:(NSArray <TargetMuscle *>*)workoutPlan;
+
 @end

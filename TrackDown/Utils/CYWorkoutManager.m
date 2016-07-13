@@ -11,6 +11,9 @@
 #import "CYWorkoutDataParser.h"
 #import "TargetMuscle.h"
 #import "WorkoutAction.h"
+#import "CYDataBaseManager.h"
+#import "WorkoutStatistic.h"
+
 #define m_fileManager [NSFileManager defaultManager]
 
 @interface CYWorkoutManager()
@@ -46,6 +49,8 @@ NSString *const n_DeleteActionSuccessNotification = @"n_DeleteActionSuccessNotif
 #pragma mark - Instance Method
 -(void)createWorkoutTypesIfNeeded{
     
+    NSLog(@"%@",[self workoutTypePath]);
+    
     if ([m_fileManager fileExistsAtPath:[self workoutTypePath]]) {
         
         return;
@@ -67,7 +72,6 @@ NSString *const n_DeleteActionSuccessNotification = @"n_DeleteActionSuccessNotif
     }
     
     
-    NSLog(@"%@",[self workoutTypePath]);
 }
 
 
@@ -134,7 +138,16 @@ NSString *const n_DeleteActionSuccessNotification = @"n_DeleteActionSuccessNotif
     }
     
 }
-#pragma mark - Helpers on paths
+
+
+-(void)didFinishWorkoutPlan:(NSArray<TargetMuscle *> *)workoutPlan{
+//    [[CYDataBaseManager sharedManager] storeWorkoutPlan:[self mergeActionsWithSameMuscle:workoutPlan] forDate:[NSDate date]];
+    
+    [[CYDataBaseManager sharedManager] storeWorkoutPlan:[self mergeConsecutiveMuscle:workoutPlan] forDate:[NSDate date]];
+}
+
+
+#pragma mark - Helpers
 
 -(NSString *)libraryPath{
     if (!_libPath) {
@@ -148,6 +161,47 @@ NSString *const n_DeleteActionSuccessNotification = @"n_DeleteActionSuccessNotif
 -(NSString *)workoutTypePath{
     return [[[self libraryPath] stringByAppendingPathComponent:kWorkoutFolderName ] stringByAppendingPathComponent:kWorkoutFileName];
 }
+
+-(NSArray<TargetMuscle *> *)mergeConsecutiveMuscle:(NSArray<TargetMuscle *> *)plan{
+    NSMutableArray *mergedArr = [NSMutableArray new];
+    TargetMuscle *prev = nil;
+    
+    for (TargetMuscle *m in plan) {
+        if (prev == nil || ![prev.muscle isEqualToString:m.muscle]) {
+            [mergedArr addObject:m];
+            prev = m;
+            continue;
+        }
+        if ([prev.muscle isEqualToString:m.muscle]) {
+            //merge
+            [prev.actions addObjectsFromArray:m.actions];
+            
+        }
+    }
+    
+    return mergedArr;
+}
+
+-(NSArray <WorkoutStatistic *> *)convertPlanIntoStatistics:(NSArray<TargetMuscle *> *)plan{
+    NSMutableDictionary *muscleDic = [NSMutableDictionary dictionary];
+    NSMutableDictionary *actionDic = [NSMutableDictionary dictionary];
+    NSMutableArray *statArr = [NSMutableArray new];
+    return [statArr copy];
+}
+
+//-(NSArray<TargetMuscle *> *)mergeActionsWithSameMuscle:(NSArray<TargetMuscle *> *)plan{
+//    NSMutableDictionary <NSString *,TargetMuscle *>*dic = [NSMutableDictionary dictionary];
+//    NSMutableArray *mergedArr = [NSMutableArray new];
+//    for (TargetMuscle *m in plan) {
+//        if ([dic objectForKey:m.muscle] != nil) {
+//            [[dic objectForKey:m.muscle].actions addObjectsFromArray:m.actions];
+//        }else{
+//            [dic setObject:m forKey:m.muscle];
+//            [mergedArr addObject:m];
+//        }
+//    }
+//    return [mergedArr copy];
+//}
 
 
 #pragma mark - Get workout whereabouts

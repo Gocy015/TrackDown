@@ -11,8 +11,8 @@
 @interface WorkoutAction : NSObject
 
 @property (nonatomic ,copy) NSString *actionName;
-@property (nonatomic) NSUInteger weight;
+@property (nonatomic) NSMutableArray *weightPerSet;
 @property (nonatomic) NSUInteger sets;
-@property (nonatomic) NSUInteger repeatsPerSet;
+@property (nonatomic) NSMutableArray *repeatsPerSet;
 
 @end

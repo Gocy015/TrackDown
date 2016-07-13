@@ -92,11 +92,13 @@ static NSString *const popVCId = @"PopTableViewController";
         return ;
     }
     
-    if (![self.workoutPlan containsObject:_workingMuscle]) {
+    if (![self.workoutPlan containsObject:_workingMuscle] && _workingMuscle.actions.count > 0) {
         [self.workoutPlan addObject:_workingMuscle];
     }
     
     NSLog(@"workout plan today : %@",self.workoutPlan);
+    
+    [[CYWorkoutManager sharedManager] didFinishWorkoutPlan:self.workoutPlan];
     
     // begin workout
 }
@@ -141,7 +143,7 @@ static NSString *const popVCId = @"PopTableViewController";
     [self resetWorkingMuscle:YES];
     for (TargetMuscle *m in self.workoutPlan) {
         for (WorkoutAction *act in m.actions) {
-            NSString *displayString = [NSString stringWithFormat:@"%@ x %li组",act.actionName,act.sets];
+            NSString *displayString = [NSString stringWithFormat:@"%@ x %li组",act.actionName,(unsigned long)act.sets];
             [displayWorkouts addObject:displayString];
         }
     }

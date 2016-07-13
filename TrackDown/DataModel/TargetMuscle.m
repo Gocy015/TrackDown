@@ -11,6 +11,22 @@
 
 @implementation TargetMuscle
 
+
+-(instancetype)initWithCoder:(NSCoder *)aDecoder{
+    if (self = [super init]) {
+        _muscle = [aDecoder decodeObjectForKey:@"muscle"];
+        _actions = [aDecoder decodeObjectForKey:@"actions"];
+    }
+    return self;
+}
+
+
+-(void)encodeWithCoder:(NSCoder *)aCoder{
+    [aCoder encodeObject:_muscle forKey:@"muscle"];
+    [aCoder encodeObject:_actions forKey:@"actions"];
+}
+
+
 -(NSMutableArray *)actions{
     if (!_actions) {
         _actions = [NSMutableArray new];
