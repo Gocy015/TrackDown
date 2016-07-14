@@ -11,6 +11,7 @@
 #import "TargetMuscle.h"
 #import "WorkoutAction.h"
 #import "NSDate+Components.h"
+#import "WorkoutStatistic.h"
 
 #define m_fileManager [NSFileManager defaultManager]
 
@@ -32,6 +33,8 @@ static NSString * const statTable = @"STATISTICS";
 static NSString * const statType = @"type";
 static NSString * const statKey = @"key";
 static NSString * const statData = @"data";
+static NSString * const statStoreDate = @"date";
+static NSString * const statCount = @"count";
 
 @implementation CYDataBaseManager
 
@@ -78,9 +81,10 @@ static NSString * const statData = @"data";
     BOOL success = NO;
     FMDatabase *db = [self statisticDatabaseForMonthInDate:date];
     if ([db open]) {
-        NSString *create = [NSString stringWithFormat:@"CREATE TABLE IF NOT EXISTS '%@'(%@ integer NOT NULL ,%@ text NOT NULL ,%@ blob NOT NULL);" ,recordTable,recordDate,recordMuscle,recordData];
+        NSString *create = [NSString stringWithFormat:@"CREATE TABLE IF NOT EXISTS '%@'(%@ integer NOT NULL ,%@ text NOT NULL ,%@ blob NOT NULL ,%@ integer NOT NULL ,%@ integer NOT NULL);" ,statTable,statType,statKey,statData,statStoreDate,statCount];
         if ([db executeUpdate:create]) {
             success = YES;
+            NSLog(@"Create Statistic db success");
         }
         
         [db close];
@@ -105,8 +109,15 @@ static NSString * const statData = @"data";
     
     [self storePlanForRecords:plan forDate:date];
     
-    [self storePlanForStatistic:plan forDate:date];
     
+    
+    return NO;
+}
+
+-(BOOL)storeStatistic:(NSArray<WorkoutStatistic *> *)stat forDate:(NSDate *)date{
+    [self createStatisticTableForDate:[NSDate date]];
+    
+    [self _storeStatistic:stat forDate:[NSDate date]];
     
     return NO;
 }
@@ -178,17 +189,85 @@ static NSString * const statData = @"data";
 }
 
 
--(BOOL)storePlanForStatistic:(NSArray<TargetMuscle *> *)plan forDate:(NSDate *)date{
+-(BOOL)_storeStatistic:(NSArray<WorkoutStatistic *> *)stat forDate:(NSDate *)date{
     
     
     NSInteger day = [date day];
     FMDatabase *db = [self statisticDatabaseForMonthInDate:date];
     
+    NSMutableArray *statToInsert = [NSMutableArray arrayWithArray:stat];
+    NSMutableArray *statToUpdate = [NSMutableArray new];
 
     if ([db open]) {
+        NSString *query = [NSString stringWithFormat:@"SELECT * FROM %@ WHERE %@ = ? AND %@ = ?;",statTable,statType,statKey];
+        FMResultSet *set = nil;
+        for(WorkoutStatistic *s in stat){// costly?
+            set = [db executeQuery:query,@(s.type),s.key];
+            if (set.next) { // use if because every stat is unique by type&&key.
+                if (s.type == StatTypeMuscle) {
+                    //muscle
+                    NSData *data = [set objectForColumnName:statData];
+                    
+                    NSDictionary *dic = [NSKeyedUnarchiver unarchiveObjectWithData:data];
+                    
+                    double weight = [[dic objectForKey:key_weight] doubleValue] + [[s.data objectForKey:key_weight] doubleValue];
+                    
+                    [s.data setObject:@(weight) forKey:key_weight];
+                    
+                    
+                }else{
+                    //action
+                    
+                    NSData *data = [set objectForColumnName:statData];
+                    
+                    NSDictionary *dic = [NSKeyedUnarchiver unarchiveObjectWithData:data];
+                    
+                    double weight = [[dic objectForKey:key_weight] doubleValue] + [[s.data objectForKey:key_weight] doubleValue];
+                    NSUInteger sets = [[dic objectForKey:key_sets] integerValue] + [[s.data objectForKey:key_sets] integerValue];
+                    NSUInteger reps = [[dic objectForKey:key_reps] integerValue] + [[s.data objectForKey:key_reps] integerValue];
+                    
+                    [s.data setObject:@(weight) forKey:key_weight];
+                    [s.data setObject:@(sets) forKey:key_sets];
+                    [s.data setObject:@(reps) forKey:key_reps];
+                    
+                }
+                
+                NSUInteger lastStoreDay = [set intForColumn:statStoreDate];
+                NSUInteger lastCount = [set intForColumn:statCount];
+                
+                if(lastStoreDay == day){
+                    s.storeDate = lastStoreDay;
+                    s.trainingCount = lastCount;
+                }else{
+                    s.storeDate = day;
+                    s.trainingCount = lastCount + 1;
+                }
+                
+                [statToInsert removeObject:s];
+                [statToUpdate addObject:s];
+            }else{
+                //insert , do nothing
+            }
+        }
         
         
+        /*
+         statType,statKey,statData,statStoreDate,statCount
+         
+         */
+        for (WorkoutStatistic *s in statToInsert) {
+            NSString *insert = [NSString stringWithFormat:@"INSERT INTO %@ VALUES(?,?,?,?,?);",statTable];
+            NSData *sData = [NSKeyedArchiver archivedDataWithRootObject:s.data];
+            [db executeUpdate:insert,@(s.type),s.key,sData,@(day),@(1)];
+        }
         
+        for (WorkoutStatistic *s in statToUpdate) {
+            NSString *update = [NSString stringWithFormat:@"UPDATE %@ SET %@ = ? ,%@ = ? ,%@ = ? WHERE %@ = ? AND %@ = ?",statTable,statData,statStoreDate,statCount,statType,statKey];
+            NSData *sData = [NSKeyedArchiver archivedDataWithRootObject:s.data];
+            
+            [db executeUpdate:update ,sData,@(s.storeDate),@(s.trainingCount),@(s.type),s.key];
+            
+        }
         [db close];
     }
     

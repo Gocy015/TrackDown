@@ -8,6 +8,13 @@
 
 #import "WorkoutStatistic.h"
 
+
+
+NSString *const key_weight = @"weight";
+NSString *const key_reps = @"reps";
+NSString *const key_sets = @"sets";
+
+
 @implementation WorkoutStatistic
 
 @end

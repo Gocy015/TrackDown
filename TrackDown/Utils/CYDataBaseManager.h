@@ -9,6 +9,7 @@
 #import <Foundation/Foundation.h>
 
 @class TargetMuscle;
+@class WorkoutStatistic;
 
 @interface CYDataBaseManager : NSObject
 
@@ -19,6 +20,6 @@
 
 -(BOOL)storeWorkoutPlan:(NSArray <TargetMuscle *>*)plan forDate:(NSDate *)date;
 
--(BOOL)storeStatistic;
+-(BOOL)storeStatistic:(NSArray <WorkoutStatistic *> *)stat forDate:(NSDate *)date;
 
 @end

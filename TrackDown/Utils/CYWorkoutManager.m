@@ -146,7 +146,7 @@ NSString *const n_DeleteActionSuccessNotification = @"n_DeleteActionSuccessNotif
     
     [[CYDataBaseManager sharedManager] storeWorkoutPlan:[self mergeConsecutiveMuscle:workoutPlan] forDate:[NSDate date]];
     
-    
+    [[CYDataBaseManager sharedManager] storeStatistic:[self convertPlanIntoStatistics:workoutPlan] forDate:[NSDate date]];
 }
 
 
@@ -186,27 +186,51 @@ NSString *const n_DeleteActionSuccessNotification = @"n_DeleteActionSuccessNotif
 }
 
 -(NSArray <WorkoutStatistic *> *)convertPlanIntoStatistics:(NSArray<TargetMuscle *> *)plan{
-    NSMutableDictionary <NSString *,WorkoutStatistic *>*muscleDic = [NSMutableDictionary dictionary];
+//    NSMutableDictionary <NSString *,WorkoutStatistic *>*muscleDic = [NSMutableDictionary dictionary];
     NSMutableDictionary <NSString *,WorkoutStatistic *>*actionDic = [NSMutableDictionary dictionary];
-    
+         
     NSArray *mergedPlan = [self mergeActionsWithSameMuscle:plan];
+    
+    NSMutableArray *statArr = [NSMutableArray new];
     
     for (TargetMuscle *m in mergedPlan) {
         double weight = 0;
+        WorkoutStatistic *mStat = [WorkoutStatistic new];
+        mStat.type = StatTypeMuscle;
+        mStat.key = m.muscle;
+        [statArr addObject:mStat];
         for (WorkoutAction *act in m.actions) {
             if ([actionDic objectForKey:act.actionName] != nil) {
+                WorkoutStatistic *stat = [actionDic objectForKey:act.actionName];
+                NSNumber *actWeight = [act.weightPerSet sum];
+                
+                //cal weight of muscle
+                weight = weight + actWeight.doubleValue;
+                
+                NSNumber *actReps = [act.repeatsPerSet sum];
+                
+                double statWeight = [[stat.data objectForKey:key_weight] doubleValue] + actWeight.doubleValue;
+                NSUInteger statReps = [[stat.data objectForKey:key_reps] integerValue] + actReps.integerValue;
+                NSUInteger statSets = [[stat.data objectForKey:key_sets] integerValue] + act.sets;
+                
+                [stat.data setValue:@(statWeight) forKey:key_weight];
+                [stat.data setValue:@(statSets) forKey:key_sets];
+                [stat.data setValue:@(statReps) forKey:key_reps];
                 
             }else{
                 WorkoutStatistic *stat = [WorkoutStatistic new];
                 stat.type = StatTypeAction;
                 stat.key = act.actionName;
-                stat.data = @{@"weight":[act.weightPerSet sum],@"sets":@(act.sets),@"reps":[act.repeatsPerSet sum]};
+                NSNumber *actWeight = [act.weightPerSet sum];
+                weight = weight + actWeight.doubleValue;
+                stat.data = [NSMutableDictionary dictionaryWithDictionary:@{key_weight:actWeight,key_sets:@(act.sets),key_reps:[act.repeatsPerSet sum]}];
                 [actionDic setObject:stat forKey:act.actionName];
+                [statArr addObject:stat];
             }
         }
+        mStat.data = [NSMutableDictionary dictionaryWithDictionary:@{key_weight:@(weight)}];
     }
     
-    NSMutableArray *statArr = [NSMutableArray new];
     return [statArr copy];
 }
 

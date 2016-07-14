@@ -13,10 +13,17 @@ typedef NS_ENUM (NSInteger ,StatType){
     StatTypeAction = 1
 };
 
+
+extern NSString *const key_weight;
+extern NSString *const key_reps;
+extern NSString *const key_sets;
+
 @interface WorkoutStatistic : NSObject
 
 @property (nonatomic) StatType type;
 @property (nonatomic ,copy) NSString *key;
-@property (nonatomic ,strong) NSDictionary *data;
+@property (nonatomic ,strong) NSMutableDictionary *data;
+@property (nonatomic) NSUInteger storeDate;
+@property (nonatomic) NSUInteger trainingCount;
 
 @end
