@@ -12,6 +12,7 @@
 		C34234E01D361CE90014348A /* NSDate+Components.m in Sources */ = {isa = PBXBuildFile; fileRef = C34234DF1D361CE90014348A /* NSDate+Components.m */; };
 		C34234E31D363D830014348A /* TrainingViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C34234E21D363D830014348A /* TrainingViewController.m */; };
 		C34234E61D3648640014348A /* WorkoutStatistic.m in Sources */ = {isa = PBXBuildFile; fileRef = C34234E51D3648640014348A /* WorkoutStatistic.m */; };
+		C354E28E1D3769230012633C /* ListCountButton.m in Sources */ = {isa = PBXBuildFile; fileRef = C354E28D1D3769230012633C /* ListCountButton.m */; };
 		C39A8D581D33774B00FAF484 /* StoryboardManager.m in Sources */ = {isa = PBXBuildFile; fileRef = C39A8D571D33774B00FAF484 /* StoryboardManager.m */; };
 		C39A8D5B1D337A2E00FAF484 /* WorkoutActionViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C39A8D5A1D337A2E00FAF484 /* WorkoutActionViewController.m */; };
 		C39A8D5E1D3380CE00FAF484 /* AddWorkoutViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C39A8D5D1D3380CE00FAF484 /* AddWorkoutViewController.m */; };
@@ -48,6 +49,8 @@
 		C34234E21D363D830014348A /* TrainingViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TrainingViewController.m; sourceTree = "<group>"; };
 		C34234E41D3648640014348A /* WorkoutStatistic.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WorkoutStatistic.h; sourceTree = "<group>"; };
 		C34234E51D3648640014348A /* WorkoutStatistic.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WorkoutStatistic.m; sourceTree = "<group>"; };
+		C354E28C1D3769230012633C /* ListCountButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ListCountButton.h; sourceTree = "<group>"; };
+		C354E28D1D3769230012633C /* ListCountButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ListCountButton.m; sourceTree = "<group>"; };
 		C39A8D561D33774B00FAF484 /* StoryboardManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = StoryboardManager.h; sourceTree = "<group>"; };
 		C39A8D571D33774B00FAF484 /* StoryboardManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = StoryboardManager.m; sourceTree = "<group>"; };
 		C39A8D591D337A2E00FAF484 /* WorkoutActionViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WorkoutActionViewController.h; sourceTree = "<group>"; };
@@ -277,6 +280,8 @@
 				C3C05CF71D34D3C40021C407 /* PopTableViewController.m */,
 				C3C05CFB1D34D5270021C407 /* CheckboxTableViewCell.h */,
 				C3C05CFC1D34D5270021C407 /* CheckboxTableViewCell.m */,
+				C354E28C1D3769230012633C /* ListCountButton.h */,
+				C354E28D1D3769230012633C /* ListCountButton.m */,
 			);
 			path = CustomViews;
 			sourceTree = "<group>";
@@ -417,6 +422,7 @@
 				C3AA37C51D3112DB00D5930E /* MainViewController.m in Sources */,
 				C3AA37871D30F3E100D5930E /* main.m in Sources */,
 				C3AA37B11D30FECE00D5930E /* TargetMuscle.m in Sources */,
+				C354E28E1D3769230012633C /* ListCountButton.m in Sources */,
 				C3C05D031D34EE640021C407 /* UIImage+Resize.m in Sources */,
 				C3C05CF91D34D3C40021C407 /* PopTableViewController.m in Sources */,
 				C3AA37BA1D31013200D5930E /* CYWorkoutDataParser.m in Sources */,

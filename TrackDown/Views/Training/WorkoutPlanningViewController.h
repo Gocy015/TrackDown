@@ -8,6 +8,17 @@
 
 #import <UIKit/UIKit.h>
 
+@class TargetMuscle;
+
+@protocol WorkoutPlanningDelegate <NSObject>
+
+@required
+-(void)didFinishPlanningWorkout:(NSArray <TargetMuscle *>*)plan;
+
+@end
+
 @interface WorkoutPlanningViewController : UIViewController
+
+@property (nonatomic ,weak) id <WorkoutPlanningDelegate> delegate;
 
 @end

@@ -62,8 +62,36 @@
     if (_clickblock) {
         _clickblock(indexPath.row);
     }
-    [self.presentingViewController dismissViewControllerAnimated:YES completion:nil];
+    if (_clickToDismiss) {
+        
+        [self.presentingViewController dismissViewControllerAnimated:YES completion:nil];
+    }
 }
+
+
+-(void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath{
+    
+    if (editingStyle == UITableViewCellEditingStyleDelete) {
+        //remove
+        [tableView beginUpdates];
+        [self.dataArray removeObjectAtIndex:indexPath.row];
+        [tableView deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationFade];
+        [tableView endUpdates];
+        
+        if (_deleteblock) {
+            _deleteblock(indexPath.row);
+        }
+    }
+    
+    
+}
+
+
+-(BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath{
+    return _allowsDeletion;
+}
+
+
 
 #pragma mark - Helpers
 

@@ -8,6 +8,11 @@
 
 #import <UIKit/UIKit.h>
 
+@class TargetMuscle;
+
 @interface TrainingViewController : UIViewController
+
+@property (nonatomic ,strong)NSMutableArray <TargetMuscle*> *plan;
+
 
 @end

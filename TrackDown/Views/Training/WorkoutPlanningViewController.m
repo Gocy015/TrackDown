@@ -16,6 +16,7 @@
 #import "UIImage+Resize.h"
 #import "PopTableViewController.h"
 #import "PreDefines.h"
+#import "ListCountButton.h"
 
 @interface WorkoutPlanningViewController ()<UIPickerViewDataSource ,UIPickerViewDelegate ,UIPopoverPresentationControllerDelegate>
 @property (weak, nonatomic) IBOutlet UIPickerView *actionPicker; 
@@ -51,6 +52,7 @@ static NSString *const popVCId = @"PopTableViewController";
     [self installComponentHeader];
     [self installNaviTitleView];
     [self installNaviDetailView];
+    [self decorateAddButton];
 }
 
 -(void)viewWillAppear:(BOOL)animated{
@@ -82,6 +84,10 @@ static NSString *const popVCId = @"PopTableViewController";
     act.sets = setIndex + 1;
     
     [_workingMuscle.actions addObject:act];
+    
+    ListCountButton *btn = (ListCountButton *)self.navigationItem.rightBarButtonItem.customView;
+    [btn showCounter:YES];
+    [btn incrementBy:1 limit:99 animated:YES];
 }
 
 
@@ -98,18 +104,37 @@ static NSString *const popVCId = @"PopTableViewController";
     
     NSLog(@"workout plan today : %@",self.workoutPlan);
     
-    [[CYWorkoutManager sharedManager] didFinishWorkoutPlan:self.workoutPlan];
+    
+    if (self.workoutPlan.count == 0) {
+        return;
+    }
+    
+    if (self.delegate && [self.delegate respondsToSelector:@selector(didFinishPlanningWorkout:)]) {
+        
+        NSArray *arr = [NSArray arrayWithArray:self.workoutPlan];
+        
+        [self.delegate didFinishPlanningWorkout:arr];
+    }
+    
+//    [[CYWorkoutManager sharedManager] didFinishWorkoutPlan:self.workoutPlan];
     
     // begin workout
 }
 
 -(void)tapNaviTitle{
+    
+    
+    if ([self presentedViewController]) {
+        [self dismissViewControllerAnimated:YES completion:nil];
+    }
+    
     PopTableViewController *popVC = [[StoryboardManager mainStoryboard] instantiateViewControllerWithIdentifier:popVCId];
     popVC.checkIndex = [_workouts indexOfObject:_currentMuscle];
-    popVC.dataArray = [_workouts map:^NSObject *(TargetMuscle *m) {
+    popVC.dataArray = [NSMutableArray arrayWithArray:[_workouts map:^NSObject *(TargetMuscle *m) {
         return m.muscle;
-    }];
-    
+        }]
+    ];
+    popVC.clickToDismiss = YES;
     if(_workouts.count <= 8){
         
         popVC.modalPresentationStyle = UIModalPresentationPopover;
@@ -136,8 +161,14 @@ static NSString *const popVCId = @"PopTableViewController";
 
 -(void)tapNaviDetail{
     
+    if ([self presentedViewController]) {
+        [self dismissViewControllerAnimated:YES completion:nil];
+    }
+    
     PopTableViewController *popVC = [[StoryboardManager mainStoryboard] instantiateViewControllerWithIdentifier:popVCId];
     popVC.checkIndex = -1;
+    
+    BOOL delete = YES;
     
     NSMutableArray *displayWorkouts = [NSMutableArray new];
     [self resetWorkingMuscle:YES];
@@ -149,9 +180,30 @@ static NSString *const popVCId = @"PopTableViewController";
     }
     if (displayWorkouts.count == 0) {
         [displayWorkouts addObject:@"暂时未添加训练动作"];
+        delete = NO;
     }
     
-    popVC.dataArray = [NSArray arrayWithArray:displayWorkouts];
+    popVC.clickToDismiss = NO;
+    popVC.dataArray = [NSMutableArray arrayWithArray:displayWorkouts];
+    popVC.allowsDeletion = delete;
+    
+    WeakSelf();
+    popVC.deleteblock = ^(NSUInteger index){
+        for (TargetMuscle *m in weakSelf.workoutPlan) {
+            if (index > m.actions.count - 1) {
+                index -= m.actions.count;
+                continue;
+            }
+            [m.actions removeObjectAtIndex:index];
+            break;
+        }
+        
+        ListCountButton *btn = (ListCountButton *)weakSelf.navigationItem.rightBarButtonItem.customView;
+        [btn showCounter:YES];
+        [btn decrementBy:1 limit:0 animated:YES];
+
+        
+    };
     if (displayWorkouts.count <= 10) {
         
         popVC.modalPresentationStyle = UIModalPresentationPopover;
@@ -224,16 +276,34 @@ static NSString *const popVCId = @"PopTableViewController";
 
 -(void)installNaviDetailView{
     
-    UIImage *img = [UIImage imageNamed:@"list"];
+//    UIImage *img = [UIImage imageNamed:@"list"];
+//    
+//    UIImage *resizedImg = [img resize:CGSizeMake(22, 22)];
     
-    UIImage *resizedImg = [img resize:CGSizeMake(22, 22)];
+    ListCountButton *btn = [[ListCountButton alloc] initWithFrame:CGRectMake(0, 0, 22, 22)];
     
-    UIBarButtonItem *detail = [[UIBarButtonItem alloc]initWithImage:resizedImg style:UIBarButtonItemStyleDone target:self action:@selector(tapNaviDetail)];
+    [btn addTarget:self action:@selector(tapNaviDetail)];
+    
+    [btn setCount:0 animated:NO];
+    
+    [btn showCounter:NO];
+    
+    UIBarButtonItem *detail = [[UIBarButtonItem alloc]initWithCustomView:btn];
+    
+    //[[UIBarButtonItem alloc]initWithImage:resizedImg style:UIBarButtonItemStyleDone target:self action:@selector(tapNaviDetail)];
     
     self.navigationItem.rightBarButtonItem = detail;
     
 }
 
+-(void)decorateAddButton{
+    NSString *content = self.addButton.titleLabel.text;
+    self.addButton.titleLabel.text = @"";
+    
+    NSDictionary *attr = @{NSUnderlineStyleAttributeName:@(NSUnderlineStyleSingle)};
+    NSAttributedString *attrStr = [[NSAttributedString alloc]initWithString:content attributes:attr];
+    self.addButton.titleLabel.attributedText = attrStr;
+}
 
 -(void)changeCurrentWorkout:(NSUInteger)index{
     if (index < _workouts.count && index != [_workouts indexOfObject:_currentMuscle]) {

@@ -10,8 +10,13 @@
 
 @interface PopTableViewController : UIViewController
 
-@property (nonatomic ,strong) NSArray *dataArray;
+@property (nonatomic ,strong) NSMutableArray *dataArray;
 @property (nonatomic) NSInteger checkIndex;
 @property (nonatomic) void (^clickblock)(NSUInteger);
+
+@property (nonatomic) BOOL allowsDeletion;
+@property (nonatomic) void (^deleteblock)(NSUInteger);
+
+@property (nonatomic) BOOL clickToDismiss;
 
 @end

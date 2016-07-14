@@ -10,12 +10,15 @@
 #import "WorkoutMuscleViewController.h"
 #import "StoryboardManager.h"
 #import "WorkoutPlanningViewController.h"
+#import "TrainingViewController.h"
 
-@interface MainViewController ()
+@interface MainViewController ()<WorkoutPlanningDelegate>
 
 @end
 static NSString * const manageVCId = @"WorkoutMuscleViewController";
 static NSString * const planVCId = @"WorkoutPlanningViewController";
+static NSString * const trainVCId = @"TrainingViewController";
+
 
 @implementation MainViewController
 
@@ -44,7 +47,20 @@ static NSString * const planVCId = @"WorkoutPlanningViewController";
 }
 - (IBAction)gotoPlan:(id)sender {
     WorkoutPlanningViewController *pvc = [[StoryboardManager storyboardWithIdentifier:@"Training"] instantiateViewControllerWithIdentifier:planVCId];
+    pvc.delegate = self;
     [self.navigationController pushViewController:pvc animated:YES];
+}
+
+
+#pragma mark - WorkoutPlanning Delegate
+
+-(void)didFinishPlanningWorkout:(NSArray<TargetMuscle *> *)plan{
+    if ([[self.navigationController topViewController] isKindOfClass:[WorkoutPlanningViewController class]]) {
+        [self.navigationController popViewControllerAnimated:YES];
+        TrainingViewController *trainVC = [[StoryboardManager storyboardWithIdentifier:@"Training"] instantiateViewControllerWithIdentifier:trainVCId];
+        trainVC.plan = [NSMutableArray arrayWithArray:plan];
+        [self presentViewController:trainVC animated:YES completion:nil];
+    }
 }
 
 @end
