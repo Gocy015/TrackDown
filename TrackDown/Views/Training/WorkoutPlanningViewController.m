@@ -105,7 +105,7 @@ static NSString *const popVCId = @"PopTableViewController";
     NSLog(@"workout plan today : %@",self.workoutPlan);
     
     
-    if (self.workoutPlan.count == 0) {
+    if (self.workoutPlan.count == 0 ) {
         return;
     }
     
@@ -195,6 +195,9 @@ static NSString *const popVCId = @"PopTableViewController";
                 continue;
             }
             [m.actions removeObjectAtIndex:index];
+            if(m.actions.count == 0){
+                [weakSelf.workoutPlan removeObject:m];
+            }
             break;
         }
         

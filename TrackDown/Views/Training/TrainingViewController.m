@@ -10,12 +10,13 @@
 #import "TargetMuscle.h"
 #import "WorkoutAction.h"
 #import "CYWorkoutManager.h"
+#import "TrainingListTableViewController.h"
 
-@interface TrainingViewController (){
+@interface TrainingViewController () <TrainingListViewDelegate>{
     NSUInteger _muscleIndex;
     NSUInteger _actIndex;
     NSUInteger _setCount;
-    
+    NSUInteger _currentIndex;
 }
 @property (weak, nonatomic) IBOutlet UILabel *currentWorkoutLabel;
 @property (weak, nonatomic) IBOutlet UITextField *weightTextField;
@@ -35,7 +36,7 @@
     // Do any additional setup after loading the view.
     _muscleIndex = _actIndex = 0;
     _setCount = 1;
-
+    _currentIndex = 0;
 }
 
 -(void)viewWillAppear:(BOOL)animated{
@@ -79,8 +80,32 @@
 - (IBAction)nextMove:(id)sender {
     [self updateUI];
 }
+- (IBAction)showList:(id)sender {
+    [self showWorkoutList];
+}
 
 #pragma mark - Helpers
+
+-(void)showWorkoutList{
+    NSMutableArray *displayWorkouts = [NSMutableArray new];
+    for (TargetMuscle *m in self.plan) {
+        for (WorkoutAction *act in m.actions) {
+            NSString *displayString = [NSString stringWithFormat:@"%@ x %li组",act.actionName,(unsigned long)act.sets];
+            [displayWorkouts addObject:displayString];
+        }
+    }
+    
+    TrainingListTableViewController *listvc = [TrainingListTableViewController new];
+    
+    listvc.delegate = self;
+    listvc.currentIndex = _currentIndex;
+    listvc.dataArr = displayWorkouts;
+    
+    listvc.view.frame = self.view.bounds;
+    
+    [self.view addSubview:listvc.view];
+    [self addChildViewController:listvc];
+}
 
 -(void)updateUI{
     [self forwardToNextActionIfNeeded];
@@ -97,7 +122,7 @@
 -(void)forwardToNextActionIfNeeded{
     TargetMuscle *m = self.plan[_muscleIndex];
     WorkoutAction *act = m.actions[_actIndex];
-    
+    _currentIndex ++;
     if (_setCount < act.sets) {
         _setCount += 1;
         return ;
@@ -130,7 +155,70 @@
     
 }
 
+-(void)moveActionFromIndex:(NSUInteger)fromIndex toIndex:(NSUInteger)toIndex{
+    if (fromIndex <= _currentIndex || toIndex <= _currentIndex || fromIndex == toIndex) {
+        return;
+    }
+    
+    
+    // locate
+    
+    TargetMuscle *insert = [TargetMuscle new];
+    NSUInteger insertIndex = 0;
+    for (TargetMuscle *m in self.plan) {
+        if (fromIndex > m.actions.count - 1) {
+            fromIndex -= m.actions.count;
+            continue;
+        }
+        insert.muscle = m.muscle;
+        insert.actions = [NSMutableArray arrayWithArray:@[[m.actions objectAtIndex:fromIndex]]];
+        [m.actions removeObjectAtIndex:fromIndex];
+        if(m.actions.count == 0){
+            [self.plan removeObject:m];
+        }
+        break;
+    }
+    
+    TargetMuscle *moveBack = [TargetMuscle new];
+    BOOL inserted = NO;
+    for (TargetMuscle *m in self.plan) {
+        
+        if (toIndex > m.actions.count - 1) {
+            toIndex -= m.actions.count;
+            insertIndex ++;
+            continue;
+        }
+        moveBack.muscle = m.muscle;
+        for (NSUInteger i = toIndex; i < m.actions.count; ++i ) {
+            [moveBack.actions addObject:m.actions[i]];
+            
+        }
+        [m.actions removeObjectsInRange:NSMakeRange(toIndex, moveBack.actions.count)];
+        if (m.actions.count == 0) {
+            [self.plan removeObject:m];
+        }else{
+            insertIndex ++;
+        }
+        inserted = YES;
+        [self.plan insertObject:insert atIndex:insertIndex];
+        
+        [self.plan insertObject:moveBack atIndex:insertIndex + 1];
+        
+        break;
+    }
+    
+    if (!inserted) {
+        [self.plan addObject:insert];
+    }
+    
+    NSLog(@"%@",self.plan);
+}
 
 
+#pragma mark - TrainingListView Delegate
+
+-(void)didMoveFromIndex:(NSUInteger)from toIndex:(NSUInteger)to{
+    [self moveActionFromIndex:from toIndex:to];
+}
 
 @end

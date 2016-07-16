@@ -26,7 +26,6 @@
     self.tableView.dataSource = self;
     self.tableView.delegate = self;
     
-    
 }
 
 - (void)didReceiveMemoryWarning {
@@ -54,7 +53,7 @@
     
     return cell;
 }
- 
+
 
 #pragma mark - UITableView Delegate
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
@@ -71,7 +70,7 @@
 
 -(void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath{
     
-    if (editingStyle == UITableViewCellEditingStyleDelete) {
+    if (editingStyle == UITableViewCellEditingStyleDelete && _allowsDeletion) {
         //remove
         [tableView beginUpdates];
         [self.dataArray removeObjectAtIndex:indexPath.row];
@@ -88,15 +87,13 @@
 
 
 -(BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath{
-    return _allowsDeletion;
+    return _allowsDeletion ;
 }
 
 
 
 #pragma mark - Helpers
-
-
-
+ 
 /*
 #pragma mark - Navigation
 

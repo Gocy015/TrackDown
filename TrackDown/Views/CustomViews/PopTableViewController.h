@@ -19,4 +19,6 @@
 
 @property (nonatomic) BOOL clickToDismiss;
 
+//@property (nonatomic) BOOL dragToReorder;
+
 @end

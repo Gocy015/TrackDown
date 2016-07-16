@@ -13,6 +13,8 @@
 		C34234E31D363D830014348A /* TrainingViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C34234E21D363D830014348A /* TrainingViewController.m */; };
 		C34234E61D3648640014348A /* WorkoutStatistic.m in Sources */ = {isa = PBXBuildFile; fileRef = C34234E51D3648640014348A /* WorkoutStatistic.m */; };
 		C354E28E1D3769230012633C /* ListCountButton.m in Sources */ = {isa = PBXBuildFile; fileRef = C354E28D1D3769230012633C /* ListCountButton.m */; };
+		C35CC5641D3A1CF000C6A7F6 /* TrainingListTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C35CC5621D3A1CF000C6A7F6 /* TrainingListTableViewController.m */; };
+		C35CC5651D3A1CF000C6A7F6 /* TrainingListTableViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = C35CC5631D3A1CF000C6A7F6 /* TrainingListTableViewController.xib */; };
 		C39A8D581D33774B00FAF484 /* StoryboardManager.m in Sources */ = {isa = PBXBuildFile; fileRef = C39A8D571D33774B00FAF484 /* StoryboardManager.m */; };
 		C39A8D5B1D337A2E00FAF484 /* WorkoutActionViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C39A8D5A1D337A2E00FAF484 /* WorkoutActionViewController.m */; };
 		C39A8D5E1D3380CE00FAF484 /* AddWorkoutViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C39A8D5D1D3380CE00FAF484 /* AddWorkoutViewController.m */; };
@@ -51,6 +53,9 @@
 		C34234E51D3648640014348A /* WorkoutStatistic.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WorkoutStatistic.m; sourceTree = "<group>"; };
 		C354E28C1D3769230012633C /* ListCountButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ListCountButton.h; sourceTree = "<group>"; };
 		C354E28D1D3769230012633C /* ListCountButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ListCountButton.m; sourceTree = "<group>"; };
+		C35CC5611D3A1CF000C6A7F6 /* TrainingListTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TrainingListTableViewController.h; sourceTree = "<group>"; };
+		C35CC5621D3A1CF000C6A7F6 /* TrainingListTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TrainingListTableViewController.m; sourceTree = "<group>"; };
+		C35CC5631D3A1CF000C6A7F6 /* TrainingListTableViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = TrainingListTableViewController.xib; sourceTree = "<group>"; };
 		C39A8D561D33774B00FAF484 /* StoryboardManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = StoryboardManager.h; sourceTree = "<group>"; };
 		C39A8D571D33774B00FAF484 /* StoryboardManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = StoryboardManager.m; sourceTree = "<group>"; };
 		C39A8D591D337A2E00FAF484 /* WorkoutActionViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WorkoutActionViewController.h; sourceTree = "<group>"; };
@@ -269,6 +274,9 @@
 				C3C05CF01D348B2A0021C407 /* WorkoutPlanningViewController.m */,
 				C34234E11D363D830014348A /* TrainingViewController.h */,
 				C34234E21D363D830014348A /* TrainingViewController.m */,
+				C35CC5611D3A1CF000C6A7F6 /* TrainingListTableViewController.h */,
+				C35CC5621D3A1CF000C6A7F6 /* TrainingListTableViewController.m */,
+				C35CC5631D3A1CF000C6A7F6 /* TrainingListTableViewController.xib */,
 			);
 			path = Training;
 			sourceTree = "<group>";
@@ -347,6 +355,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				C35CC5651D3A1CF000C6A7F6 /* TrainingListTableViewController.xib in Resources */,
 				C3C05CED1D3486DA0021C407 /* Training.storyboard in Resources */,
 				C3C05CEA1D3485AF0021C407 /* Management.storyboard in Resources */,
 				C3AA37951D30F3E100D5930E /* LaunchScreen.storyboard in Resources */,
@@ -416,6 +425,7 @@
 				C34234E01D361CE90014348A /* NSDate+Components.m in Sources */,
 				C34234DD1D35F0820014348A /* CYDataBaseManager.m in Sources */,
 				C3AA37B41D30FEED00D5930E /* WorkoutAction.m in Sources */,
+				C35CC5641D3A1CF000C6A7F6 /* TrainingListTableViewController.m in Sources */,
 				C39A8D581D33774B00FAF484 /* StoryboardManager.m in Sources */,
 				C3AA378A1D30F3E100D5930E /* AppDelegate.m in Sources */,
 				C3AA37C21D310C7B00D5930E /* WorkoutMuscleViewController.m in Sources */,

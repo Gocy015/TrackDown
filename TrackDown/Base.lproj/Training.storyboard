@@ -74,13 +74,13 @@
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="当前动作" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="xiy-xW-Xep">
                                 <rect key="frame" x="240" y="132" width="120" height="36"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="30"/>
-                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="当前训练动作：" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="hXQ-CD-bdu">
                                 <rect key="frame" x="241" y="91" width="119" height="21"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <stackView opaque="NO" contentMode="scaleToFill" spacing="20" translatesAutoresizingMaskIntoConstraints="NO" id="WFK-cV-nwW">
@@ -89,7 +89,7 @@
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="使用负重：" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="kzE-JY-ZZo">
                                         <rect key="frame" x="0.0" y="0.0" width="85" height="30"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                        <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                        <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="JtD-4D-vXH">
@@ -108,7 +108,7 @@
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="训练次数：" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="k8K-d3-yRi">
                                         <rect key="frame" x="0.0" y="0.0" width="85" height="30"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                        <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                        <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="fTd-ZR-ryU">
@@ -134,11 +134,20 @@
                                     <action selector="nextMove:" destination="bwQ-e8-aXg" eventType="touchUpInside" id="ujV-6G-Vfa"/>
                                 </connections>
                             </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="QrD-RG-Ud6">
+                                <rect key="frame" x="542" y="28" width="30" height="30"/>
+                                <state key="normal" title="List"/>
+                                <connections>
+                                    <action selector="showList:" destination="bwQ-e8-aXg" eventType="touchUpInside" id="IbS-zy-g6n"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
                             <constraint firstAttribute="leadingMargin" secondItem="YBe-cV-1Xg" secondAttribute="leading" id="2db-lD-bpM"/>
                             <constraint firstItem="moz-wB-BlQ" firstAttribute="top" secondItem="WFK-cV-nwW" secondAttribute="bottom" constant="30" id="3F9-Nh-D60"/>
+                            <constraint firstAttribute="trailingMargin" secondItem="QrD-RG-Ud6" secondAttribute="trailing" constant="8" id="3Iz-sB-Vhf"/>
+                            <constraint firstItem="QrD-RG-Ud6" firstAttribute="top" secondItem="GeT-gb-ZPP" secondAttribute="bottom" constant="8" id="6rw-r3-iYn"/>
                             <constraint firstItem="xiy-xW-Xep" firstAttribute="centerX" secondItem="msg-kj-bwl" secondAttribute="centerX" id="8WA-fa-jPM"/>
                             <constraint firstItem="YBe-cV-1Xg" firstAttribute="top" secondItem="GeT-gb-ZPP" secondAttribute="bottom" id="9Bt-r5-s2G"/>
                             <constraint firstItem="tp1-Cc-bUE" firstAttribute="top" secondItem="uSA-X2-dS9" secondAttribute="bottom" constant="8" id="DUe-4s-XcB"/>
