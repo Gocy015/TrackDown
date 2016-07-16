@@ -11,8 +11,9 @@
 #import "WorkoutAction.h"
 #import "CYWorkoutManager.h"
 #import "TrainingListTableViewController.h"
+#import "ListCountButton.h"
 
-@interface TrainingViewController () <TrainingListViewDelegate>{
+@interface TrainingViewController () <TrainingListViewDelegate,UIPopoverPresentationControllerDelegate>{
     NSUInteger _muscleIndex;
     NSUInteger _actIndex;
     NSUInteger _setCount;
@@ -37,6 +38,10 @@
     _muscleIndex = _actIndex = 0;
     _setCount = 1;
     _currentIndex = 0;
+    
+    self.title = @"训练!";
+    [self installNaviItems];
+    
 }
 
 -(void)viewWillAppear:(BOOL)animated{
@@ -61,6 +66,9 @@
 }
 */
 
+#pragma mark - Setter
+
+
 
 -(void)setPlan:(NSMutableArray *)plan{
     _plan = plan;
@@ -73,15 +81,13 @@
 }
 
 #pragma mark - Actions
-- (IBAction)endTraining:(id)sender { 
+- (void)endTraining {
+    //alert
     [self.presentingViewController dismissViewControllerAnimated:YES completion:nil];
 }
 
 - (IBAction)nextMove:(id)sender {
     [self updateUI];
-}
-- (IBAction)showList:(id)sender {
-    [self showWorkoutList];
 }
 
 #pragma mark - Helpers
@@ -101,10 +107,29 @@
     listvc.currentIndex = _currentIndex;
     listvc.dataArr = displayWorkouts;
     
-    listvc.view.frame = self.view.bounds;
     
-    [self.view addSubview:listvc.view];
-    [self addChildViewController:listvc];
+    if (displayWorkouts.count <= 10) {
+        
+        listvc.modalPresentationStyle = UIModalPresentationPopover;
+        listvc.popoverPresentationController.barButtonItem = self.navigationItem.rightBarButtonItem;
+        listvc.popoverPresentationController.delegate = self;
+        
+        
+        CGFloat width = 280;
+        CGFloat height = MIN(44 * 10,44 * displayWorkouts.count);
+        
+        listvc.preferredContentSize = CGSizeMake(width, height);
+        [self presentViewController:listvc animated:YES completion:nil];
+    }else{
+        [self.navigationController pushViewController:listvc animated:YES];
+        
+        listvc.title = @"训练计划";
+    }
+    
+//    listvc.view.frame = self.view.bounds;
+//    
+//    [self.view addSubview:listvc.view];
+//    [self addChildViewController:listvc];
 }
 
 -(void)updateUI{
@@ -211,14 +236,64 @@
         [self.plan addObject:insert];
     }
     
-    NSLog(@"%@",self.plan);
+    [self log:self.plan];
 }
 
+
+-(void)installNaviItems{
+    
+    //    UIImage *img = [UIImage imageNamed:@"list"];
+    //
+    //    UIImage *resizedImg = [img resize:CGSizeMake(22, 22)];
+    
+    
+    UIBarButtonItem *end = [[UIBarButtonItem alloc] initWithTitle:@"结束训练" style:UIBarButtonItemStyleDone target:self action:@selector(endTraining)];
+    
+    self.navigationItem.leftBarButtonItem = end;
+    
+    ListCountButton *btn = [[ListCountButton alloc] initWithFrame:CGRectMake(0, 0, 22, 22)];
+    
+    [btn addTarget:self action:@selector(showWorkoutList)];
+    
+    [btn setCount:0 animated:NO];
+    
+    [btn showCounter:NO];
+    
+    UIBarButtonItem *detail = [[UIBarButtonItem alloc]initWithCustomView:btn];
+    
+    //[[UIBarButtonItem alloc]initWithImage:resizedImg style:UIBarButtonItemStyleDone target:self action:@selector(tapNaviDetail)];
+    
+    self.navigationItem.rightBarButtonItem = detail;
+    
+}
+
+
+
+
+
+-(void)log:(NSArray <TargetMuscle *> *)arr{
+    for (TargetMuscle *m in arr) {
+        NSLog(@"muscle : %@" , m.muscle);
+        NSLog(@"actions : {");
+        for (WorkoutAction *act in m.actions) {
+            NSLog(@"%@,",act.actionName);
+        }
+        NSLog(@"}");
+    }
+}
 
 #pragma mark - TrainingListView Delegate
 
 -(void)didMoveFromIndex:(NSUInteger)from toIndex:(NSUInteger)to{
     [self moveActionFromIndex:from toIndex:to];
 }
+
+
+#pragma mark - UIPopoverControllerDelegate
+
+-(UIModalPresentationStyle)adaptivePresentationStyleForPresentationController:(UIPresentationController *)controller{
+    return UIModalPresentationNone;
+}
+
 
 @end

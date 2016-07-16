@@ -59,7 +59,10 @@ static NSString * const trainVCId = @"TrainingViewController";
         [self.navigationController popViewControllerAnimated:YES];
         TrainingViewController *trainVC = [[StoryboardManager storyboardWithIdentifier:@"Training"] instantiateViewControllerWithIdentifier:trainVCId];
         trainVC.plan = [NSMutableArray arrayWithArray:plan];
-        [self presentViewController:trainVC animated:YES completion:nil];
+        UINavigationController *navi = [[UINavigationController alloc]initWithRootViewController:trainVC];
+        
+        
+        [self presentViewController:navi animated:YES completion:nil];
     }
 }
 
