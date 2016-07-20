@@ -12,19 +12,29 @@
 #import "CYWorkoutManager.h"
 #import "TrainingListTableViewController.h"
 #import "ListCountButton.h"
+#import "SDVersion.h"
+#import "UCZProgressView.h"
 
-@interface TrainingViewController () <TrainingListViewDelegate,UIPopoverPresentationControllerDelegate>{
+@interface TrainingViewController () <TrainingListViewDelegate,UIPopoverPresentationControllerDelegate ,UITextFieldDelegate>{
     NSUInteger _muscleIndex;
     NSUInteger _actIndex;
     NSUInteger _setCount;
     NSUInteger _currentIndex;
+    NSInteger _timeElapesd;
+    NSInteger _expectedRestTime;
+    NSUInteger _frameRate;
 }
 @property (weak, nonatomic) IBOutlet UILabel *currentWorkoutLabel;
 @property (weak, nonatomic) IBOutlet UITextField *weightTextField;
 @property (weak, nonatomic) IBOutlet UITextField *repsTextField;
 @property (weak, nonatomic) IBOutlet UILabel *nextWorkoutLabel;
 
+@property (weak, nonatomic) IBOutlet UIView *restView;
+@property (weak, nonatomic) IBOutlet UCZProgressView *progressView;
 @property (nonatomic ,weak) WorkoutAction *currentAction;
+@property (weak, nonatomic) IBOutlet UILabel *countDownLabel;
+
+@property (nonatomic ,strong) CADisplayLink *countDownLink;
 
 @end
 
@@ -41,6 +51,13 @@
     
     self.title = @"训练!";
     [self installNaviItems];
+    [self initNotifications];
+    [self configTextFields];
+    
+    _expectedRestTime = 10;
+    _frameRate = 30;
+//    _progressView.blurEffect = [UIBlurEffect effectWithStyle:UIBlurEffectStyleDark];
+    _restView.alpha = 0;
     
 }
 
@@ -49,6 +66,14 @@
     if (_currentAction) {
         self.currentWorkoutLabel.text = [NSString stringWithFormat:@"%@(%li/%li)",_currentAction.actionName,(unsigned long)_setCount,(unsigned long)_currentAction.sets];
     }
+    
+    
+//    UIGraphicsBeginImageContext(self.restView.frame.size);
+//    [[UIImage imageNamed:@"bat"] drawInRect:self.restView.bounds];
+//    UIImage *image = UIGraphicsGetImageFromCurrentImageContext();
+//    UIGraphicsEndImageContext();
+//    
+//    self.restView.backgroundColor = [UIColor colorWithPatternImage:image];
 }
 
 - (void)didReceiveMemoryWarning {
@@ -80,17 +105,97 @@
     }
 }
 
+
+#pragma mark - Getter
+
+-(CADisplayLink *)countDownLink{
+    if (!_countDownLink) {
+        _countDownLink = [CADisplayLink displayLinkWithTarget:self selector:@selector(doCountDown)];
+        _countDownLink.frameInterval = 60 / _frameRate;
+    }
+    return _countDownLink;
+}
+
 #pragma mark - Actions
 - (void)endTraining {
-    //alert
+    //TODO: Alert
     [self.presentingViewController dismissViewControllerAnimated:YES completion:nil];
+}
+- (IBAction)skipRest:(id)sender {
+    [self endCountDown];
 }
 
 - (IBAction)nextMove:(id)sender {
-    [self updateUI];
+    
+    if ([self verifyUserInput]) {
+        [self startCountDown:^(BOOL started) {
+            if (started) {
+                [self updateUI];
+            }
+        }];
+    }else{
+        //TODO: Alert
+    }
+    
+    
+}
+- (IBAction)tapBackground:(id)sender {
+    [_repsTextField resignFirstResponder];
+    [_weightTextField resignFirstResponder];
 }
 
 #pragma mark - Helpers
+
+-(void)startCountDown:(void(^)(BOOL started))block{
+    
+    self.progressView.progress = 0;
+    self.countDownLabel.text = [NSString stringWithFormat:@"%li",_expectedRestTime];
+    [self.navigationController setNavigationBarHidden:YES];
+    [UIView animateWithDuration:0.5 animations:^{
+        self.restView.alpha = 1;
+    } completion:^(BOOL finished) {
+        if (finished) {
+            _timeElapesd = 0;
+            [self.countDownLink addToRunLoop:[NSRunLoop currentRunLoop] forMode:NSRunLoopCommonModes];
+        }
+        
+        block(finished);
+    }];
+}
+
+-(void)endCountDown{
+    [self.countDownLink invalidate];
+    self.countDownLink = nil;
+    _timeElapesd = 0;
+    [UIView animateWithDuration:0.5 animations:^{
+        self.restView.alpha = 0;
+    } completion:^(BOOL finished) {
+        
+        self.progressView.progress = 0;
+        [self.navigationController setNavigationBarHidden:NO];
+    }];
+}
+
+-(void)doCountDown{
+    if (_timeElapesd/_frameRate > _expectedRestTime) {
+        
+        [self endCountDown];
+        return ;
+    }
+    self.countDownLabel.text = [NSString stringWithFormat:@"%li",_expectedRestTime - _timeElapesd/_frameRate];
+    CGFloat exactTime = ((CGFloat)_timeElapesd/(CGFloat)_frameRate) / (CGFloat)_expectedRestTime;
+    if (exactTime >= 1) {
+        exactTime = 0.999999;
+    }
+    _progressView.progress = exactTime;
+    
+    
+    _timeElapesd ++;
+}
+
+-(BOOL)verifyUserInput{
+    return YES;
+}
 
 -(void)showWorkoutList{
     NSMutableArray *displayWorkouts = [NSMutableArray new];
@@ -104,7 +209,7 @@
     TrainingListTableViewController *listvc = [TrainingListTableViewController new];
     
     listvc.delegate = self;
-    listvc.currentIndex = _currentIndex;
+    listvc.currentIndex =  _actIndex + _muscleIndex ;
     listvc.dataArr = displayWorkouts;
     
     
@@ -115,7 +220,7 @@
         listvc.popoverPresentationController.delegate = self;
         
         
-        CGFloat width = 280;
+        CGFloat width = 270;
         CGFloat height = MIN(44 * 10,44 * displayWorkouts.count);
         
         listvc.preferredContentSize = CGSizeMake(width, height);
@@ -181,15 +286,13 @@
 }
 
 -(void)moveActionFromIndex:(NSUInteger)fromIndex toIndex:(NSUInteger)toIndex{
-    if (fromIndex <= _currentIndex || toIndex <= _currentIndex || fromIndex == toIndex) {
+    if (fromIndex <= _actIndex + _muscleIndex || toIndex <= _actIndex+_muscleIndex || fromIndex == toIndex) {
         return;
     }
-    
+    BOOL upToDown = fromIndex < toIndex;
     
     // locate
-    
     TargetMuscle *insert = [TargetMuscle new];
-    NSUInteger insertIndex = 0;
     for (TargetMuscle *m in self.plan) {
         if (fromIndex > m.actions.count - 1) {
             fromIndex -= m.actions.count;
@@ -197,15 +300,20 @@
         }
         insert.muscle = m.muscle;
         insert.actions = [NSMutableArray arrayWithArray:@[[m.actions objectAtIndex:fromIndex]]];
+//
         [m.actions removeObjectAtIndex:fromIndex];
-        if(m.actions.count == 0){
+        if (m.actions.count == 0) {
             [self.plan removeObject:m];
+        }
+        if(upToDown){
+            toIndex --; // 少数一个数
         }
         break;
     }
     
     TargetMuscle *moveBack = [TargetMuscle new];
     BOOL inserted = NO;
+    NSUInteger insertIndex = 0;
     for (TargetMuscle *m in self.plan) {
         
         if (toIndex > m.actions.count - 1) {
@@ -214,20 +322,31 @@
             continue;
         }
         moveBack.muscle = m.muscle;
+        
+        if (upToDown) {
+            toIndex ++;//从上往下拉，被占的位置应上移，反之才是下移
+        }
         for (NSUInteger i = toIndex; i < m.actions.count; ++i ) {
             [moveBack.actions addObject:m.actions[i]];
             
         }
         [m.actions removeObjectsInRange:NSMakeRange(toIndex, moveBack.actions.count)];
-        if (m.actions.count == 0) {
-            [self.plan removeObject:m];
-        }else{
+        
+        if(m.actions.count != 0){
             insertIndex ++;
         }
         inserted = YES;
-        [self.plan insertObject:insert atIndex:insertIndex];
         
-        [self.plan insertObject:moveBack atIndex:insertIndex + 1];
+        
+        [self.plan insertObject:insert atIndex:insertIndex];
+        if (moveBack.actions.count) {
+            [self.plan insertObject:moveBack atIndex:insertIndex + 1];
+        }
+        
+        if (m.actions.count == 0) {
+            [self.plan removeObject:m];
+        }
+        
         
         break;
     }
@@ -239,6 +358,14 @@
     [self log:self.plan];
 }
 
+-(void)configTextFields{
+    _weightTextField.delegate = self;
+    _repsTextField.delegate = self;
+    
+    _weightTextField.keyboardType = UIKeyboardTypeDecimalPad;
+    _repsTextField.keyboardType = UIKeyboardTypeNumberPad;
+    
+}
 
 -(void)installNaviItems{
     
@@ -280,6 +407,43 @@
         }
         NSLog(@"}");
     }
+}
+
+#pragma mark - Notifications
+
+-(void)initNotifications{
+    if([SDVersion deviceSize] <= Screen4inch){ // only observe in small screen
+        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyboardWillChangeFrame:) name:UIKeyboardWillChangeFrameNotification object:nil];
+        
+        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyboardWillHide:) name:UIKeyboardWillHideNotification object:nil];
+    }
+}
+
+-(void)keyboardWillChangeFrame:(NSNotification *)noti{
+    CGRect rect = [[noti.userInfo objectForKey:UIKeyboardFrameEndUserInfoKey] CGRectValue];
+    
+    [UIView animateWithDuration:0.25 animations:^{
+        
+        self.view.transform = CGAffineTransformMakeTranslation(0, -rect.size.height / 3);
+    }];
+}
+
+-(void)keyboardWillHide:(NSNotification *)noti{
+    [UIView animateWithDuration:0.25 animations:^{
+        
+        self.view.transform = CGAffineTransformIdentity;
+    }];
+}
+
+#pragma mark - UITextField Delegate
+-(BOOL)textFieldShouldReturn:(UITextField *)textField{
+    if ([textField isEqual:_weightTextField] && [_repsTextField.text length] <= 0) {
+        [_repsTextField becomeFirstResponder];
+    }else{
+        [textField resignFirstResponder];
+    }
+    
+    return YES;
 }
 
 #pragma mark - TrainingListView Delegate

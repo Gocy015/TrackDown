@@ -82,3 +82,16 @@ strip_invalid_archs() {
   fi
 }
 
+
+if [[ "$CONFIGURATION" == "Debug" ]]; then
+  install_framework "Pods/FMDB.framework"
+  install_framework "Pods/Masonry.framework"
+  install_framework "Pods/SDVersion.framework"
+  install_framework "Pods/UCZProgressView.framework"
+fi
+if [[ "$CONFIGURATION" == "Release" ]]; then
+  install_framework "Pods/FMDB.framework"
+  install_framework "Pods/Masonry.framework"
+  install_framework "Pods/SDVersion.framework"
+  install_framework "Pods/UCZProgressView.framework"
+fi

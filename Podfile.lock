@@ -3,13 +3,19 @@ PODS:
     - FMDB/standard (= 2.6.2)
   - FMDB/standard (2.6.2)
   - Masonry (1.0.1)
+  - SDVersion (3.1)
+  - UCZProgressView (1.0.2)
 
 DEPENDENCIES:
   - FMDB
   - Masonry
+  - SDVersion
+  - UCZProgressView
 
 SPEC CHECKSUMS:
   FMDB: 854a0341b4726e53276f2a8996f06f1b80f9259a
   Masonry: a1a931a0d08870ed8ae415a2ea5ea68ebcac77df
+  SDVersion: 1eb1509995f353302094612ea3a77df289157687
+  UCZProgressView: 55836987c15ee6efb7cd6dfe297556602ee46c94
 
 COCOAPODS: 0.39.0

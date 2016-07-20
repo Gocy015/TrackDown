@@ -93,7 +93,7 @@ static NSString *const popVCId = @"PopTableViewController";
 
 - (IBAction)beginTrainning:(id)sender {
     if (_workingMuscle.actions == 0 && self.workoutPlan.count == 0) {
-        // no plan added
+        //TODO: Alert
         NSLog(@"No Plans Added ! Alert!");
         return ;
     }
@@ -328,7 +328,7 @@ static NSString *const popVCId = @"PopTableViewController";
 
 
 -(void)resetWorkingMuscle:(BOOL)tryToAdd{
-    if(tryToAdd && ![self.workoutPlan containsObject:_workingMuscle]){
+    if(tryToAdd && ![self.workoutPlan containsObject:_workingMuscle] && _workingMuscle.actions.count > 0){
         [self.workoutPlan addObject:_workingMuscle];
     }
     _workingMuscle = [TargetMuscle new];

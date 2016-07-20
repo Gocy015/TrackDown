@@ -54,6 +54,7 @@ static NSString *const reuseId = @"TrainingListTableCell";
     // Configure the cell...
     cell.textLabel.text = self.dataArr[indexPath.row];
     
+    
     if (indexPath.row < _currentIndex) {
         [cell.textLabel setTextColor:[UIColor grayColor]];
         
@@ -66,6 +67,9 @@ static NSString *const reuseId = @"TrainingListTableCell";
     return cell;
 }
 
+-(BOOL)tableView:(UITableView *)tableView shouldIndentWhileEditingRowAtIndexPath:(NSIndexPath *)indexPath{
+    return NO;
+}
 
 // Override to support conditional editing of the table view.
 //- (BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath {
