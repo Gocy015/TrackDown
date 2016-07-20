@@ -14,10 +14,10 @@
             buildForArchiving = "YES">
             <BuildableReference
                BuildableIdentifier = 'primary'
-               BlueprintIdentifier = 'BC33A50D14AE0479BF2FBCBB'
-               BlueprintName = 'Pods'
+               BlueprintIdentifier = '9AB7D6E35C9435EF02FDFE962BA03989'
+               BlueprintName = 'Pods-TrackDown'
                ReferencedContainer = 'container:Pods.xcodeproj'
-               BuildableName = 'Pods.framework'>
+               BuildableName = 'Pods-TrackDown.framework'>
             </BuildableReference>
          </BuildActionEntry>
       </BuildActionEntries>
