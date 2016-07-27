@@ -267,6 +267,7 @@ static NSString *const popVCId = @"PopTableViewController";
     titleLabel.text = _currentMuscle.muscle;
     titleLabel.textAlignment = NSTextAlignmentCenter;
     titleLabel.font = [UIFont systemFontOfSize:16 weight:4];
+    titleLabel.textColor = [UIColor whiteColor];
     [titleLabel sizeToFit];
     
     titleLabel.userInteractionEnabled = YES;

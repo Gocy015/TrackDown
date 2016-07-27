@@ -11,6 +11,7 @@
 #import "StoryboardManager.h"
 #import "WorkoutPlanningViewController.h"
 #import "TrainingViewController.h"
+#import "StatisticListViewController.h"
 
 @interface MainViewController ()<WorkoutPlanningDelegate>
 
@@ -18,13 +19,15 @@
 static NSString * const manageVCId = @"WorkoutMuscleViewController";
 static NSString * const planVCId = @"WorkoutPlanningViewController";
 static NSString * const trainVCId = @"TrainingViewController";
-
+static NSString * const statisticVCId = @"StatisticListViewController";
 
 @implementation MainViewController
 
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
+    
+    [self installNaviTitleView];
 }
 
 - (void)didReceiveMemoryWarning {
@@ -51,6 +54,10 @@ static NSString * const trainVCId = @"TrainingViewController";
     [self.navigationController pushViewController:pvc animated:YES];
 }
 
+- (IBAction)gotoStatistic:(id)sender {
+    StatisticListViewController *stat = [[StoryboardManager storyboardWithIdentifier:@"Statistic"] instantiateViewControllerWithIdentifier:statisticVCId];
+    [self.navigationController pushViewController:stat animated:YES];
+}
 
 #pragma mark - WorkoutPlanning Delegate
 
@@ -64,6 +71,18 @@ static NSString * const trainVCId = @"TrainingViewController";
         
         [self presentViewController:navi animated:YES completion:nil];
     }
+}
+
+#pragma mark - Helpers
+
+-(void)installNaviTitleView{
+    UILabel *label = [UILabel new];
+    label.font = [UIFont fontWithName:@"Avenir-BlackOblique" size:22];
+    label.text = @"Track Down";
+    label.textColor = [UIColor whiteColor];
+    [label sizeToFit];
+    
+    self.navigationItem.titleView = label;
 }
 
 @end

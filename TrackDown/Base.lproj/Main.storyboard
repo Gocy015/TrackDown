@@ -32,6 +32,13 @@
                                     <action selector="gotoPlan:" destination="3jB-R4-MAB" eventType="touchUpInside" id="kP0-Ik-eQ6"/>
                                 </connections>
                             </button>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="3x4-Nm-dRR">
+                                <rect key="frame" x="82" y="322" width="30" height="30"/>
+                                <state key="normal" title="记录"/>
+                                <connections>
+                                    <action selector="gotoStatistic:" destination="3jB-R4-MAB" eventType="touchUpInside" id="mpb-YY-Pv2"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     </view>
@@ -110,10 +117,10 @@
             </objects>
             <point key="canvasLocation" x="648" y="735"/>
         </scene>
-        <!--Navigation Controller-->
+        <!--Main Navigation Controller-->
         <scene sceneID="fBB-UG-vBR">
             <objects>
-                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="qTi-ig-gHB" sceneMemberID="viewController">
+                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="qTi-ig-gHB" customClass="MainNavigationController" sceneMemberID="viewController">
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="eP7-iS-iJD">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>

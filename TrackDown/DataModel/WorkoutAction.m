@@ -7,6 +7,14 @@
 //
 
 #import "WorkoutAction.h"
+#import "ExpandableObjectProtocol.h"
+
+
+@interface WorkoutAction () <ExpandableObject ,NSCopying>{
+    BOOL _opened;
+}
+
+@end
 
 @implementation WorkoutAction
 
@@ -15,7 +23,7 @@
         _actionName = [decoder decodeObjectForKey:@"actName"];
         _sets = [decoder decodeIntegerForKey:@"sets"];
         _weightPerSet = [decoder decodeObjectForKey:@"weightPerSet"];
-        _repeatsPerSet = [decoder decodeObjectForKey:@"repsPerSet"];
+        _repeatsPerSet = [decoder decodeObjectForKey:@"repsPerSet"]; 
     }
     return self;
 }
@@ -36,4 +44,43 @@
     }
 }
 
+-(id)copyWithZone:(NSZone *)zone{
+    WorkoutAction *act = [WorkoutAction new];
+    act.actionName = [_actionName copyWithZone:zone];
+    act.sets = _sets;
+    act.weightPerSet = [_weightPerSet mutableCopyWithZone:zone];
+    act.repeatsPerSet = [_repeatsPerSet mutableCopyWithZone:zone];
+    act.opened = _opened;
+    
+    return act;
+}
+
+#pragma mark - Expandable Object Protocol
+
+-(NSUInteger)countOfSecondaryObjects{
+    return self.sets;
+}
+
+-(NSArray *)descriptionForSecondaryObjects{
+    NSMutableArray *des = [NSMutableArray new];
+    
+    for (NSInteger i = 0; i < self.sets; ++i) {
+        NSString *str = [NSString stringWithFormat:@"第%lu组，负重%.2lfkg，完成%lu次",i+1,[_weightPerSet[i] doubleValue],[_repeatsPerSet[i] integerValue]];
+        [des addObject:str];
+    }
+    
+    return des;
+}
+
+-(NSString *)description{
+    return [NSString stringWithFormat:@"%@ x %lu 组",self.actionName,self.sets];
+}
+
+-(BOOL)opened{
+    return _opened;
+}
+
+-(void)setOpened:(BOOL)op{
+    _opened = op;
+}
 @end

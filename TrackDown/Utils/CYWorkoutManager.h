@@ -42,4 +42,10 @@ extern NSString *const n_DeleteActionSuccessNotification;
 
 -(void)didFinishWorkoutPlan:(NSArray <TargetMuscle *>*)workoutPlan;
 
+-(void)workoutRecordsForMonthInDate:(NSDate *)date completion:(void(^)(NSDictionary *))block;
+
+//...
+
+-(void)releaseRecordCache;
+
 @end

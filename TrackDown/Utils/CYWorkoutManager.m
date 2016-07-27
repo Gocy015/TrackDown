@@ -17,9 +17,12 @@
 
 #define m_fileManager [NSFileManager defaultManager]
 
+static const char *ioQueueIdentifier = "gocy.trackdown.io";
+
 @interface CYWorkoutManager()
 @property (nonatomic ,copy) NSString *libPath;
 @property (nonatomic ,copy) NSMutableArray *workoutTypes;
+@property (nonatomic) dispatch_queue_t ioQueue;
 
 @end
 
@@ -144,9 +147,12 @@ NSString *const n_DeleteActionSuccessNotification = @"n_DeleteActionSuccessNotif
 -(void)didFinishWorkoutPlan:(NSArray<TargetMuscle *> *)workoutPlan{
 //    [[CYDataBaseManager sharedManager] storeWorkoutPlan:[self mergeActionsWithSameMuscle:workoutPlan] forDate:[NSDate date]];
     
+    NSArray *arr = [[NSArray alloc] initWithArray:workoutPlan copyItems:YES];//avoid conflict
+    
     [[CYDataBaseManager sharedManager] storeWorkoutPlan:[self mergeConsecutiveMuscle:workoutPlan] forDate:[NSDate date]];
     
-    [[CYDataBaseManager sharedManager] storeStatistic:[self convertPlanIntoStatistics:workoutPlan] forDate:[NSDate date]];
+    [[CYDataBaseManager sharedManager] storeStatistic:[self convertPlanIntoStatistics:arr] forDate:[NSDate date]];
+     
 }
 
 
@@ -264,6 +270,8 @@ NSString *const n_DeleteActionSuccessNotification = @"n_DeleteActionSuccessNotif
     return nil;
 }
 
+
+
 #pragma mark - Memory Managing
 
 -(void)saveCurrentWorkoutToDisk{
@@ -271,8 +279,8 @@ NSString *const n_DeleteActionSuccessNotification = @"n_DeleteActionSuccessNotif
     if (!writeData) {
         return ;
     }
-    dispatch_queue_t fileQueue = dispatch_queue_create("gocy.workout.writefile", DISPATCH_QUEUE_CONCURRENT);
-    dispatch_async(fileQueue, ^{
+    
+    dispatch_async(self.ioQueue, ^{
         
         BOOL success = [writeData writeToFile:[self workoutTypePath] atomically:YES];
         
@@ -286,6 +294,27 @@ NSString *const n_DeleteActionSuccessNotification = @"n_DeleteActionSuccessNotif
         });
     });
     
+}
+
+-(void)workoutRecordsForMonthInDate:(NSDate *)date completion:(void (^)(NSDictionary *))block{
+    dispatch_async(self.ioQueue, ^{
+        NSDictionary *res = [[CYDataBaseManager sharedManager]queryWorkoutRecordsForMonth:date];
+        dispatch_async(dispatch_get_main_queue(), ^{
+            block(res);
+        });
+    });
+}
+
+-(void)releaseRecordCache{
+    [[CYDataBaseManager sharedManager] clearRecordsCache];
+}
+
+#pragma mark - Getters
+-(dispatch_queue_t)ioQueue{
+    if (!_ioQueue) {
+        _ioQueue = dispatch_queue_create(ioQueueIdentifier, DISPATCH_QUEUE_CONCURRENT);
+    }
+    return _ioQueue;
 }
 
 @end

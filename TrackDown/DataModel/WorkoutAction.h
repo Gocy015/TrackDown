@@ -14,5 +14,5 @@
 @property (nonatomic) NSMutableArray *weightPerSet;
 @property (nonatomic) NSUInteger sets;
 @property (nonatomic) NSMutableArray *repeatsPerSet;
-
+ 
 @end

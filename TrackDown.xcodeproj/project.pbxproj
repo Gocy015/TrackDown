@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		7B482C9F2A5ADE9DF6801D66 /* Pods_TrackDown.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6BE352800FFAC88126670760 /* Pods_TrackDown.framework */; };
 		C30C7B871D3DDB3800131A1D /* NoPasteTextField.m in Sources */ = {isa = PBXBuildFile; fileRef = C30C7B861D3DDB3800131A1D /* NoPasteTextField.m */; };
+		C32E342A1D474359001C1CA2 /* Statistic.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C32E34281D474359001C1CA2 /* Statistic.storyboard */; };
 		C34234DD1D35F0820014348A /* CYDataBaseManager.m in Sources */ = {isa = PBXBuildFile; fileRef = C34234DC1D35F0820014348A /* CYDataBaseManager.m */; };
 		C34234E01D361CE90014348A /* NSDate+Components.m in Sources */ = {isa = PBXBuildFile; fileRef = C34234DF1D361CE90014348A /* NSDate+Components.m */; };
 		C34234E31D363D830014348A /* TrainingViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C34234E21D363D830014348A /* TrainingViewController.m */; };
@@ -16,6 +17,14 @@
 		C354E28E1D3769230012633C /* ListCountButton.m in Sources */ = {isa = PBXBuildFile; fileRef = C354E28D1D3769230012633C /* ListCountButton.m */; };
 		C35CC5641D3A1CF000C6A7F6 /* TrainingListTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C35CC5621D3A1CF000C6A7F6 /* TrainingListTableViewController.m */; };
 		C35CC5651D3A1CF000C6A7F6 /* TrainingListTableViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = C35CC5631D3A1CF000C6A7F6 /* TrainingListTableViewController.xib */; };
+		C385F7821D41F3BF009A08C0 /* StatisticListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C385F7811D41F3BF009A08C0 /* StatisticListViewController.m */; };
+		C385F78D1D41F6CC009A08C0 /* ExpandableTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C385F78C1D41F6CC009A08C0 /* ExpandableTableViewController.m */; };
+		C385F7911D41F71E009A08C0 /* ExpandableTableView.xib in Resources */ = {isa = PBXBuildFile; fileRef = C385F7901D41F71E009A08C0 /* ExpandableTableView.xib */; };
+		C385F7941D41F89E009A08C0 /* ClickableHeaderView.m in Sources */ = {isa = PBXBuildFile; fileRef = C385F7931D41F89E009A08C0 /* ClickableHeaderView.m */; };
+		C3908C201D4890120082BFE1 /* RoundedButton.m in Sources */ = {isa = PBXBuildFile; fileRef = C3908C1F1D4890120082BFE1 /* RoundedButton.m */; };
+		C3908C231D48AC830082BFE1 /* BlankFooterView.m in Sources */ = {isa = PBXBuildFile; fileRef = C3908C221D48AC830082BFE1 /* BlankFooterView.m */; };
+		C3908C261D48B7F20082BFE1 /* MainNavigationController.m in Sources */ = {isa = PBXBuildFile; fileRef = C3908C251D48B7F20082BFE1 /* MainNavigationController.m */; };
+		C3908C291D48BC080082BFE1 /* UIViewController+NoBackTitle.m in Sources */ = {isa = PBXBuildFile; fileRef = C3908C281D48BC080082BFE1 /* UIViewController+NoBackTitle.m */; };
 		C39A8D581D33774B00FAF484 /* StoryboardManager.m in Sources */ = {isa = PBXBuildFile; fileRef = C39A8D571D33774B00FAF484 /* StoryboardManager.m */; };
 		C39A8D5B1D337A2E00FAF484 /* WorkoutActionViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C39A8D5A1D337A2E00FAF484 /* WorkoutActionViewController.m */; };
 		C39A8D5E1D3380CE00FAF484 /* AddWorkoutViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C39A8D5D1D3380CE00FAF484 /* AddWorkoutViewController.m */; };
@@ -47,6 +56,7 @@
 		921CE8EAE5EC1EC67D9518E0 /* Pods-TrackDown.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-TrackDown.release.xcconfig"; path = "Pods/Target Support Files/Pods-TrackDown/Pods-TrackDown.release.xcconfig"; sourceTree = "<group>"; };
 		C30C7B851D3DDB3800131A1D /* NoPasteTextField.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NoPasteTextField.h; sourceTree = "<group>"; };
 		C30C7B861D3DDB3800131A1D /* NoPasteTextField.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NoPasteTextField.m; sourceTree = "<group>"; };
+		C32E34291D474359001C1CA2 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Statistic.storyboard; sourceTree = "<group>"; };
 		C34234DB1D35F0820014348A /* CYDataBaseManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CYDataBaseManager.h; sourceTree = "<group>"; };
 		C34234DC1D35F0820014348A /* CYDataBaseManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CYDataBaseManager.m; sourceTree = "<group>"; };
 		C34234DE1D361CE90014348A /* NSDate+Components.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSDate+Components.h"; sourceTree = "<group>"; };
@@ -60,6 +70,22 @@
 		C35CC5611D3A1CF000C6A7F6 /* TrainingListTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TrainingListTableViewController.h; sourceTree = "<group>"; };
 		C35CC5621D3A1CF000C6A7F6 /* TrainingListTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TrainingListTableViewController.m; sourceTree = "<group>"; };
 		C35CC5631D3A1CF000C6A7F6 /* TrainingListTableViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = TrainingListTableViewController.xib; sourceTree = "<group>"; };
+		C385F7801D41F3BF009A08C0 /* StatisticListViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = StatisticListViewController.h; sourceTree = "<group>"; };
+		C385F7811D41F3BF009A08C0 /* StatisticListViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = StatisticListViewController.m; sourceTree = "<group>"; };
+		C385F78A1D41F625009A08C0 /* ExpandableObjectProtocol.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ExpandableObjectProtocol.h; sourceTree = "<group>"; };
+		C385F78B1D41F6CC009A08C0 /* ExpandableTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ExpandableTableViewController.h; sourceTree = "<group>"; };
+		C385F78C1D41F6CC009A08C0 /* ExpandableTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ExpandableTableViewController.m; sourceTree = "<group>"; };
+		C385F7901D41F71E009A08C0 /* ExpandableTableView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ExpandableTableView.xib; sourceTree = "<group>"; };
+		C385F7921D41F89E009A08C0 /* ClickableHeaderView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ClickableHeaderView.h; sourceTree = "<group>"; };
+		C385F7931D41F89E009A08C0 /* ClickableHeaderView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ClickableHeaderView.m; sourceTree = "<group>"; };
+		C3908C1E1D4890120082BFE1 /* RoundedButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RoundedButton.h; sourceTree = "<group>"; };
+		C3908C1F1D4890120082BFE1 /* RoundedButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RoundedButton.m; sourceTree = "<group>"; };
+		C3908C211D48AC830082BFE1 /* BlankFooterView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BlankFooterView.h; sourceTree = "<group>"; };
+		C3908C221D48AC830082BFE1 /* BlankFooterView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BlankFooterView.m; sourceTree = "<group>"; };
+		C3908C241D48B7F20082BFE1 /* MainNavigationController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MainNavigationController.h; sourceTree = "<group>"; };
+		C3908C251D48B7F20082BFE1 /* MainNavigationController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MainNavigationController.m; sourceTree = "<group>"; };
+		C3908C271D48BC080082BFE1 /* UIViewController+NoBackTitle.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIViewController+NoBackTitle.h"; sourceTree = "<group>"; };
+		C3908C281D48BC080082BFE1 /* UIViewController+NoBackTitle.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIViewController+NoBackTitle.m"; sourceTree = "<group>"; };
 		C39A8D561D33774B00FAF484 /* StoryboardManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = StoryboardManager.h; sourceTree = "<group>"; };
 		C39A8D571D33774B00FAF484 /* StoryboardManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = StoryboardManager.m; sourceTree = "<group>"; };
 		C39A8D591D337A2E00FAF484 /* WorkoutActionViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WorkoutActionViewController.h; sourceTree = "<group>"; };
@@ -133,6 +159,30 @@
 			name = Pods;
 			sourceTree = "<group>";
 		};
+		C385F77F1D41F362009A08C0 /* Statistic */ = {
+			isa = PBXGroup;
+			children = (
+				C385F7801D41F3BF009A08C0 /* StatisticListViewController.h */,
+				C385F7811D41F3BF009A08C0 /* StatisticListViewController.m */,
+			);
+			path = Statistic;
+			sourceTree = "<group>";
+		};
+		C385F7861D41F610009A08C0 /* ExpandableTableView */ = {
+			isa = PBXGroup;
+			children = (
+				C385F78A1D41F625009A08C0 /* ExpandableObjectProtocol.h */,
+				C385F78B1D41F6CC009A08C0 /* ExpandableTableViewController.h */,
+				C385F78C1D41F6CC009A08C0 /* ExpandableTableViewController.m */,
+				C385F7901D41F71E009A08C0 /* ExpandableTableView.xib */,
+				C385F7921D41F89E009A08C0 /* ClickableHeaderView.h */,
+				C385F7931D41F89E009A08C0 /* ClickableHeaderView.m */,
+				C3908C211D48AC830082BFE1 /* BlankFooterView.h */,
+				C3908C221D48AC830082BFE1 /* BlankFooterView.m */,
+			);
+			path = ExpandableTableView;
+			sourceTree = "<group>";
+		};
 		C39A8D601D3394CE00FAF484 /* Extensions */ = {
 			isa = PBXGroup;
 			children = (
@@ -142,6 +192,8 @@
 				C3C05D021D34EE640021C407 /* UIImage+Resize.m */,
 				C34234DE1D361CE90014348A /* NSDate+Components.h */,
 				C34234DF1D361CE90014348A /* NSDate+Components.m */,
+				C3908C271D48BC080082BFE1 /* UIViewController+NoBackTitle.h */,
+				C3908C281D48BC080082BFE1 /* UIViewController+NoBackTitle.m */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -205,6 +257,7 @@
 				C3AA378E1D30F3E100D5930E /* Main.storyboard */,
 				C3C05CE81D3485AF0021C407 /* Management.storyboard */,
 				C3C05CEB1D3486DA0021C407 /* Training.storyboard */,
+				C32E34281D474359001C1CA2 /* Statistic.storyboard */,
 				C3AA37911D30F3E100D5930E /* Assets.xcassets */,
 				C3AA37931D30F3E100D5930E /* LaunchScreen.storyboard */,
 			);
@@ -250,11 +303,14 @@
 		C3AA37BE1D310C6700D5930E /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				C385F77F1D41F362009A08C0 /* Statistic */,
 				C3C05CF21D3499CE0021C407 /* CustomViews */,
 				C3C05CEE1D3486F00021C407 /* Training */,
 				C3AA37BF1D310C6700D5930E /* Management */,
 				C3AA37C31D3112DB00D5930E /* MainViewController.h */,
 				C3AA37C41D3112DB00D5930E /* MainViewController.m */,
+				C3908C241D48B7F20082BFE1 /* MainNavigationController.h */,
+				C3908C251D48B7F20082BFE1 /* MainNavigationController.m */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -289,6 +345,7 @@
 		C3C05CF21D3499CE0021C407 /* CustomViews */ = {
 			isa = PBXGroup;
 			children = (
+				C385F7861D41F610009A08C0 /* ExpandableTableView */,
 				C3C05CF61D34D3C40021C407 /* PopTableViewController.h */,
 				C3C05CF71D34D3C40021C407 /* PopTableViewController.m */,
 				C3C05CFB1D34D5270021C407 /* CheckboxTableViewCell.h */,
@@ -297,6 +354,8 @@
 				C354E28D1D3769230012633C /* ListCountButton.m */,
 				C30C7B851D3DDB3800131A1D /* NoPasteTextField.h */,
 				C30C7B861D3DDB3800131A1D /* NoPasteTextField.m */,
+				C3908C1E1D4890120082BFE1 /* RoundedButton.h */,
+				C3908C1F1D4890120082BFE1 /* RoundedButton.m */,
 			);
 			path = CustomViews;
 			sourceTree = "<group>";
@@ -366,9 +425,11 @@
 				C3C05CED1D3486DA0021C407 /* Training.storyboard in Resources */,
 				C3C05CEA1D3485AF0021C407 /* Management.storyboard in Resources */,
 				C3AA37951D30F3E100D5930E /* LaunchScreen.storyboard in Resources */,
+				C32E342A1D474359001C1CA2 /* Statistic.storyboard in Resources */,
 				C3AA37921D30F3E100D5930E /* Assets.xcassets in Resources */,
 				C3AA37901D30F3E100D5930E /* Main.storyboard in Resources */,
 				C3AA37BD1D3105B500D5930E /* workouts.json in Resources */,
+				C385F7911D41F71E009A08C0 /* ExpandableTableView.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -429,33 +490,48 @@
 			files = (
 				C39A8D5B1D337A2E00FAF484 /* WorkoutActionViewController.m in Sources */,
 				C3C05CF11D348B2A0021C407 /* WorkoutPlanningViewController.m in Sources */,
+				C3908C201D4890120082BFE1 /* RoundedButton.m in Sources */,
 				C34234E01D361CE90014348A /* NSDate+Components.m in Sources */,
 				C34234DD1D35F0820014348A /* CYDataBaseManager.m in Sources */,
+				C3908C261D48B7F20082BFE1 /* MainNavigationController.m in Sources */,
 				C3AA37B41D30FEED00D5930E /* WorkoutAction.m in Sources */,
 				C30C7B871D3DDB3800131A1D /* NoPasteTextField.m in Sources */,
 				C35CC5641D3A1CF000C6A7F6 /* TrainingListTableViewController.m in Sources */,
 				C39A8D581D33774B00FAF484 /* StoryboardManager.m in Sources */,
 				C3AA378A1D30F3E100D5930E /* AppDelegate.m in Sources */,
+				C3908C231D48AC830082BFE1 /* BlankFooterView.m in Sources */,
 				C3AA37C21D310C7B00D5930E /* WorkoutMuscleViewController.m in Sources */,
 				C3AA37C51D3112DB00D5930E /* MainViewController.m in Sources */,
 				C3AA37871D30F3E100D5930E /* main.m in Sources */,
 				C3AA37B11D30FECE00D5930E /* TargetMuscle.m in Sources */,
 				C354E28E1D3769230012633C /* ListCountButton.m in Sources */,
+				C385F7941D41F89E009A08C0 /* ClickableHeaderView.m in Sources */,
 				C3C05D031D34EE640021C407 /* UIImage+Resize.m in Sources */,
 				C3C05CF91D34D3C40021C407 /* PopTableViewController.m in Sources */,
 				C3AA37BA1D31013200D5930E /* CYWorkoutDataParser.m in Sources */,
+				C3908C291D48BC080082BFE1 /* UIViewController+NoBackTitle.m in Sources */,
 				C39A8D631D3394F200FAF484 /* NSArray+Map.m in Sources */,
 				C39A8D5E1D3380CE00FAF484 /* AddWorkoutViewController.m in Sources */,
+				C385F7821D41F3BF009A08C0 /* StatisticListViewController.m in Sources */,
 				C34234E61D3648640014348A /* WorkoutStatistic.m in Sources */,
 				C3AA37AD1D30FE2500D5930E /* CYWorkoutManager.m in Sources */,
 				C3C05CFD1D34D5270021C407 /* CheckboxTableViewCell.m in Sources */,
 				C34234E31D363D830014348A /* TrainingViewController.m in Sources */,
+				C385F78D1D41F6CC009A08C0 /* ExpandableTableViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXVariantGroup section */
+		C32E34281D474359001C1CA2 /* Statistic.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				C32E34291D474359001C1CA2 /* Base */,
+			);
+			name = Statistic.storyboard;
+			sourceTree = "<group>";
+		};
 		C3AA378E1D30F3E100D5930E /* Main.storyboard */ = {
 			isa = PBXVariantGroup;
 			children = (

@@ -14,5 +14,6 @@
 
 @property (nonatomic ,copy) NSString *muscle;
 @property (nonatomic ,strong) NSMutableArray <__kindof WorkoutAction *> *actions;
+ 
 
 @end

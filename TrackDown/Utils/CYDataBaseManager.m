@@ -18,6 +18,7 @@
 @interface CYDataBaseManager ()
 
 @property (nonatomic ,strong) NSString *libPath;
+@property (nonatomic ,strong) NSMutableDictionary *recordCache;
 
 @end
 
@@ -55,6 +56,7 @@ static NSString * const statCount = @"count";
     if (self = [super init]) {
         [self createDataBaseDirIfNeeded];
         [self createCurrentMonthDirIfNeeded];
+        _recordCache = [NSMutableDictionary new];
     }
     return self;
 }
@@ -123,7 +125,49 @@ static NSString * const statCount = @"count";
 }
 
 
+-(NSDictionary *)queryWorkoutRecordsForMonth:(NSDate *)date{
+    if ([_recordCache objectForKey:[self keyForDate:date]] != nil) {
+//TODO: 缓存清理机制
+        return [_recordCache objectForKey:[self keyForDate:date]];
+    }
+    FMDatabase *db = [self recordsDatabaseForMonthInDate:date];
+    NSMutableDictionary *records = [NSMutableDictionary new];
+    if ([db open]) {
+        NSString *query = [NSString stringWithFormat:@"SELECT * from %@",recordTable];
+        FMResultSet *set = [db executeQuery:query];
+        while (set.next) {
+            /*
+             static NSString * const recordDate = @"date";
+             static NSString * const recordMuscle = @"muscle";
+             static NSString * const recordData = @"data";
+             */
+            NSUInteger day = [set unsignedLongLongIntForColumn:recordDate];
+            if (records[@(day)] == nil) {
+                NSMutableDictionary *dic = [NSMutableDictionary new];
+                records[@(day)] = dic;
+            }
+            NSMutableDictionary *dic = records[@(day)];
+            NSData *muscleData = [set dataForColumn:recordData];
+            TargetMuscle *m = [NSKeyedUnarchiver unarchiveObjectWithData:muscleData];
+            if ([dic objectForKey:m.muscle] != nil) {
+                TargetMuscle *mInDic = [dic objectForKey:m.muscle];
+                [mInDic.actions addObjectsFromArray:m.actions];
+            }else{
+                [dic setObject:m forKey:m.muscle];
+            }
+        }
+        [db close];
+    }
+    
+    [_recordCache setObject:records forKey:[self keyForDate:date]];
+    return records;
+}
+
 #pragma mark - Helpers
+
+-(void)clearRecordsCache{
+    [_recordCache removeAllObjects];
+}
 
 
 -(BOOL)storePlanForRecords:(NSArray<TargetMuscle *> *)plan forDate:(NSDate *)date{
@@ -214,7 +258,6 @@ static NSString * const statCount = @"count";
                     
                     [s.data setObject:@(weight) forKey:key_weight];
                     
-                    
                 }else{
                     //action
                     
@@ -294,6 +337,7 @@ static NSString * const statCount = @"count";
 }
 
 
+
 -(NSString *)pathForCurrentMonth{
     return [self pathForMonthInDate:[NSDate date]];
 }
@@ -346,7 +390,9 @@ static NSString * const statCount = @"count";
 }
 
 
-
+-(NSString *)keyForDate:(NSDate *)date{
+    return [NSString stringWithFormat:@"%li-%li-%li",[date year],[date month],[date day]];
+}
 
 //-(void)test{
 //    NSString *testdb = @"test.db";

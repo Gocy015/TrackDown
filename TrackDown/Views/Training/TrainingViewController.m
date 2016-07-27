@@ -14,6 +14,9 @@
 #import "ListCountButton.h"
 #import "SDVersion.h"
 #import "UCZProgressView.h"
+#import "RoundedButton.h"
+#import "ExpandableTableViewController.h"
+#import "Masonry.h"
 
 @interface TrainingViewController () <TrainingListViewDelegate,UIPopoverPresentationControllerDelegate ,UITextFieldDelegate>{
     NSUInteger _muscleIndex;
@@ -36,6 +39,15 @@
 
 @property (nonatomic ,strong) CADisplayLink *countDownLink;
 
+
+//complete view
+@property (weak, nonatomic) IBOutlet UIView *completeView;
+@property (nonatomic ,weak) ExpandableTableViewController *doneTableVC;
+@property (weak, nonatomic) IBOutlet UILabel *doneLabel;
+@property (weak, nonatomic) IBOutlet RoundedButton *doneButton;
+
+
+
 @end
 
 @implementation TrainingViewController
@@ -51,10 +63,11 @@
     
     self.title = @"训练!";
     [self installNaviItems];
+    [self constructCompleteView];
     [self initNotifications];
     [self configTextFields];
     
-    _expectedRestTime = 10;
+    _expectedRestTime = 0.5;
     _frameRate = 30;
 //    _progressView.blurEffect = [UIBlurEffect effectWithStyle:UIBlurEffectStyleDark];
     _restView.alpha = 0;
@@ -121,6 +134,9 @@
     //TODO: Alert
     [self.presentingViewController dismissViewControllerAnimated:YES completion:nil];
 }
+- (IBAction)goHome:(id)sender {
+    [self endTraining];
+}
 - (IBAction)skipRest:(id)sender {
     [self endCountDown];
 }
@@ -128,6 +144,8 @@
 - (IBAction)nextMove:(id)sender {
     
     if ([self verifyUserInput]) {
+        [_currentAction.weightPerSet addObject:@([_weightTextField.text doubleValue])];
+        [_currentAction.repeatsPerSet addObject:@([_repsTextField.text doubleValue])];
         [self startCountDown:^(BOOL started) {
             if (started) {
                 [self updateUI];
@@ -194,6 +212,12 @@
 }
 
 -(BOOL)verifyUserInput{
+    if ([_weightTextField.text length] <= 0) {
+        return NO;
+    }
+    if ([_repsTextField.text length] <= 0) {
+        return NO;
+    }
     return YES;
 }
 
@@ -244,7 +268,7 @@
         self.currentWorkoutLabel.text = [NSString stringWithFormat:@"%@(%li/%li)",_currentAction.actionName,(unsigned long)_setCount,(unsigned long)_currentAction.sets];
     }
     else{
-        self.currentWorkoutLabel.text = @"训练结束";
+        [self workoutComplete];
     }
 }
 
@@ -367,6 +391,30 @@
     
 }
 
+-(void)constructCompleteView{
+    ExpandableTableViewController *tbvc = [ExpandableTableViewController new];
+    UIView *v = tbvc.view;
+    
+    [self addChildViewController:tbvc];
+    [self.completeView addSubview:v];
+    
+    _doneTableVC = tbvc;
+    
+    UIView *superview = self.completeView;
+    UIView *ceil = _doneLabel;
+    UIView *floor = _doneButton;
+    
+    [v mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.top.equalTo(ceil.mas_bottom).offset(20);
+        make.bottom.equalTo(floor.mas_top).offset(-20);
+        make.leading.equalTo(superview).offset(10);
+        make.trailing.equalTo(superview).offset(-10);
+    }];
+    
+    self.completeView.hidden = YES;
+
+}
+
 -(void)installNaviItems{
     
     //    UIImage *img = [UIImage imageNamed:@"list"];
@@ -395,7 +443,18 @@
 }
 
 
-
+-(void)workoutComplete{
+    [[CYWorkoutManager sharedManager] didFinishWorkoutPlan:[[NSArray alloc] initWithArray:self.plan copyItems:YES]];
+    
+    //show workout complete view
+    NSMutableArray *acts = [NSMutableArray new];
+    for (TargetMuscle *m in self.plan) {
+        [acts addObjectsFromArray:m.actions];
+    }
+    _doneTableVC.data = [NSArray arrayWithArray:acts];
+    
+    self.completeView.hidden = NO;
+}
 
 
 -(void)log:(NSArray <TargetMuscle *> *)arr{
