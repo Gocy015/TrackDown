@@ -12,6 +12,8 @@
 #import "WorkoutPlanningViewController.h"
 #import "TrainingViewController.h"
 #import "StatisticListViewController.h"
+#import "MainNavigationController.h"
+#import "SettingsListViewController.h"
 
 @interface MainViewController ()<WorkoutPlanningDelegate>
 
@@ -20,6 +22,7 @@ static NSString * const manageVCId = @"WorkoutMuscleViewController";
 static NSString * const planVCId = @"WorkoutPlanningViewController";
 static NSString * const trainVCId = @"TrainingViewController";
 static NSString * const statisticVCId = @"StatisticListViewController";
+static NSString * const settingsVCId = @"SettingsListViewController";
 
 @implementation MainViewController
 
@@ -59,6 +62,10 @@ static NSString * const statisticVCId = @"StatisticListViewController";
     [self.navigationController pushViewController:stat animated:YES];
 }
 
+- (IBAction)gotoSettings:(id)sender {
+    SettingsListViewController *svc = [[StoryboardManager storyboardWithIdentifier:@"Settings"] instantiateViewControllerWithIdentifier:settingsVCId];
+    [self.navigationController pushViewController:svc animated:YES];
+}
 #pragma mark - WorkoutPlanning Delegate
 
 -(void)didFinishPlanningWorkout:(NSArray<TargetMuscle *> *)plan{
@@ -66,7 +73,7 @@ static NSString * const statisticVCId = @"StatisticListViewController";
         [self.navigationController popViewControllerAnimated:YES];
         TrainingViewController *trainVC = [[StoryboardManager storyboardWithIdentifier:@"Training"] instantiateViewControllerWithIdentifier:trainVCId];
         trainVC.plan = [NSMutableArray arrayWithArray:plan];
-        UINavigationController *navi = [[UINavigationController alloc]initWithRootViewController:trainVC];
+        UINavigationController *navi = [[MainNavigationController alloc]initWithRootViewController:trainVC];
         
         
         [self presentViewController:navi animated:YES completion:nil];

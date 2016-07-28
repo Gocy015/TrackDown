@@ -48,4 +48,10 @@ extern NSString *const n_DeleteActionSuccessNotification;
 
 -(void)releaseRecordCache;
 
+
+//time break
+
+-(NSUInteger)getTimeBreak;
+-(void)setTimeBreak:(NSUInteger)time;
+
 @end

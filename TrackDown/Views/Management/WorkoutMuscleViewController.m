@@ -111,6 +111,10 @@ static NSString * const addVCId = @"AddWorkoutViewController";
     
     TargetMuscle *muscle = [[[CYWorkoutManager sharedManager] getCurrentWorkoutTypes] objectAtIndex:indexPath.row];
     
+    cell.textLabel.font = [UIFont systemFontOfSize:15 weight:UIFontWeightLight];
+    
+    cell.textLabel.textColor = [UIColor darkGrayColor];
+    
     cell.textLabel.text = muscle.muscle;
     
     return cell;

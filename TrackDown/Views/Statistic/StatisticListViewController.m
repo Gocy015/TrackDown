@@ -35,11 +35,12 @@
     
     self.calendar.delegate = self;
     self.calendar.dataSource = self;
-    
+     
     // 和谐掉默认选择今天
     self.calendar.appearance.todayColor = nil;
     self.calendar.appearance.titleTodayColor = [UIColor blackColor];
     self.calendar.appearance.subtitleTodayColor = [UIColor darkGrayColor];
+    
     
     [self constructTableView];
     [self loadRecords];

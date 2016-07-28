@@ -33,6 +33,8 @@ NSString *const n_DeleteMuscleSuccessNotification = @"n_DeleteMuscleSuccessNotif
 NSString *const n_AddActionSuccessNotification = @"n_AddActionSuccessNotification";
 NSString *const n_DeleteActionSuccessNotification = @"n_DeleteActionSuccessNotification";
 
+static NSString * const Key_TimeBreak = @"TrackDown_TimeBreak";
+
 @implementation CYWorkoutManager
 
 
@@ -48,7 +50,7 @@ NSString *const n_DeleteActionSuccessNotification = @"n_DeleteActionSuccessNotif
     return s_manager;
 }
 
-
+#pragma mark - Life Cycle
 
 #pragma mark - Instance Method
 -(void)createWorkoutTypesIfNeeded{
@@ -307,6 +309,27 @@ NSString *const n_DeleteActionSuccessNotification = @"n_DeleteActionSuccessNotif
 
 -(void)releaseRecordCache{
     [[CYDataBaseManager sharedManager] clearRecordsCache];
+}
+
+
+-(NSUInteger)getTimeBreak{
+    
+    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+    if ([defaults objectForKey:Key_TimeBreak]) {
+        return [[defaults objectForKey:Key_TimeBreak] integerValue];
+    }
+    //
+    [self setTimeBreak:60];//default value;
+    return 60;
+}
+
+
+-(void)setTimeBreak:(NSUInteger)time{
+    
+    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+    [defaults setObject:@(time) forKey:Key_TimeBreak];
+    [defaults synchronize];
+    
 }
 
 #pragma mark - Getters

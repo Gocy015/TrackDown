@@ -113,6 +113,10 @@ static NSString * const addVCId = @"AddWorkoutViewController";
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:reuseId];
     WorkoutAction *act = self.muscle.actions[indexPath.row];
     
+    cell.textLabel.font = [UIFont systemFontOfSize:15 weight:UIFontWeightLight];
+    
+    cell.textLabel.textColor = [UIColor darkGrayColor];
+    
     cell.textLabel.text = act.actionName;
     
     return cell;

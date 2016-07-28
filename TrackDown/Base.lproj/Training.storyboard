@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="10116" systemVersion="15D21" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
     <dependencies>
-        <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="10085"/>
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
         <capability name="Constraints with non-1.0 multipliers" minToolsVersion="5.1"/>
@@ -23,28 +22,59 @@
                                 <rect key="frame" x="30" y="180" width="541" height="210"/>
                             </pickerView>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="p1Z-8v-Js4">
-                                <rect key="frame" x="285" y="435" width="30" height="30"/>
-                                <state key="normal" title="添加"/>
+                                <rect key="frame" x="284" y="435" width="32" height="32"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="16"/>
+                                <state key="normal" title="添加">
+                                    <color key="titleColor" red="0.11862943500000001" green="0.45220682470000001" blue="0.85763221150000002" alpha="1" colorSpace="calibratedRGB"/>
+                                </state>
                                 <connections>
                                     <action selector="addAction:" destination="fQR-rl-Per" eventType="touchUpInside" id="u7v-pB-Rn3"/>
                                 </connections>
                             </button>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="eWE-Zd-GQe">
-                                <rect key="frame" x="245" y="500" width="110" height="39"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="22"/>
-                                <state key="normal" title="开始训练！"/>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="eWE-Zd-GQe" customClass="RoundedButton">
+                                <rect key="frame" x="210" y="502" width="180" height="40"/>
+                                <color key="backgroundColor" red="0.11862943500000001" green="0.45220682470000001" blue="0.85763221150000002" alpha="1" colorSpace="calibratedRGB"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="180" id="GRc-rx-54X"/>
+                                    <constraint firstAttribute="height" constant="40" id="fDO-sF-MPS"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" type="boldSystem" pointSize="20"/>
+                                <state key="normal" title="开始训练!">
+                                    <color key="titleColor" red="0.96862745100000003" green="0.96862745100000003" blue="0.96862745100000003" alpha="1" colorSpace="calibratedRGB"/>
+                                </state>
+                                <userDefinedRuntimeAttributes>
+                                    <userDefinedRuntimeAttribute type="color" keyPath="borderColor">
+                                        <color key="value" red="0.11862943500000001" green="0.45220682470000001" blue="0.85763221150000002" alpha="1" colorSpace="calibratedRGB"/>
+                                    </userDefinedRuntimeAttribute>
+                                    <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
+                                        <real key="value" value="20"/>
+                                    </userDefinedRuntimeAttribute>
+                                    <userDefinedRuntimeAttribute type="number" keyPath="borderWidth">
+                                        <real key="value" value="1"/>
+                                    </userDefinedRuntimeAttribute>
+                                </userDefinedRuntimeAttributes>
                                 <connections>
                                     <action selector="beginTrainning:" destination="fQR-rl-Per" eventType="touchUpInside" id="MJB-1l-24k"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Tkz-Yv-H1Y">
+                                <rect key="frame" x="366" y="437" width="98" height="29"/>
+                                <fontDescription key="fontDescription" type="system" weight="thin" pointSize="14"/>
+                                <state key="normal" title="设置组间歇时间"/>
+                                <connections>
+                                    <action selector="setTimeBreak:" destination="fQR-rl-Per" eventType="touchUpInside" id="Is2-BV-P6Q"/>
                                 </connections>
                             </button>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
                             <constraint firstItem="eWE-Zd-GQe" firstAttribute="top" secondItem="p1Z-8v-Js4" secondAttribute="bottom" constant="35" id="MY9-fC-L7n"/>
+                            <constraint firstItem="Tkz-Yv-H1Y" firstAttribute="centerY" secondItem="p1Z-8v-Js4" secondAttribute="centerY" id="NZ6-X2-krD"/>
                             <constraint firstItem="sDX-52-fqk" firstAttribute="height" secondItem="el1-sa-hc3" secondAttribute="height" multiplier="0.35" id="XRb-Ba-OVW"/>
                             <constraint firstItem="sDX-52-fqk" firstAttribute="centerX" secondItem="el1-sa-hc3" secondAttribute="centerX" id="YNj-zK-lwc"/>
                             <constraint firstItem="p1Z-8v-Js4" firstAttribute="centerX" secondItem="el1-sa-hc3" secondAttribute="centerX" id="cUb-WQ-Ue2"/>
                             <constraint firstItem="eWE-Zd-GQe" firstAttribute="centerX" secondItem="p1Z-8v-Js4" secondAttribute="centerX" id="rsO-b6-D3a"/>
+                            <constraint firstItem="Tkz-Yv-H1Y" firstAttribute="leading" secondItem="p1Z-8v-Js4" secondAttribute="trailing" constant="50" id="ug6-a7-5sW"/>
                             <constraint firstItem="sDX-52-fqk" firstAttribute="width" secondItem="el1-sa-hc3" secondAttribute="width" multiplier="0.9" constant="1" id="xxS-y7-L7f"/>
                             <constraint firstItem="p1Z-8v-Js4" firstAttribute="top" secondItem="sDX-52-fqk" secondAttribute="bottom" constant="45" id="y0l-YS-Bc2"/>
                             <constraint firstItem="sDX-52-fqk" firstAttribute="centerY" secondItem="el1-sa-hc3" secondAttribute="centerY" multiplier="0.95" id="yLt-k3-Q9d"/>
@@ -53,6 +83,7 @@
                     <connections>
                         <outlet property="actionPicker" destination="sDX-52-fqk" id="zq8-w9-Nyr"/>
                         <outlet property="addButton" destination="p1Z-8v-Js4" id="gLp-lW-Rn7"/>
+                        <outlet property="timeBreakButton" destination="Tkz-Yv-H1Y" id="rmE-uU-Bu9"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="rKu-0X-Wxd" userLabel="First Responder" sceneMemberID="firstResponder"/>

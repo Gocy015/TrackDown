@@ -25,4 +25,10 @@
     return self;
 }
 
+
+
+-(void)setBgColor:(UIColor *)c{
+    self.contentView.backgroundColor = c;
+}
+
 @end

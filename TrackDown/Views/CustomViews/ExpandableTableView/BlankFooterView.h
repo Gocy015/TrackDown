@@ -10,4 +10,6 @@
 
 @interface BlankFooterView : UITableViewHeaderFooterView
 
+-(void)setBgColor:(UIColor *)c;
+
 @end

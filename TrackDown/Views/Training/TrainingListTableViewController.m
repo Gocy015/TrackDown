@@ -61,7 +61,7 @@ static NSString *const reuseId = @"TrainingListTableCell";
     }
     else if(indexPath.row == _currentIndex){
         
-        [cell.textLabel setTextColor:[UIColor blueColor]];
+        [cell.textLabel setTextColor:[UIColor colorWithRed:5.0/255 green:135.0/255 blue:179.0/255 alpha:1]];
     }
     
     return cell;

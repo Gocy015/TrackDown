@@ -14,9 +14,16 @@
 		C34234E01D361CE90014348A /* NSDate+Components.m in Sources */ = {isa = PBXBuildFile; fileRef = C34234DF1D361CE90014348A /* NSDate+Components.m */; };
 		C34234E31D363D830014348A /* TrainingViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C34234E21D363D830014348A /* TrainingViewController.m */; };
 		C34234E61D3648640014348A /* WorkoutStatistic.m in Sources */ = {isa = PBXBuildFile; fileRef = C34234E51D3648640014348A /* WorkoutStatistic.m */; };
+		C34C95E91D499D2B00E7F5B2 /* Settings.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C34C95E71D499D2B00E7F5B2 /* Settings.storyboard */; };
+		C34C95ED1D49A04100E7F5B2 /* SettingsListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C34C95EC1D49A04100E7F5B2 /* SettingsListViewController.m */; };
+		C34C95F11D49A33800E7F5B2 /* SettingsCell.m in Sources */ = {isa = PBXBuildFile; fileRef = C34C95EF1D49A33800E7F5B2 /* SettingsCell.m */; };
+		C34C95F21D49A33800E7F5B2 /* SettingsCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = C34C95F01D49A33800E7F5B2 /* SettingsCell.xib */; };
+		C34C95F51D49A63F00E7F5B2 /* SettingsInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = C34C95F41D49A63F00E7F5B2 /* SettingsInfo.m */; };
+		C34C95F81D49A94600E7F5B2 /* SettingsManager.m in Sources */ = {isa = PBXBuildFile; fileRef = C34C95F71D49A94600E7F5B2 /* SettingsManager.m */; };
 		C354E28E1D3769230012633C /* ListCountButton.m in Sources */ = {isa = PBXBuildFile; fileRef = C354E28D1D3769230012633C /* ListCountButton.m */; };
 		C35CC5641D3A1CF000C6A7F6 /* TrainingListTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C35CC5621D3A1CF000C6A7F6 /* TrainingListTableViewController.m */; };
 		C35CC5651D3A1CF000C6A7F6 /* TrainingListTableViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = C35CC5631D3A1CF000C6A7F6 /* TrainingListTableViewController.xib */; };
+		C37102061D49E0780037C877 /* TimeBreakViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C37102051D49E0780037C877 /* TimeBreakViewController.m */; };
 		C385F7821D41F3BF009A08C0 /* StatisticListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C385F7811D41F3BF009A08C0 /* StatisticListViewController.m */; };
 		C385F78D1D41F6CC009A08C0 /* ExpandableTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C385F78C1D41F6CC009A08C0 /* ExpandableTableViewController.m */; };
 		C385F7911D41F71E009A08C0 /* ExpandableTableView.xib in Resources */ = {isa = PBXBuildFile; fileRef = C385F7901D41F71E009A08C0 /* ExpandableTableView.xib */; };
@@ -65,11 +72,23 @@
 		C34234E21D363D830014348A /* TrainingViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TrainingViewController.m; sourceTree = "<group>"; };
 		C34234E41D3648640014348A /* WorkoutStatistic.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WorkoutStatistic.h; sourceTree = "<group>"; };
 		C34234E51D3648640014348A /* WorkoutStatistic.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WorkoutStatistic.m; sourceTree = "<group>"; };
+		C34C95E81D499D2B00E7F5B2 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Settings.storyboard; sourceTree = "<group>"; };
+		C34C95EB1D49A04100E7F5B2 /* SettingsListViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SettingsListViewController.h; sourceTree = "<group>"; };
+		C34C95EC1D49A04100E7F5B2 /* SettingsListViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SettingsListViewController.m; sourceTree = "<group>"; };
+		C34C95EE1D49A33800E7F5B2 /* SettingsCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SettingsCell.h; sourceTree = "<group>"; };
+		C34C95EF1D49A33800E7F5B2 /* SettingsCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SettingsCell.m; sourceTree = "<group>"; };
+		C34C95F01D49A33800E7F5B2 /* SettingsCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SettingsCell.xib; sourceTree = "<group>"; };
+		C34C95F31D49A63F00E7F5B2 /* SettingsInfo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SettingsInfo.h; sourceTree = "<group>"; };
+		C34C95F41D49A63F00E7F5B2 /* SettingsInfo.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SettingsInfo.m; sourceTree = "<group>"; };
+		C34C95F61D49A94600E7F5B2 /* SettingsManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SettingsManager.h; sourceTree = "<group>"; };
+		C34C95F71D49A94600E7F5B2 /* SettingsManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SettingsManager.m; sourceTree = "<group>"; };
 		C354E28C1D3769230012633C /* ListCountButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ListCountButton.h; sourceTree = "<group>"; };
 		C354E28D1D3769230012633C /* ListCountButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ListCountButton.m; sourceTree = "<group>"; };
 		C35CC5611D3A1CF000C6A7F6 /* TrainingListTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TrainingListTableViewController.h; sourceTree = "<group>"; };
 		C35CC5621D3A1CF000C6A7F6 /* TrainingListTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TrainingListTableViewController.m; sourceTree = "<group>"; };
 		C35CC5631D3A1CF000C6A7F6 /* TrainingListTableViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = TrainingListTableViewController.xib; sourceTree = "<group>"; };
+		C37102041D49E0780037C877 /* TimeBreakViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TimeBreakViewController.h; sourceTree = "<group>"; };
+		C37102051D49E0780037C877 /* TimeBreakViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TimeBreakViewController.m; sourceTree = "<group>"; };
 		C385F7801D41F3BF009A08C0 /* StatisticListViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = StatisticListViewController.h; sourceTree = "<group>"; };
 		C385F7811D41F3BF009A08C0 /* StatisticListViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = StatisticListViewController.m; sourceTree = "<group>"; };
 		C385F78A1D41F625009A08C0 /* ExpandableObjectProtocol.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ExpandableObjectProtocol.h; sourceTree = "<group>"; };
@@ -157,6 +176,20 @@
 				921CE8EAE5EC1EC67D9518E0 /* Pods-TrackDown.release.xcconfig */,
 			);
 			name = Pods;
+			sourceTree = "<group>";
+		};
+		C34C95EA1D49A02F00E7F5B2 /* Settings */ = {
+			isa = PBXGroup;
+			children = (
+				C34C95EB1D49A04100E7F5B2 /* SettingsListViewController.h */,
+				C34C95EC1D49A04100E7F5B2 /* SettingsListViewController.m */,
+				C34C95EE1D49A33800E7F5B2 /* SettingsCell.h */,
+				C34C95EF1D49A33800E7F5B2 /* SettingsCell.m */,
+				C34C95F01D49A33800E7F5B2 /* SettingsCell.xib */,
+				C37102041D49E0780037C877 /* TimeBreakViewController.h */,
+				C37102051D49E0780037C877 /* TimeBreakViewController.m */,
+			);
+			path = Settings;
 			sourceTree = "<group>";
 		};
 		C385F77F1D41F362009A08C0 /* Statistic */ = {
@@ -258,6 +291,7 @@
 				C3C05CE81D3485AF0021C407 /* Management.storyboard */,
 				C3C05CEB1D3486DA0021C407 /* Training.storyboard */,
 				C32E34281D474359001C1CA2 /* Statistic.storyboard */,
+				C34C95E71D499D2B00E7F5B2 /* Settings.storyboard */,
 				C3AA37911D30F3E100D5930E /* Assets.xcassets */,
 				C3AA37931D30F3E100D5930E /* LaunchScreen.storyboard */,
 			);
@@ -275,6 +309,8 @@
 				C34234DB1D35F0820014348A /* CYDataBaseManager.h */,
 				C34234DC1D35F0820014348A /* CYDataBaseManager.m */,
 				C3AA37AC1D30FE2500D5930E /* PathDefines.h */,
+				C34C95F61D49A94600E7F5B2 /* SettingsManager.h */,
+				C34C95F71D49A94600E7F5B2 /* SettingsManager.m */,
 			);
 			path = Utils;
 			sourceTree = "<group>";
@@ -288,6 +324,8 @@
 				C3AA37B31D30FEED00D5930E /* WorkoutAction.m */,
 				C34234E41D3648640014348A /* WorkoutStatistic.h */,
 				C34234E51D3648640014348A /* WorkoutStatistic.m */,
+				C34C95F31D49A63F00E7F5B2 /* SettingsInfo.h */,
+				C34C95F41D49A63F00E7F5B2 /* SettingsInfo.m */,
 			);
 			path = DataModel;
 			sourceTree = "<group>";
@@ -303,6 +341,7 @@
 		C3AA37BE1D310C6700D5930E /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				C34C95EA1D49A02F00E7F5B2 /* Settings */,
 				C385F77F1D41F362009A08C0 /* Statistic */,
 				C3C05CF21D3499CE0021C407 /* CustomViews */,
 				C3C05CEE1D3486F00021C407 /* Training */,
@@ -424,12 +463,14 @@
 				C35CC5651D3A1CF000C6A7F6 /* TrainingListTableViewController.xib in Resources */,
 				C3C05CED1D3486DA0021C407 /* Training.storyboard in Resources */,
 				C3C05CEA1D3485AF0021C407 /* Management.storyboard in Resources */,
+				C34C95F21D49A33800E7F5B2 /* SettingsCell.xib in Resources */,
 				C3AA37951D30F3E100D5930E /* LaunchScreen.storyboard in Resources */,
 				C32E342A1D474359001C1CA2 /* Statistic.storyboard in Resources */,
 				C3AA37921D30F3E100D5930E /* Assets.xcassets in Resources */,
 				C3AA37901D30F3E100D5930E /* Main.storyboard in Resources */,
 				C3AA37BD1D3105B500D5930E /* workouts.json in Resources */,
 				C385F7911D41F71E009A08C0 /* ExpandableTableView.xib in Resources */,
+				C34C95E91D499D2B00E7F5B2 /* Settings.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -491,9 +532,11 @@
 				C39A8D5B1D337A2E00FAF484 /* WorkoutActionViewController.m in Sources */,
 				C3C05CF11D348B2A0021C407 /* WorkoutPlanningViewController.m in Sources */,
 				C3908C201D4890120082BFE1 /* RoundedButton.m in Sources */,
+				C37102061D49E0780037C877 /* TimeBreakViewController.m in Sources */,
 				C34234E01D361CE90014348A /* NSDate+Components.m in Sources */,
 				C34234DD1D35F0820014348A /* CYDataBaseManager.m in Sources */,
 				C3908C261D48B7F20082BFE1 /* MainNavigationController.m in Sources */,
+				C34C95F81D49A94600E7F5B2 /* SettingsManager.m in Sources */,
 				C3AA37B41D30FEED00D5930E /* WorkoutAction.m in Sources */,
 				C30C7B871D3DDB3800131A1D /* NoPasteTextField.m in Sources */,
 				C35CC5641D3A1CF000C6A7F6 /* TrainingListTableViewController.m in Sources */,
@@ -502,6 +545,7 @@
 				C3908C231D48AC830082BFE1 /* BlankFooterView.m in Sources */,
 				C3AA37C21D310C7B00D5930E /* WorkoutMuscleViewController.m in Sources */,
 				C3AA37C51D3112DB00D5930E /* MainViewController.m in Sources */,
+				C34C95F51D49A63F00E7F5B2 /* SettingsInfo.m in Sources */,
 				C3AA37871D30F3E100D5930E /* main.m in Sources */,
 				C3AA37B11D30FECE00D5930E /* TargetMuscle.m in Sources */,
 				C354E28E1D3769230012633C /* ListCountButton.m in Sources */,
@@ -513,6 +557,8 @@
 				C39A8D631D3394F200FAF484 /* NSArray+Map.m in Sources */,
 				C39A8D5E1D3380CE00FAF484 /* AddWorkoutViewController.m in Sources */,
 				C385F7821D41F3BF009A08C0 /* StatisticListViewController.m in Sources */,
+				C34C95ED1D49A04100E7F5B2 /* SettingsListViewController.m in Sources */,
+				C34C95F11D49A33800E7F5B2 /* SettingsCell.m in Sources */,
 				C34234E61D3648640014348A /* WorkoutStatistic.m in Sources */,
 				C3AA37AD1D30FE2500D5930E /* CYWorkoutManager.m in Sources */,
 				C3C05CFD1D34D5270021C407 /* CheckboxTableViewCell.m in Sources */,
@@ -530,6 +576,14 @@
 				C32E34291D474359001C1CA2 /* Base */,
 			);
 			name = Statistic.storyboard;
+			sourceTree = "<group>";
+		};
+		C34C95E71D499D2B00E7F5B2 /* Settings.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				C34C95E81D499D2B00E7F5B2 /* Base */,
+			);
+			name = Settings.storyboard;
 			sourceTree = "<group>";
 		};
 		C3AA378E1D30F3E100D5930E /* Main.storyboard */ = {
@@ -656,6 +710,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				INFOPLIST_FILE = TrackDown/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.gocy.TrackDown;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -669,6 +724,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				INFOPLIST_FILE = TrackDown/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.gocy.TrackDown;
 				PRODUCT_NAME = "$(TARGET_NAME)";

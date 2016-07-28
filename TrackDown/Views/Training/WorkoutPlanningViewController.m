@@ -17,10 +17,13 @@
 #import "PopTableViewController.h"
 #import "PreDefines.h"
 #import "ListCountButton.h"
+#import "TimeBreakViewController.h"
 
 @interface WorkoutPlanningViewController ()<UIPickerViewDataSource ,UIPickerViewDelegate ,UIPopoverPresentationControllerDelegate>
 @property (weak, nonatomic) IBOutlet UIPickerView *actionPicker; 
 @property (weak, nonatomic) IBOutlet UIButton *addButton;
+@property (weak, nonatomic) IBOutlet UIButton *timeBreakButton;
+
 @property (nonatomic ,strong) NSArray *workouts;
 @property (nonatomic ,strong) TargetMuscle *currentMuscle;
 @property (nonatomic ,strong) TargetMuscle *workingMuscle;
@@ -32,6 +35,7 @@
 
 static const CGFloat actPortion = 0.65;
 static NSString *const popVCId = @"PopTableViewController";
+static NSString *const tbVCId = @"TimeBreakViewController";
 
 @implementation WorkoutPlanningViewController
 
@@ -52,7 +56,8 @@ static NSString *const popVCId = @"PopTableViewController";
     [self installComponentHeader];
     [self installNaviTitleView];
     [self installNaviDetailView];
-    [self decorateAddButton];
+    [self decorateButton:self.addButton];
+    [self decorateButton:self.timeBreakButton];
 }
 
 -(void)viewWillAppear:(BOOL)animated{
@@ -88,6 +93,10 @@ static NSString *const popVCId = @"PopTableViewController";
     ListCountButton *btn = (ListCountButton *)self.navigationItem.rightBarButtonItem.customView;
     [btn showCounter:YES];
     [btn incrementBy:1 limit:99 animated:YES];
+}
+- (IBAction)setTimeBreak:(id)sender {
+    TimeBreakViewController *tbvc = [[StoryboardManager storyboardWithIdentifier:@"Settings"] instantiateViewControllerWithIdentifier:tbVCId];
+    [self.navigationController pushViewController:tbvc animated:YES];
 }
 
 
@@ -300,13 +309,13 @@ static NSString *const popVCId = @"PopTableViewController";
     
 }
 
--(void)decorateAddButton{
-    NSString *content = self.addButton.titleLabel.text;
-    self.addButton.titleLabel.text = @"";
+-(void)decorateButton:(UIButton *)btn{
+    NSString *content = btn.titleLabel.text;
+    btn.titleLabel.text = @"";
     
     NSDictionary *attr = @{NSUnderlineStyleAttributeName:@(NSUnderlineStyleSingle)};
     NSAttributedString *attrStr = [[NSAttributedString alloc]initWithString:content attributes:attr];
-    self.addButton.titleLabel.attributedText = attrStr;
+    btn.titleLabel.attributedText = attrStr;
 }
 
 -(void)changeCurrentWorkout:(NSUInteger)index{

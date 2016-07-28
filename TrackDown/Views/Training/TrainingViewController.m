@@ -24,7 +24,7 @@
     NSUInteger _setCount;
     NSUInteger _currentIndex;
     NSInteger _timeElapesd;
-    NSInteger _expectedRestTime;
+    NSUInteger _expectedRestTime;
     NSUInteger _frameRate;
 }
 @property (weak, nonatomic) IBOutlet UILabel *currentWorkoutLabel;
@@ -67,7 +67,7 @@
     [self initNotifications];
     [self configTextFields];
     
-    _expectedRestTime = 0.5;
+    _expectedRestTime = [[CYWorkoutManager sharedManager] getTimeBreak];
     _frameRate = 30;
 //    _progressView.blurEffect = [UIBlurEffect effectWithStyle:UIBlurEffectStyleDark];
     _restView.alpha = 0;
