@@ -36,7 +36,6 @@ static CGFloat headerHeight = 40.0f;
     [self.tableView registerClass:[BlankFooterView class] forHeaderFooterViewReuseIdentifier:footerReusedId];
     
     self.tableView.tableFooterView = [UIView new];
-    
 }
 
 
@@ -74,13 +73,13 @@ static CGFloat headerHeight = 40.0f;
     return 30;
 }
 
--(CGFloat)tableView:(UITableView *)tableView heightForFooterInSection:(NSInteger)section{
-    return 6;
-}
+//-(CGFloat)tableView:(UITableView *)tableView heightForFooterInSection:(NSInteger)section{
+//    return 6;
+//}
 
--(UIView *)tableView:(UITableView *)tableView viewForFooterInSection:(NSInteger)section{
-    return [tableView dequeueReusableHeaderFooterViewWithIdentifier:footerReusedId];
-}
+//-(UIView *)tableView:(UITableView *)tableView viewForFooterInSection:(NSInteger)section{
+//    return [tableView dequeueReusableHeaderFooterViewWithIdentifier:footerReusedId];
+//}
 
 
 -(UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section{

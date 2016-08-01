@@ -104,7 +104,7 @@
     contentView.backgroundColor = _normalFillColor;
     [self addSubview:contentView];
     [contentView mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.edges.equalTo(self);
+        make.edges.equalTo(self).insets(UIEdgeInsetsMake(0, 0,6, 0));
     }];
     _bgView = contentView;
     
@@ -135,8 +135,8 @@
     label.font = [UIFont systemFontOfSize:14];
     label.text = _headerText;
     label.textColor = _normalTextColor;
-    UIView *v = self;
-    [self addSubview:label];
+    UIView *v = contentView;
+    [contentView addSubview:label];
     [label mas_makeConstraints:^(MASConstraintMaker *make) {
         make.leading.equalTo(v).offset(30);
         make.centerY.equalTo(v);
