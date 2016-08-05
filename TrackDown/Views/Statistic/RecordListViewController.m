@@ -1,12 +1,12 @@
 //
-//  StatisticListViewController.m
+//  RecordListViewController.m
 //  TrackDown
 //
 //  Created by Gocy on 16/7/22.
 //  Copyright © 2016年 Gocy. All rights reserved.
 //
 
-#import "StatisticListViewController.h"
+#import "RecordListViewController.h"
 #import "FSCalendar.h"
 #import "NSDate+Components.h"
 #import "CYWorkoutManager.h"
@@ -15,7 +15,7 @@
 #import "Masonry.h"
 #import "TargetMuscle.h"
 
-@interface StatisticListViewController () <FSCalendarDelegate ,FSCalendarDataSource >
+@interface RecordListViewController () <FSCalendarDelegate ,FSCalendarDataSource >
 
 @property (nonatomic ,strong)UITableView *tableView;
 @property (weak, nonatomic) IBOutlet FSCalendar *calendar;
@@ -24,7 +24,7 @@
 
 @end
 
-@implementation StatisticListViewController
+@implementation RecordListViewController
 
 #pragma mark - Life Cycle
 

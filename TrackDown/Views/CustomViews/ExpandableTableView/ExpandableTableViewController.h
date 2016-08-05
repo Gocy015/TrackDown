@@ -8,6 +8,7 @@
 
 #import <UIKit/UIKit.h>
 #import "ExpandableObjectProtocol.h"
+#import "CustomExpandableViewProtocol.h"
 
 @interface ExpandableTableViewController : UIViewController
 
@@ -17,5 +18,8 @@
 @property (nonatomic ,strong) UIColor *normalHeaderTextColor;
 @property (nonatomic ,strong) UIColor *selectedHeaderFillColor;
 @property (nonatomic ,strong) UIColor *selectedHeaderTextColor;
+
+@property (nonatomic ,weak) id <CustomHeaderViewDataSource> headerViewDataSource;
+@property (nonatomic ,weak) id <CustomCellDataSource> cellDataSource;
 
 @end

@@ -100,11 +100,12 @@
     }];
     
     // 灰色背景
+    
     UIView *contentView         = [[UIView alloc] initWithFrame:CGRectMake(0, 0, Width, Height)];
     contentView.backgroundColor = _normalFillColor;
     [self addSubview:contentView];
     [contentView mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.edges.equalTo(self).insets(UIEdgeInsetsMake(0, 0,6, 0));
+        make.edges.equalTo(self).insets(UIEdgeInsetsMake(0, 0, 6, 0));
     }];
     _bgView = contentView;
     

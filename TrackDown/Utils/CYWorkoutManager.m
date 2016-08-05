@@ -307,6 +307,15 @@ static NSString * const Key_TimeBreak = @"TrackDown_TimeBreak";
     });
 }
 
+-(void)workoutStatisticForMonthInDate:(NSDate *)date completion:(void(^)(NSArray *))block{
+    dispatch_async(self.ioQueue, ^{
+        NSArray *res = [[CYDataBaseManager sharedManager] queryWorkoutActionStatisticForMonth:date];
+        dispatch_async(dispatch_get_main_queue(), ^{
+            block(res);
+        });
+    });
+}
+
 -(void)releaseRecordCache{
     [[CYDataBaseManager sharedManager] clearRecordsCache];
 }

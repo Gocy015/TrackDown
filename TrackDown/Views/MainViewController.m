@@ -11,9 +11,11 @@
 #import "StoryboardManager.h"
 #import "WorkoutPlanningViewController.h"
 #import "TrainingViewController.h"
-#import "StatisticListViewController.h"
+#import "RecordListViewController.h"
 #import "MainNavigationController.h"
 #import "SettingsListViewController.h"
+#import "StatisticViewController.h"
+
 
 @interface MainViewController ()<WorkoutPlanningDelegate>
 
@@ -21,8 +23,9 @@
 static NSString * const manageVCId = @"WorkoutMuscleViewController";
 static NSString * const planVCId = @"WorkoutPlanningViewController";
 static NSString * const trainVCId = @"TrainingViewController";
-static NSString * const statisticVCId = @"StatisticListViewController";
+static NSString * const recordVCId = @"RecordListViewController";
 static NSString * const settingsVCId = @"SettingsListViewController";
+static NSString * const statisticVCId = @"StatisticViewController";
 
 @implementation MainViewController
 
@@ -31,6 +34,7 @@ static NSString * const settingsVCId = @"SettingsListViewController";
     // Do any additional setup after loading the view.
     
     [self installNaviTitleView];
+    
 }
 
 - (void)didReceiveMemoryWarning {
@@ -56,9 +60,14 @@ static NSString * const settingsVCId = @"SettingsListViewController";
     pvc.delegate = self;
     [self.navigationController pushViewController:pvc animated:YES];
 }
+- (IBAction)gotoRecords:(id)sender {
+    RecordListViewController *recd = [[StoryboardManager storyboardWithIdentifier:@"Statistic"] instantiateViewControllerWithIdentifier:recordVCId];
+    [self.navigationController pushViewController:recd animated:YES];
+}
 
 - (IBAction)gotoStatistic:(id)sender {
-    StatisticListViewController *stat = [[StoryboardManager storyboardWithIdentifier:@"Statistic"] instantiateViewControllerWithIdentifier:statisticVCId];
+    StatisticViewController *stat = [[StoryboardManager storyboardWithIdentifier:@"Statistic"] instantiateViewControllerWithIdentifier:statisticVCId];
+    
     [self.navigationController pushViewController:stat animated:YES];
 }
 

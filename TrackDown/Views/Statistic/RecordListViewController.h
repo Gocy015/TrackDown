@@ -1,5 +1,5 @@
 //
-//  StatisticListViewController.h
+//  RecordListViewController.h
 //  TrackDown
 //
 //  Created by Gocy on 16/7/22.
@@ -10,7 +10,7 @@
 
 @class TargetMuscle;
 
-@interface StatisticListViewController : UIViewController
+@interface RecordListViewController : UIViewController
 
 @property (nonatomic ,strong) NSArray <TargetMuscle *> * workouts;
 

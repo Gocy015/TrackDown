@@ -5,10 +5,10 @@
         <capability name="Constraints with non-1.0 multipliers" minToolsVersion="5.1"/>
     </dependencies>
     <scenes>
-        <!--Statistic List View Controller-->
+        <!--Record List View Controller-->
         <scene sceneID="oyE-ot-NuA">
             <objects>
-                <viewController storyboardIdentifier="StatisticListViewController" id="RjV-Oy-wV8" customClass="StatisticListViewController" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="RecordListViewController" id="RjV-Oy-wV8" customClass="RecordListViewController" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="uIu-OY-qmI"/>
                         <viewControllerLayoutGuide type="bottom" id="WUc-v2-hmX"/>
@@ -44,6 +44,24 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="1de-sc-Kaq" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="429" y="393"/>
+        </scene>
+        <!--Statistic View Controller-->
+        <scene sceneID="Klf-fB-qTB">
+            <objects>
+                <viewController storyboardIdentifier="StatisticViewController" id="fla-OI-44v" customClass="StatisticViewController" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="nCT-Y3-aXS"/>
+                        <viewControllerLayoutGuide type="bottom" id="R6O-W0-oOE"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="iqe-fc-TQT">
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    </view>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="Qtb-eT-xUe" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1156" y="393"/>
         </scene>
     </scenes>
 </document>

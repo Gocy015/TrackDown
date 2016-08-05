@@ -163,6 +163,37 @@ static NSString * const statCount = @"count";
     return records;
 }
 
+-(NSArray *)queryWorkoutActionStatisticForMonth:(NSDate *)date{
+    
+    FMDatabase *db = [self statisticDatabaseForMonthInDate:date];
+    NSMutableArray *actions = [NSMutableArray new];
+    
+    if ([db open]) {
+        NSString *query = [NSString stringWithFormat:@"SELECT * FROM %@ WHERE %@ = ?",statTable,statType];
+        FMResultSet *set = [db executeQuery:query,@(StatTypeAction)];
+        while (set.next) {
+            NSUInteger day = [set unsignedLongLongIntForColumn:statStoreDate];
+            NSUInteger count = [set unsignedLongLongIntForColumn:statCount];
+            NSString *key = [set stringForColumn:statKey];
+            NSData *data = [set dataForColumn:statData];
+            
+            NSDictionary *dic = [NSKeyedUnarchiver unarchiveObjectWithData:data];
+            NSMutableDictionary *mDic = [[NSMutableDictionary alloc] initWithDictionary:dic];
+            
+            WorkoutStatistic *s = [WorkoutStatistic new];
+            s.storeDate = day;
+            s.trainingCount = count;
+            s.key = key;
+            s.data = mDic;
+            s.type = StatTypeAction;
+            
+            [actions addObject:s];
+        }
+    }
+    
+    return [[NSArray alloc] initWithArray:actions];
+}
+
 #pragma mark - Helpers
 
 -(void)clearRecordsCache{

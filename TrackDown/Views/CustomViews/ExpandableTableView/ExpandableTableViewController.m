@@ -31,11 +31,21 @@ static CGFloat headerHeight = 40.0f;
     
     self.tableView.delegate = self;
     self.tableView.dataSource = self;
-    [self.tableView registerClass:[UITableViewCell class] forCellReuseIdentifier:cellReuseId];
-    [self.tableView registerClass:[ClickableHeaderView class] forHeaderFooterViewReuseIdentifier:headerReusedId];
-    [self.tableView registerClass:[BlankFooterView class] forHeaderFooterViewReuseIdentifier:footerReusedId];
+//    [self.tableView registerClass:[BlankFooterView class] forHeaderFooterViewReuseIdentifier:footerReusedId];
     
     self.tableView.tableFooterView = [UIView new];
+    
+    if (self.cellDataSource) {
+        [self.cellDataSource registerReuseIdForTableView:self.tableView];
+    }else{
+        [self.tableView registerClass:[UITableViewCell class] forCellReuseIdentifier:cellReuseId];
+    }
+    
+    if (self.headerViewDataSource) {
+        [self.headerViewDataSource registerReuseIdForTableView:self.tableView];
+    }else{
+        [self.tableView registerClass:[ClickableHeaderView class] forHeaderFooterViewReuseIdentifier:headerReusedId];
+    }
 }
 
 
@@ -66,25 +76,26 @@ static CGFloat headerHeight = 40.0f;
 }
 
 -(CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section{
+    if (self.headerViewDataSource) {
+        return [self.headerViewDataSource heightForHeaderViewInSection:section];
+    }
     return headerHeight;
 }
 
 -(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
+    if (self.cellDataSource) {
+        return [self.cellDataSource heigthForCellAtIndexPath:indexPath];
+    }
     return 30;
 }
 
-//-(CGFloat)tableView:(UITableView *)tableView heightForFooterInSection:(NSInteger)section{
-//    return 6;
-//}
-
-//-(UIView *)tableView:(UITableView *)tableView viewForFooterInSection:(NSInteger)section{
-//    return [tableView dequeueReusableHeaderFooterViewWithIdentifier:footerReusedId];
-//}
 
 
 -(UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section{
     
-    
+    if (self.headerViewDataSource) {
+        return [self.headerViewDataSource tableView:tableView viewForHeaderInSection:section];
+    }
     
     ClickableHeaderView *header = (ClickableHeaderView *)[tableView dequeueReusableHeaderFooterViewWithIdentifier:headerReusedId];
     
@@ -100,6 +111,10 @@ static CGFloat headerHeight = 40.0f;
 }
 
 -(UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
+    
+    if (self.cellDataSource) {
+        return [self.cellDataSource tableView:tableView cellForRowAtIndexPath:indexPath];
+    }
     
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:cellReuseId];
     
@@ -130,16 +145,24 @@ static CGFloat headerHeight = 40.0f;
         [obj setOpened:YES];
         headerView.opened = YES;
         NSIndexPath *lastIndex = indexPaths.lastObject;
-        [self.tableView insertRowsAtIndexPaths:indexPaths withRowAnimation:UITableViewRowAnimationFade];
         
-        if (![[self.tableView indexPathsForVisibleRows] containsObject:lastIndex]) {
+        [self.tableView beginUpdates];
+        [self.tableView insertRowsAtIndexPaths:indexPaths withRowAnimation:UITableViewRowAnimationFade];
+        [self.tableView endUpdates];
+        
+        
+        CGRect rect = [self.tableView rectForRowAtIndexPath:lastIndex];
+        if (!CGRectContainsRect(self.tableView.bounds, rect)) {
             
             [self.tableView scrollToRowAtIndexPath:lastIndex atScrollPosition:UITableViewScrollPositionBottom animated:YES];
         }
+        
     }else{
         [obj setOpened:NO];
         headerView.opened = NO;
+        [self.tableView beginUpdates];
         [self.tableView deleteRowsAtIndexPaths:indexPaths withRowAnimation:UITableViewRowAnimationFade];
+        [self.tableView endUpdates];
     }
 }
 
@@ -151,6 +174,20 @@ static CGFloat headerHeight = 40.0f;
     _data = data;
     if (self.tableView) {
         [self.tableView reloadData];
+    }
+}
+
+-(void)setCellDataSource:(id<CustomCellDataSource>)cellDataSource{
+    _cellDataSource = cellDataSource;
+    if (self.tableView && _cellDataSource) {
+        [_cellDataSource registerReuseIdForTableView:self.tableView];
+    }
+}
+
+-(void)setHeaderViewDataSource:(id<CustomHeaderViewDataSource>)headerViewDataSource{
+    _headerViewDataSource = headerViewDataSource;
+    if (self.tableView && _headerViewDataSource) {
+        [_headerViewDataSource registerReuseIdForTableView:self.tableView];
     }
 }
 
