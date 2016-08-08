@@ -23,6 +23,7 @@
     CGFloat _bottomBorder;
     CGFloat _graphHeight;
     CGFloat _maxValue;
+    CGFloat _minValue;
     CGFloat _maxHeight;
 }
 
@@ -91,6 +92,7 @@
     _bottomBorder = _maxHeight * 0.2;
     _graphHeight = _maxHeight - _topBorder - _bottomBorder;
     _maxValue = [self getMaxValue];
+    _minValue = [self getMinValue];
     
     [_lineColor setFill];
     [_lineColor setStroke];
@@ -210,13 +212,26 @@
     return max;
 }
 
+-(CGFloat)getMinValue{
+    if ([self.graphPoints count] <= 0) {
+        return 0;
+    }
+    CGFloat min = [self.graphPoints[0] doubleValue];
+    for (int i = 1; i < self.graphPoints.count; ++i) {
+        if ([self.graphPoints[i] doubleValue] < min) {
+            min = [self.graphPoints[i] doubleValue];
+        }
+    }
+    return min;
+}
+
 -(CGFloat)xPositionAtIndex:(NSUInteger)idx{
     return 0.5 * _widthPerElement + idx * _widthPerElement;
 }
 
 -(CGFloat)yPositionAtIndex:(NSUInteger)idx {
-    CGFloat v = [self.graphPoints[idx] doubleValue];
-    CGFloat absoluteHeight = v/_maxValue * _graphHeight; //CG coordinates , y is at bottom
+    CGFloat v = [self.graphPoints[idx] doubleValue] - _minValue;
+    CGFloat absoluteHeight = v/(_maxValue - _minValue) * _graphHeight; //CG coordinates , y is at bottom
     CGFloat flipHeight = _graphHeight + _topBorder - absoluteHeight;
     
     return flipHeight;
@@ -241,8 +256,21 @@
     [self addSubview:yearLabel];
     __weak typeof(self) superview = self;
     [yearLabel mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.left.equalTo(superview).offset(15);
+        make.trailing.equalTo(superview).offset(-12);
         make.top.equalTo(superview).offset(top);
+    }];
+    
+    //kg label
+    UILabel *kgLabel = [UILabel new];
+    kgLabel.text = @"kg";
+    kgLabel.font = [UIFont fontWithName:@"Avenir Next Condensed" size:9];
+    kgLabel.textColor = [UIColor whiteColor];
+    [kgLabel sizeToFit];
+    
+    [self addSubview:kgLabel];
+    [kgLabel mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.leading.equalTo(superview).offset(4);
+        make.top.equalTo(superview).offset(_topBorder - kgLabel.bounds.size.height);
     }];
     
     //month label
@@ -264,6 +292,53 @@
             make.top.equalTo(superview).offset(monthy);
         }];
     }
+    
+    //left weight Label
+    CGFloat highestY = _topBorder;
+    UILabel *highLabel = [UILabel new];
+    highLabel.text = [NSString stringWithFormat:@"%.1lf",_maxValue];
+    highLabel.font = [UIFont fontWithName:@"Avenir Next Condensed" size:9];
+    highLabel.textColor = [UIColor whiteColor];
+    [highLabel sizeToFit];
+    [self addSubview:highLabel];
+    [highLabel mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.leading.equalTo(superview).offset(4);
+        make.top.equalTo(superview).offset(highestY);
+    }];
+    
+    UILabel *midLabel = [UILabel new];
+    midLabel.text = [NSString stringWithFormat:@"%.1lf",(_maxValue + _minValue) / 2];
+    midLabel.font = [UIFont fontWithName:@"Avenir Next Condensed" size:9];
+    midLabel.textColor = [UIColor whiteColor];
+    [midLabel sizeToFit];
+    [self addSubview:midLabel];
+    [midLabel mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.leading.equalTo(superview).offset(4);
+        make.top.equalTo(superview).offset(highestY + _graphHeight/2 );
+    }];
+    
+    UILabel *lowLabel = [UILabel new];
+    lowLabel.text = [NSString stringWithFormat:@"%.1lf",_minValue];
+    lowLabel.font = [UIFont fontWithName:@"Avenir Next Condensed" size:9];
+    lowLabel.textColor = [UIColor whiteColor];
+    [lowLabel sizeToFit];
+    [self addSubview:lowLabel];
+    [lowLabel mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.leading.equalTo(superview).offset(4);
+        make.top.equalTo(superview).offset(highestY + _graphHeight);
+    }];
+
+    
+//    [linePath moveToPoint:CGPointMake(0, highestY)];
+//    [linePath addLineToPoint:CGPointMake(maxWidth, highestY)]; // topLine
+//    
+//    
+//    [linePath moveToPoint:CGPointMake(0, highestY + _graphHeight / 2)];
+//    [linePath addLineToPoint:CGPointMake(maxWidth, highestY + _graphHeight / 2)]; // midLine
+//    
+//    [linePath moveToPoint:CGPointMake(0, highestY + _graphHeight )];
+//    [linePath addLineToPoint:CGPointMake(maxWidth, highestY + _graphHeight)]; // midLine
+    
     
 }
 

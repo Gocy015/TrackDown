@@ -156,8 +156,8 @@ static NSString * const Key_TimeBreak = @"TrackDown_TimeBreak";
     
     NSDate *date = [NSDate date];
     NSCalendar *calendar = [NSCalendar currentCalendar];
-    com.year = [date year] - 1;
-    com.month = [date month] + 3 ;
+    com.year = [date year];
+    com.month = [date month] ;
     com.day = [date day];
     NSDate *d = [calendar dateFromComponents:com];
     
