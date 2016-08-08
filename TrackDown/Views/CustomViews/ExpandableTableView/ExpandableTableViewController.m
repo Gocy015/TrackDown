@@ -36,13 +36,13 @@ static CGFloat headerHeight = 40.0f;
     self.tableView.tableFooterView = [UIView new];
     
     if (self.cellDataSource) {
-        [self.cellDataSource registerReuseIdForTableView:self.tableView];
+        [self.cellDataSource registerCellReuseIdForTableView:self.tableView];
     }else{
         [self.tableView registerClass:[UITableViewCell class] forCellReuseIdentifier:cellReuseId];
     }
     
     if (self.headerViewDataSource) {
-        [self.headerViewDataSource registerReuseIdForTableView:self.tableView];
+        [self.headerViewDataSource registerHeaderReuseIdForTableView:self.tableView];
     }else{
         [self.tableView registerClass:[ClickableHeaderView class] forHeaderFooterViewReuseIdentifier:headerReusedId];
     }
@@ -84,7 +84,7 @@ static CGFloat headerHeight = 40.0f;
 
 -(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
     if (self.cellDataSource) {
-        return [self.cellDataSource heigthForCellAtIndexPath:indexPath];
+        return [self.cellDataSource heightForCellAtIndexPath:indexPath];
     }
     return 30;
 }
@@ -180,14 +180,14 @@ static CGFloat headerHeight = 40.0f;
 -(void)setCellDataSource:(id<CustomCellDataSource>)cellDataSource{
     _cellDataSource = cellDataSource;
     if (self.tableView && _cellDataSource) {
-        [_cellDataSource registerReuseIdForTableView:self.tableView];
+        [_cellDataSource registerCellReuseIdForTableView:self.tableView];
     }
 }
 
 -(void)setHeaderViewDataSource:(id<CustomHeaderViewDataSource>)headerViewDataSource{
     _headerViewDataSource = headerViewDataSource;
     if (self.tableView && _headerViewDataSource) {
-        [_headerViewDataSource registerReuseIdForTableView:self.tableView];
+        [_headerViewDataSource registerHeaderReuseIdForTableView:self.tableView];
     }
 }
 

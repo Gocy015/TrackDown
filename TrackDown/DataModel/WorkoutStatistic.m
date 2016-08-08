@@ -15,6 +15,34 @@ NSString *const key_reps = @"reps";
 NSString *const key_sets = @"sets";
 
 
+@interface WorkoutStatistic (){
+    BOOL _opened;
+}
+
+@end
+
 @implementation WorkoutStatistic
+
+#pragma mark - Expandable Object Protocol
+
+-(NSUInteger)countOfSecondaryObjects{
+    return 1;
+}
+
+-(NSArray *)descriptionForSecondaryObjects{
+    return nil;
+}
+
+-(NSString *)description{
+    return self.key;
+}
+
+-(BOOL)opened{
+    return _opened;
+}
+
+-(void)setOpened:(BOOL)op{
+    _opened = op;
+}
 
 @end

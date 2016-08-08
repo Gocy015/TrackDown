@@ -23,7 +23,7 @@
 -(BOOL)storeStatistic:(NSArray <WorkoutStatistic *> *)stat forDate:(NSDate *)date;
 
 -(NSDictionary *)queryWorkoutRecordsForMonth:(NSDate *)date;
--(NSArray *)queryWorkoutActionStatisticForMonth:(NSDate *)date;
+-(NSArray *)queryWorkoutActionStatisticForYear:(NSDate *)date;
 
 -(void)clearRecordsCache;
 

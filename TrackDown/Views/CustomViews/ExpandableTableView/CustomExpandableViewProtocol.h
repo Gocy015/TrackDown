@@ -17,18 +17,18 @@
 
 -(UITableViewHeaderFooterView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSUInteger)section;
 
--(void)registerReuseIdForTableView:(UITableView *)tableView;
+-(void)registerHeaderReuseIdForTableView:(UITableView *)tableView;
 
 @end
 
 @protocol CustomCellDataSource <NSObject>
 
 @required
--(CGFloat)heigthForCellAtIndexPath:(NSIndexPath *)indexPath;
+-(CGFloat)heightForCellAtIndexPath:(NSIndexPath *)indexPath;
 
 -(UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath;
 
--(void)registerReuseIdForTableView:(UITableView *)tableView;
+-(void)registerCellReuseIdForTableView:(UITableView *)tableView;
 
 @end
 

@@ -129,8 +129,6 @@
         make.trailing.equalTo(superview.mas_trailing);
         make.bottom.equalTo(superview.mas_bottom);
     }];
-    
-    
 }
 
 -(void)updateTableView{

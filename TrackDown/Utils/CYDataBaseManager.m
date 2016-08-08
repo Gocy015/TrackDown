@@ -34,6 +34,7 @@ static NSString * const statTable = @"STATISTICS";
 static NSString * const statType = @"type";
 static NSString * const statKey = @"key";
 static NSString * const statData = @"data";
+static NSString * const statStoreMonth = @"month";
 static NSString * const statStoreDate = @"date";
 static NSString * const statCount = @"count";
 
@@ -81,9 +82,9 @@ static NSString * const statCount = @"count";
 
 -(BOOL)createStatisticTableForDate:(NSDate *)date{
     BOOL success = NO;
-    FMDatabase *db = [self statisticDatabaseForMonthInDate:date];
+    FMDatabase *db = [self statisticDatabaseForYearInDate:date];
     if ([db open]) {
-        NSString *create = [NSString stringWithFormat:@"CREATE TABLE IF NOT EXISTS '%@'(%@ integer NOT NULL ,%@ text NOT NULL ,%@ blob NOT NULL ,%@ integer NOT NULL ,%@ integer NOT NULL);" ,statTable,statType,statKey,statData,statStoreDate,statCount];
+        NSString *create = [NSString stringWithFormat:@"CREATE TABLE IF NOT EXISTS '%@'(%@ integer NOT NULL ,%@ text NOT NULL ,%@ blob NOT NULL ,%@ integer NOT NULL ,%@ integer NOT NULL ,%@ integer NOT NULL);" ,statTable,statType,statKey,statData,statStoreMonth,statStoreDate,statCount];
         if ([db executeUpdate:create]) {
             success = YES;
             NSLog(@"Create Statistic db success");
@@ -106,6 +107,8 @@ static NSString * const statCount = @"count";
 
 -(BOOL)storeWorkoutPlan:(NSArray<TargetMuscle *> *)plan forDate:(NSDate *)date{
     
+    [self createMonthDir:date];
+    
     [self createRecordsTableForDate:date];
     
     
@@ -117,9 +120,9 @@ static NSString * const statCount = @"count";
 }
 
 -(BOOL)storeStatistic:(NSArray<WorkoutStatistic *> *)stat forDate:(NSDate *)date{
-    [self createStatisticTableForDate:[NSDate date]];
+    [self createStatisticTableForDate:date];
     
-    [self _storeStatistic:stat forDate:[NSDate date]];
+    [self _storeStatistic:stat forDate:date];
     
     return NO;
 }
@@ -163,16 +166,17 @@ static NSString * const statCount = @"count";
     return records;
 }
 
--(NSArray *)queryWorkoutActionStatisticForMonth:(NSDate *)date{
+-(NSArray *)queryWorkoutActionStatisticForYear:(NSDate *)date{
     
-    FMDatabase *db = [self statisticDatabaseForMonthInDate:date];
+    FMDatabase *db = [self statisticDatabaseForYearInDate:date];
     NSMutableArray *actions = [NSMutableArray new];
     
     if ([db open]) {
-        NSString *query = [NSString stringWithFormat:@"SELECT * FROM %@ WHERE %@ = ?",statTable,statType];
+        NSString *query = [NSString stringWithFormat:@"SELECT * FROM %@ WHERE %@ = ? ORDER BY %@ ASC",statTable,statType,statStoreMonth];
         FMResultSet *set = [db executeQuery:query,@(StatTypeAction)];
         while (set.next) {
             NSUInteger day = [set unsignedLongLongIntForColumn:statStoreDate];
+            NSUInteger month = [set unsignedLongLongIntForColumn:statStoreMonth];
             NSUInteger count = [set unsignedLongLongIntForColumn:statCount];
             NSString *key = [set stringForColumn:statKey];
             NSData *data = [set dataForColumn:statData];
@@ -182,6 +186,7 @@ static NSString * const statCount = @"count";
             
             WorkoutStatistic *s = [WorkoutStatistic new];
             s.storeDate = day;
+            s.storeMonth = month;
             s.trainingCount = count;
             s.key = key;
             s.data = mDic;
@@ -268,16 +273,17 @@ static NSString * const statCount = @"count";
     
     
     NSInteger day = [date day];
-    FMDatabase *db = [self statisticDatabaseForMonthInDate:date];
+    NSInteger month = [date month];
+    FMDatabase *db = [self statisticDatabaseForYearInDate:date];
     
     NSMutableArray *statToInsert = [NSMutableArray arrayWithArray:stat];
     NSMutableArray *statToUpdate = [NSMutableArray new];
 
     if ([db open]) {
-        NSString *query = [NSString stringWithFormat:@"SELECT * FROM %@ WHERE %@ = ? AND %@ = ?;",statTable,statType,statKey];
+        NSString *query = [NSString stringWithFormat:@"SELECT * FROM %@ WHERE %@ = ? AND %@ = ? AND %@ = ?;",statTable,statType,statKey,statStoreMonth];
         FMResultSet *set = nil;
         for(WorkoutStatistic *s in stat){// costly?
-            set = [db executeQuery:query,@(s.type),s.key];
+            set = [db executeQuery:query,@(s.type),s.key,@(s.storeMonth)];
             if (set.next) { // use if because every stat is unique by type&&key.
                 if (s.type == StatTypeMuscle) {
                     //muscle
@@ -316,7 +322,7 @@ static NSString * const statCount = @"count";
                     s.storeDate = day;
                     s.trainingCount = lastCount + 1;
                 }
-                
+                s.storeMonth = month;
                 [statToInsert removeObject:s];
                 [statToUpdate addObject:s];
             }else{
@@ -330,16 +336,16 @@ static NSString * const statCount = @"count";
          
          */
         for (WorkoutStatistic *s in statToInsert) {
-            NSString *insert = [NSString stringWithFormat:@"INSERT INTO %@ VALUES(?,?,?,?,?);",statTable];
+            NSString *insert = [NSString stringWithFormat:@"INSERT INTO %@ VALUES(?,?,?,?,?,?);",statTable];
             NSData *sData = [NSKeyedArchiver archivedDataWithRootObject:s.data];
-            [db executeUpdate:insert,@(s.type),s.key,sData,@(day),@(1)];
+            [db executeUpdate:insert,@(s.type),s.key,sData,@(month),@(day),@(1)];
         }
         
         for (WorkoutStatistic *s in statToUpdate) {
-            NSString *update = [NSString stringWithFormat:@"UPDATE %@ SET %@ = ? ,%@ = ? ,%@ = ? WHERE %@ = ? AND %@ = ?",statTable,statData,statStoreDate,statCount,statType,statKey];
+            NSString *update = [NSString stringWithFormat:@"UPDATE %@ SET %@ = ? ,%@ = ? ,%@ = ? ,%@ = ? WHERE %@ = ? AND %@ = ?",statTable,statData,statStoreMonth,statStoreDate,statCount,statType,statKey];
             NSData *sData = [NSKeyedArchiver archivedDataWithRootObject:s.data];
             
-            [db executeUpdate:update ,sData,@(s.storeDate),@(s.trainingCount),@(s.type),s.key];
+            [db executeUpdate:update ,sData,@(s.storeMonth),@(s.storeDate),@(s.trainingCount),@(s.type),s.key];
             
         }
         [db close];
@@ -368,6 +374,17 @@ static NSString * const statCount = @"count";
 }
 
 
+-(void)createMonthDir:(NSDate *)date{
+    BOOL isDir = NO;
+    NSString *fullPath = [self pathForMonthInDate:date];
+    if (![m_fileManager fileExistsAtPath:fullPath isDirectory:&isDir] || !isDir) {
+        [m_fileManager removeItemAtPath:fullPath error:nil];
+        [m_fileManager createDirectoryAtPath:fullPath withIntermediateDirectories:YES attributes:nil error:nil];
+        NSLog(@"Create Month Folder !");
+    }
+}
+
+
 
 -(NSString *)pathForCurrentMonth{
     return [self pathForMonthInDate:[NSDate date]];
@@ -386,10 +403,19 @@ static NSString * const statCount = @"count";
     return [self database:statisticDB forMonthInDate:[NSDate date]];
 }
 
--(FMDatabase *)statisticDatabaseForMonthInDate:(NSDate *)date{
-    return [self database:statisticDB forMonthInDate:date];
+-(FMDatabase *)statisticDatabaseForYearInDate:(NSDate *)date{
+    return [self database:statisticDB forYearInDate:date];
 }
 
+
+-(FMDatabase *)database:(NSString *)dbname forYearInDate:(NSDate *)date{
+    if ([m_fileManager fileExistsAtPath:[self pathForYearInDate:date]]) {
+        NSString *dbpath = [[self pathForYearInDate:date] stringByAppendingPathComponent:dbname];
+        FMDatabase *db = [FMDatabase databaseWithPath:dbpath];
+        return db;
+    }
+    return nil;
+}
 
 -(FMDatabase *)database:(NSString *)dbname forMonthInDate:(NSDate *)date{
     if ([m_fileManager fileExistsAtPath:[self pathForMonthInDate:date]]) {
@@ -403,6 +429,13 @@ static NSString * const statCount = @"count";
 -(NSString *)pathForMonthInDate:(NSDate *)date{
     
     NSString *folder = [NSString stringWithFormat:@"%li/%li",[date year],[date month]];
+    NSString *fullPath = [[self dataBaseFolderPath] stringByAppendingPathComponent:folder];
+    return fullPath;
+}
+
+-(NSString *)pathForYearInDate:(NSDate *)date{
+    
+    NSString *folder = [NSString stringWithFormat:@"%li",[date year]];
     NSString *fullPath = [[self dataBaseFolderPath] stringByAppendingPathComponent:folder];
     return fullPath;
 }

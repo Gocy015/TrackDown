@@ -14,6 +14,7 @@
 #import "CYDataBaseManager.h"
 #import "WorkoutStatistic.h"
 #import "NSArray+Map.h"
+#import "NSDate+Components.h"
 
 #define m_fileManager [NSFileManager defaultManager]
 
@@ -151,9 +152,18 @@ static NSString * const Key_TimeBreak = @"TrackDown_TimeBreak";
     
     NSArray *arr = [[NSArray alloc] initWithArray:workoutPlan copyItems:YES];//avoid conflict
     
-    [[CYDataBaseManager sharedManager] storeWorkoutPlan:[self mergeConsecutiveMuscle:workoutPlan] forDate:[NSDate date]];
+    NSDateComponents *com = [NSDateComponents new];
     
-    [[CYDataBaseManager sharedManager] storeStatistic:[self convertPlanIntoStatistics:arr] forDate:[NSDate date]];
+    NSDate *date = [NSDate date];
+    NSCalendar *calendar = [NSCalendar currentCalendar];
+    com.year = [date year] - 1;
+    com.month = [date month] + 3 ;
+    com.day = [date day];
+    NSDate *d = [calendar dateFromComponents:com];
+    
+    [[CYDataBaseManager sharedManager] storeWorkoutPlan:[self mergeConsecutiveMuscle:workoutPlan] forDate:d];
+    
+    [[CYDataBaseManager sharedManager] storeStatistic:[self convertPlanIntoStatistics:arr] forDate:d];
      
 }
 
@@ -306,14 +316,45 @@ static NSString * const Key_TimeBreak = @"TrackDown_TimeBreak";
         });
     });
 }
+ 
 
--(void)workoutStatisticForMonthInDate:(NSDate *)date completion:(void(^)(NSArray *))block{
+
+-(void)workoutStatisticForYearInDate:(NSDate *)date completion:(void (^)(NSArray * ,NSDate *))block{
+//    NSInteger year = [date year];
+//    NSInteger day = 1;
+//    
+//    NSMutableArray *ret = [NSMutableArray new];
+    
+//    NSLog(@"Start fetch statistic for whole year ! %f",CFAbsoluteTimeGetCurrent());
+    
     dispatch_async(self.ioQueue, ^{
-        NSArray *res = [[CYDataBaseManager sharedManager] queryWorkoutActionStatisticForMonth:date];
+        NSArray *res = [[CYDataBaseManager sharedManager] queryWorkoutActionStatisticForYear:date];
         dispatch_async(dispatch_get_main_queue(), ^{
-            block(res);
+            block(res,date);
         });
     });
+    
+//    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+//        NSDateComponents *com = [NSDateComponents new];
+//        NSCalendar *calendar = [NSCalendar currentCalendar];
+//        for (NSInteger i = 1; i <= 12; i ++) {
+//            com.year = year;
+//            com.month = i;
+//            com.day = day;
+//            NSDate *d = [calendar dateFromComponents:com];
+//            dispatch_sync(self.ioQueue, ^{ // sync to make return array sorted
+//                NSArray *res = [[CYDataBaseManager sharedManager] queryWorkoutActionStatisticForMonth:d];
+//                if ([res count]) {
+//                    [ret addObject:res];
+//                }
+//            });
+//        }
+//        dispatch_async(dispatch_get_main_queue(), ^{
+//            block([[NSArray alloc] initWithArray:ret copyItems:YES]);
+//            NSLog(@"End fetch statistic for whole year ! %f",CFAbsoluteTimeGetCurrent());
+//        });
+//    });
+    
 }
 
 -(void)releaseRecordCache{

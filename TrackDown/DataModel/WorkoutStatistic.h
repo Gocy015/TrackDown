@@ -7,6 +7,7 @@
 //
 
 #import <Foundation/Foundation.h>
+#import "ExpandableObjectProtocol.h"
 
 typedef NS_ENUM (NSInteger ,StatType){
     StatTypeMuscle = 0,
@@ -25,5 +26,6 @@ extern NSString *const key_sets;
 @property (nonatomic ,strong) NSMutableDictionary *data;
 @property (nonatomic) NSUInteger storeDate;
 @property (nonatomic) NSUInteger trainingCount;
+@property (nonatomic) NSUInteger storeMonth;
 
 @end

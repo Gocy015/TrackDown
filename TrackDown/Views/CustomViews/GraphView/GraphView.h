@@ -11,5 +11,10 @@
 @interface GraphView : UIView
 
 @property (nonatomic ,strong) NSArray * graphPoints;
+@property (nonatomic ,strong) NSArray * descriptions;
+@property (nonatomic ,strong) NSArray * titles;
+@property (nonatomic) NSUInteger year;
+
+-(void)hideTip;
 
 @end
