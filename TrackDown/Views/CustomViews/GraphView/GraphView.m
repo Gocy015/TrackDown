@@ -100,30 +100,33 @@
     UIBezierPath *graphPath = [UIBezierPath new];
     [graphPath moveToPoint:CGPointMake([self xPositionAtIndex:0], [self yPositionAtIndex:0])];
     
-    for (int i = 0;  i<self.graphPoints.count;  ++i) {
+    for (int i = 1;  i<self.graphPoints.count;  ++i) {
         CGPoint next = CGPointMake([self xPositionAtIndex:i], [self yPositionAtIndex:i]);
         [graphPath addLineToPoint:next];
     }
     
-    CGContextSaveGState(context);
     
-    //draw line gradient
-    
-    UIBezierPath *clippingPath = [graphPath copy];
-    
-    [clippingPath addLineToPoint:CGPointMake([self xPositionAtIndex:self.graphPoints.count - 1], _maxHeight)];
-    [clippingPath addLineToPoint:CGPointMake([self xPositionAtIndex:0], _maxHeight)];
-    [clippingPath closePath];
-    
-    [clippingPath addClip];
     
     CGFloat highestY = _topBorder;
-    startPoint = CGPointMake([self xPositionAtIndex:0], highestY);
-    endPoint = CGPointMake(startPoint.x, _maxHeight);
-    
-    CGContextDrawLinearGradient(context, gradient, startPoint, endPoint, kCGGradientDrawsAfterEndLocation);
-    
-    CGContextRestoreGState(context);//restore to clear clip
+    //draw line gradient
+    if(self.graphPoints.count > 1){
+        CGContextSaveGState(context);
+        UIBezierPath *clippingPath = [graphPath copy];
+        
+        [clippingPath addLineToPoint:CGPointMake([self xPositionAtIndex:self.graphPoints.count - 1], _maxHeight)];
+        [clippingPath addLineToPoint:CGPointMake([self xPositionAtIndex:0], _maxHeight)];
+        [clippingPath closePath];
+        
+        [clippingPath addClip];
+        
+        startPoint = CGPointMake([self xPositionAtIndex:0], highestY);
+        endPoint = CGPointMake(startPoint.x, _maxHeight);
+        
+        CGContextDrawLinearGradient(context, gradient, startPoint, endPoint, kCGGradientDrawsAfterEndLocation);
+        
+        CGContextRestoreGState(context);//restore to clear clip
+        
+    }
     
     
     //draw totalGradient
@@ -231,7 +234,9 @@
 
 -(CGFloat)yPositionAtIndex:(NSUInteger)idx {
     CGFloat v = [self.graphPoints[idx] doubleValue] - _minValue;
-    CGFloat absoluteHeight = v/(_maxValue - _minValue) * _graphHeight; //CG coordinates , y is at bottom
+    CGFloat offset = _maxValue - _minValue;
+    
+    CGFloat absoluteHeight = offset > CGFLOAT_MIN ? v/(offset) * _graphHeight : _graphHeight / 2; //CG coordinates , y is at bottom
     CGFloat flipHeight = _graphHeight + _topBorder - absoluteHeight;
     
     return flipHeight;
