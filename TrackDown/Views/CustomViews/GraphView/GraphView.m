@@ -449,7 +449,7 @@
 
 -(void)hideTip{
     if (_tipView) {
-        _tipView.hidden = YES;
+        [self showTip:NO];
     }
 }
 

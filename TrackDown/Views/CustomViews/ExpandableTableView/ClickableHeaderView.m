@@ -98,8 +98,7 @@
     [backgroundView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.edges.equalTo(self);
     }];
-    
-    // 灰色背景
+     
     
     UIView *contentView         = [[UIView alloc] initWithFrame:CGRectMake(0, 0, Width, Height)];
     contentView.backgroundColor = _normalFillColor;
