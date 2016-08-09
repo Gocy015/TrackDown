@@ -366,6 +366,7 @@
         [UIView animateWithDuration:0.2 animations:^{
             self.tipView.alpha = 1;
         }];
+        [self bringSubviewToFront:self.tipView];
     }
     else{
         self.tipView.alpha = 1;
