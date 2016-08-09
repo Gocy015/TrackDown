@@ -146,6 +146,7 @@ static CGFloat cellHeight = 180;
     [self.view addSubview:v];
     
     _tableVC = tbvc;
+    _tableVC.allowsMutipleSelection = NO;
     _tableVC.cellDataSource = self;
     
     UIView *superview = self.view;

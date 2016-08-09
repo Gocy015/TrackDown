@@ -22,4 +22,6 @@
 @property (nonatomic ,weak) id <CustomHeaderViewDataSource> headerViewDataSource;
 @property (nonatomic ,weak) id <CustomCellDataSource> cellDataSource;
 
+@property (nonatomic) BOOL allowsMutipleSelection;
+
 @end

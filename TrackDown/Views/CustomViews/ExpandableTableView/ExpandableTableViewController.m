@@ -18,6 +18,8 @@ static CGFloat headerHeight = 40.0f;
 @interface ExpandableTableViewController () <UITableViewDelegate ,UITableViewDataSource ,ClickableHeaderDelegate>
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
 
+@property (nonatomic) NSInteger lastSelectedSection;
+
 @end
 
 @implementation ExpandableTableViewController
@@ -25,6 +27,14 @@ static CGFloat headerHeight = 40.0f;
 
 
 #pragma mark - Life Cycle
+
+-(instancetype)init{
+    if (self = [super init]) {
+        _allowsMutipleSelection = YES;
+        _lastSelectedSection = -1;
+    }
+    return self;
+}
 
 -(void)viewDidLoad{
     [super viewDidLoad];
@@ -46,6 +56,7 @@ static CGFloat headerHeight = 40.0f;
     }else{
         [self.tableView registerClass:[ClickableHeaderView class] forHeaderFooterViewReuseIdentifier:headerReusedId];
     }
+    
 }
 
 
@@ -141,7 +152,7 @@ static CGFloat headerHeight = 40.0f;
         NSIndexPath *idxPath = [NSIndexPath indexPathForRow:i inSection:headerView.section];
         [indexPaths addObject:idxPath];
     }
-    if (![obj opened]) {
+    if (![obj opened]) { //open
         [obj setOpened:YES];
         headerView.opened = YES;
         NSIndexPath *lastIndex = indexPaths.lastObject;
@@ -157,15 +168,33 @@ static CGFloat headerHeight = 40.0f;
             [self.tableView scrollToRowAtIndexPath:lastIndex atScrollPosition:UITableViewScrollPositionBottom animated:YES];
         }
         
+        if (!_allowsMutipleSelection && _lastSelectedSection >= 0) {
+            id <ExpandableObject> objToClose = self.data[_lastSelectedSection];
+            [objToClose setOpened: NO];
+            ClickableHeaderView *headerToClose = (ClickableHeaderView *)[self.tableView headerViewForSection:_lastSelectedSection];
+            headerToClose.opened = NO;
+            
+            NSMutableArray *indexPathToClose = [NSMutableArray new];
+            for (NSInteger j = 0; j < [objToClose countOfSecondaryObjects]; ++j) {
+                NSIndexPath *idxPath = [NSIndexPath indexPathForRow:j inSection:_lastSelectedSection];
+                [indexPathToClose addObject:idxPath];
+            }
+            [self.tableView beginUpdates];
+            [self.tableView deleteRowsAtIndexPaths:indexPathToClose withRowAnimation:UITableViewRowAnimationFade];
+            [self.tableView endUpdates];
+        }
+        
+        _lastSelectedSection = headerView.section;
+        
     }else{
         [obj setOpened:NO];
         headerView.opened = NO;
         [self.tableView beginUpdates];
         [self.tableView deleteRowsAtIndexPaths:indexPaths withRowAnimation:UITableViewRowAnimationFade];
         [self.tableView endUpdates];
+        _lastSelectedSection = -1;
     }
 }
-
 
 
 #pragma mark - Setters
