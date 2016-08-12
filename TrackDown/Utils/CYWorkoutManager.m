@@ -152,14 +152,9 @@ static NSString * const Key_TimeBreak = @"TrackDown_TimeBreak";
     
     NSArray *arr = [[NSArray alloc] initWithArray:workoutPlan copyItems:YES];//avoid conflict
     
-    NSDateComponents *com = [NSDateComponents new];
     
-    NSDate *date = [NSDate date];
-    NSCalendar *calendar = [NSCalendar currentCalendar];
-    com.year = [date year];
-    com.month = [date month] ;
-    com.day = [date day];
-    NSDate *d = [calendar dateFromComponents:com];
+    
+    NSDate *d = [NSDate date];
     
     [[CYDataBaseManager sharedManager] storeWorkoutPlan:[self mergeConsecutiveMuscle:workoutPlan] forDate:d];
     
@@ -211,11 +206,15 @@ static NSString * const Key_TimeBreak = @"TrackDown_TimeBreak";
     
     NSMutableArray *statArr = [NSMutableArray new];
     
+    NSDate *d = [NSDate date];
+    
     for (TargetMuscle *m in mergedPlan) {
         double weight = 0;
         WorkoutStatistic *mStat = [WorkoutStatistic new];
         mStat.type = StatTypeMuscle;
         mStat.key = m.muscle;
+        mStat.storeDate = [d day];
+        mStat.storeMonth = [d month];
         [statArr addObject:mStat];
         for (WorkoutAction *act in m.actions) {
             if ([actionDic objectForKey:act.actionName] != nil) {
@@ -239,6 +238,9 @@ static NSString * const Key_TimeBreak = @"TrackDown_TimeBreak";
                 WorkoutStatistic *stat = [WorkoutStatistic new];
                 stat.type = StatTypeAction;
                 stat.key = act.actionName;
+                
+                stat.storeDate = [d day];
+                stat.storeMonth = [d month];
                 NSNumber *actWeight = [act.weightPerSet sum];
                 weight = weight + actWeight.doubleValue;
                 stat.data = [NSMutableDictionary dictionaryWithDictionary:@{key_weight:actWeight,key_sets:@(act.sets),key_reps:[act.repeatsPerSet sum]}];
