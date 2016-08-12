@@ -13,7 +13,7 @@
 @property (nonatomic ,strong) NSArray * graphPoints;
 @property (nonatomic ,strong) NSArray * descriptions;
 @property (nonatomic ,strong) NSArray * titles;
-@property (nonatomic) NSUInteger year;
+@property (nonatomic) NSString *mainTitle;
 
 -(void)hideTip;
 

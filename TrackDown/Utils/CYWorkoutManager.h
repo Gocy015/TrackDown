@@ -43,8 +43,23 @@ extern NSString *const n_DeleteActionSuccessNotification;
 -(void)didFinishWorkoutPlan:(NSArray <TargetMuscle *>*)workoutPlan;
 
 -(void)workoutRecordsForMonthInDate:(NSDate *)date completion:(void(^)(NSDictionary *))block;
--(void)workoutStatisticForYearInDate:(NSDate *)date completion:(void (^)(NSArray * ,NSDate *))block;
-//...
+-(void)workoutActionStatisticForYearInDate:(NSDate *)date completion:(void (^)(NSArray * ,NSDate *))block;
+
+/**
+ *  读取动作所有数据
+ *
+ *  @param block 回调字典res , @{date:statisticArray,date2:statisticArray2, ... }
+ */
+-(void)loadAllActionStatistics:(void(^)(NSDictionary *res))block;
+
+
+/**
+ *  读取所有部位数据
+ *
+ *  @param block 回调Array，@{statisticMuscle1,statisticMuscle2, ...}
+ */
+-(void)loadAllMuscleStatistics:(void(^)(NSArray *res))block;
+
 
 -(void)releaseRecordCache;
 

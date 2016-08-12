@@ -167,7 +167,6 @@ static NSString * const statCount = @"count";
 }
 
 -(NSArray *)queryWorkoutActionStatisticForYear:(NSDate *)date{
-    
     FMDatabase *db = [self statisticDatabaseForYearInDate:date];
     NSMutableArray *actions = [NSMutableArray new];
     
@@ -175,6 +174,7 @@ static NSString * const statCount = @"count";
         NSString *query = [NSString stringWithFormat:@"SELECT * FROM %@ WHERE %@ = ? ORDER BY %@ ASC",statTable,statType,statStoreMonth];
         FMResultSet *set = [db executeQuery:query,@(StatTypeAction)];
         while (set.next) {
+            
             NSUInteger day = [set unsignedLongLongIntForColumn:statStoreDate];
             NSUInteger month = [set unsignedLongLongIntForColumn:statStoreMonth];
             NSUInteger count = [set unsignedLongLongIntForColumn:statCount];
@@ -193,13 +193,51 @@ static NSString * const statCount = @"count";
             s.type = StatTypeAction;
             
             [actions addObject:s];
+            
         }
+        
+        [db close];
     }
     
     return [[NSArray alloc] initWithArray:actions];
 }
 
+-(NSArray *)queryWorkoutMuscleStatisticForYear:(NSDate *)date{
+    FMDatabase *db = [self statisticDatabaseForYearInDate:date];
+    NSMutableArray *muscles = [NSMutableArray new];
+    
+    if ([db open]) {
+        
+        NSString *query = [NSString stringWithFormat:@"SELECT * FROM %@ WHERE %@ = ?",statTable,statType];
+        FMResultSet *set = [db executeQuery:query,@(StatTypeMuscle)];
+        
+        
+        //statType,statKey,statData
+        while (set.next) {
+            WorkoutStatistic *mus = [WorkoutStatistic new];
+            
+            NSString *key = [set stringForColumn:statKey];
+            
+            NSData *data = [set objectForColumnName:statData];
+            
+            NSDictionary *dic = [NSKeyedUnarchiver unarchiveObjectWithData:data];
+            
+            mus.type = StatTypeMuscle;
+            mus.key = key;
+            mus.data = [NSMutableDictionary dictionaryWithDictionary:dic];
+            
+            [muscles addObject:mus];
+
+        }
+        
+        [db close];
+    }
+    
+    return muscles;
+}
+
 #pragma mark - Helpers
+
 
 -(void)clearRecordsCache{
     [_recordCache removeAllObjects];
@@ -280,13 +318,13 @@ static NSString * const statCount = @"count";
     NSMutableArray *statToUpdate = [NSMutableArray new];
 
     if ([db open]) {
-        NSString *query = [NSString stringWithFormat:@"SELECT * FROM %@ WHERE %@ = ? AND %@ = ? AND %@ = ?;",statTable,statType,statKey,statStoreMonth];
+        NSString *queryForAct = [NSString stringWithFormat:@"SELECT * FROM %@ WHERE %@ = ? AND %@ = ? AND %@ = ?;",statTable,statType,statKey,statStoreMonth];
+        NSString *queryForMus = [NSString stringWithFormat:@"SELECT * FROM %@ WHERE %@ = ? AND %@ = ?;",statTable,statType,statKey];
         FMResultSet *set = nil;
         for(WorkoutStatistic *s in stat){// costly?
-            set = [db executeQuery:query,@(s.type),s.key,@(s.storeMonth)];
-            if (set.next) { // use if because every stat is unique by type&&key.
-                if (s.type == StatTypeMuscle) {
-                    //muscle
+            if (s.type == StatTypeMuscle) {
+                set = [db executeQuery:queryForMus,@(s.type),s.key];
+                if (set.next) {
                     NSData *data = [set objectForColumnName:statData];
                     
                     NSDictionary *dic = [NSKeyedUnarchiver unarchiveObjectWithData:data];
@@ -295,9 +333,15 @@ static NSString * const statCount = @"count";
                     
                     [s.data setObject:@(weight) forKey:key_weight];
                     
-                }else{
-                    //action
-                    
+                    [statToInsert removeObject:s];
+                    [statToUpdate addObject:s];
+                }
+            
+            }else{
+                
+                set = [db executeQuery:queryForAct,@(s.type),s.key,@(s.storeMonth)];
+                
+                if(set.next){
                     NSData *data = [set objectForColumnName:statData];
                     
                     NSDictionary *dic = [NSKeyedUnarchiver unarchiveObjectWithData:data];
@@ -310,24 +354,66 @@ static NSString * const statCount = @"count";
                     [s.data setObject:@(sets) forKey:key_sets];
                     [s.data setObject:@(reps) forKey:key_reps];
                     
+                    NSUInteger lastStoreDay = [set intForColumn:statStoreDate];
+                    NSUInteger lastCount = [set intForColumn:statCount];
+                    
+                    if(lastStoreDay == day){
+                        s.storeDate = lastStoreDay;
+                        s.trainingCount = lastCount;
+                    }else{
+                        s.storeDate = day;
+                        s.trainingCount = lastCount + 1;
+                    }
+                    s.storeMonth = month;
+                    [statToInsert removeObject:s];
+                    [statToUpdate addObject:s];
                 }
                 
-                NSUInteger lastStoreDay = [set intForColumn:statStoreDate];
-                NSUInteger lastCount = [set intForColumn:statCount];
-                
-                if(lastStoreDay == day){
-                    s.storeDate = lastStoreDay;
-                    s.trainingCount = lastCount;
-                }else{
-                    s.storeDate = day;
-                    s.trainingCount = lastCount + 1;
-                }
-                s.storeMonth = month;
-                [statToInsert removeObject:s];
-                [statToUpdate addObject:s];
-            }else{
-                //insert , do nothing
             }
+//            if (set.next) { // use if because every stat is unique by type&&key.
+//                if (s.type == StatTypeMuscle) {
+//                    //muscle
+//                    NSData *data = [set objectForColumnName:statData];
+//                    
+//                    NSDictionary *dic = [NSKeyedUnarchiver unarchiveObjectWithData:data];
+//                    
+//                    double weight = [[dic objectForKey:key_weight] doubleValue] + [[s.data objectForKey:key_weight] doubleValue];
+//                    
+//                    [s.data setObject:@(weight) forKey:key_weight];
+//                    
+//                }else{
+//                    //action
+//                    
+//                    NSData *data = [set objectForColumnName:statData];
+//                    
+//                    NSDictionary *dic = [NSKeyedUnarchiver unarchiveObjectWithData:data];
+//                    
+//                    double weight = [[dic objectForKey:key_weight] doubleValue] + [[s.data objectForKey:key_weight] doubleValue];
+//                    NSUInteger sets = [[dic objectForKey:key_sets] integerValue] + [[s.data objectForKey:key_sets] integerValue];
+//                    NSUInteger reps = [[dic objectForKey:key_reps] integerValue] + [[s.data objectForKey:key_reps] integerValue];
+//                    
+//                    [s.data setObject:@(weight) forKey:key_weight];
+//                    [s.data setObject:@(sets) forKey:key_sets];
+//                    [s.data setObject:@(reps) forKey:key_reps];
+//                    
+//                }
+//                
+//                NSUInteger lastStoreDay = [set intForColumn:statStoreDate];
+//                NSUInteger lastCount = [set intForColumn:statCount];
+//                
+//                if(lastStoreDay == day){
+//                    s.storeDate = lastStoreDay;
+//                    s.trainingCount = lastCount;
+//                }else{
+//                    s.storeDate = day;
+//                    s.trainingCount = lastCount + 1;
+//                }
+//                s.storeMonth = month;
+//                [statToInsert removeObject:s];
+//                [statToUpdate addObject:s];
+//            }else{
+//                //insert , do nothing
+//            }
         }
         
         

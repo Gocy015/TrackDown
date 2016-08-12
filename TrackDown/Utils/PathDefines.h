@@ -14,6 +14,7 @@
  
 
 static NSString * const kWorkoutFolderName = @"WorkoutType";
+static NSString * const kDatabaseFolderName = @"DataBase";
 static NSString * const kWorkoutFileName = @"types.json";
 
 #endif /* PathDefines_h */

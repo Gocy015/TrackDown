@@ -24,6 +24,7 @@
 
 -(NSDictionary *)queryWorkoutRecordsForMonth:(NSDate *)date;
 -(NSArray *)queryWorkoutActionStatisticForYear:(NSDate *)date;
+-(NSArray *)queryWorkoutMuscleStatisticForYear:(NSDate *)date;
 
 -(void)clearRecordsCache;
 

@@ -178,6 +178,10 @@ static NSString * const Key_TimeBreak = @"TrackDown_TimeBreak";
     return [[[self libraryPath] stringByAppendingPathComponent:kWorkoutFolderName ] stringByAppendingPathComponent:kWorkoutFileName];
 }
 
+-(NSString *)dbPath{
+    return [[self libraryPath] stringByAppendingPathComponent:kDatabaseFolderName];
+}
+
 -(NSArray<TargetMuscle *> *)mergeConsecutiveMuscle:(NSArray<TargetMuscle *> *)plan{
     NSMutableArray *mergedArr = [NSMutableArray new];
     TargetMuscle *prev = nil;
@@ -294,7 +298,7 @@ static NSString * const Key_TimeBreak = @"TrackDown_TimeBreak";
         return ;
     }
     
-    dispatch_async(self.ioQueue, ^{
+    [self ioProcess:^{
         
         BOOL success = [writeData writeToFile:[self workoutTypePath] atomically:YES];
         
@@ -306,22 +310,22 @@ static NSString * const Key_TimeBreak = @"TrackDown_TimeBreak";
                 [[NSNotificationCenter defaultCenter]postNotificationName:n_WriteToDiskFailNotification object:nil];
             }
         });
-    });
+    }];
     
 }
 
 -(void)workoutRecordsForMonthInDate:(NSDate *)date completion:(void (^)(NSDictionary *))block{
-    dispatch_async(self.ioQueue, ^{
+    [self ioProcess: ^{
         NSDictionary *res = [[CYDataBaseManager sharedManager]queryWorkoutRecordsForMonth:date];
         dispatch_async(dispatch_get_main_queue(), ^{
             block(res);
         });
-    });
+    }];
 }
  
 
 
--(void)workoutStatisticForYearInDate:(NSDate *)date completion:(void (^)(NSArray * ,NSDate *))block{
+-(void)workoutActionStatisticForYearInDate:(NSDate *)date completion:(void (^)(NSArray * ,NSDate *))block{
 //    NSInteger year = [date year];
 //    NSInteger day = 1;
 //    
@@ -329,13 +333,12 @@ static NSString * const Key_TimeBreak = @"TrackDown_TimeBreak";
     
 //    NSLog(@"Start fetch statistic for whole year ! %f",CFAbsoluteTimeGetCurrent());
     
-    dispatch_async(self.ioQueue, ^{
+    [self ioProcess:^{
         NSArray *res = [[CYDataBaseManager sharedManager] queryWorkoutActionStatisticForYear:date];
         dispatch_async(dispatch_get_main_queue(), ^{
             block(res,date);
         });
-    });
-    
+    }];
 //    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
 //        NSDateComponents *com = [NSDateComponents new];
 //        NSCalendar *calendar = [NSCalendar currentCalendar];
@@ -359,8 +362,97 @@ static NSString * const Key_TimeBreak = @"TrackDown_TimeBreak";
     
 }
 
+
+-(void)loadAllActionStatistics:(void (^)(NSDictionary *))block{
+    [self ioProcess:^{
+        NSArray *files = [m_fileManager contentsOfDirectoryAtPath:[self dbPath] error:nil];
+        if (files) {
+            NSMutableDictionary *dic = [NSMutableDictionary new];
+            NSDateComponents *com = [NSDateComponents new];
+            NSCalendar *cal = [NSCalendar currentCalendar];
+            for (NSString *file in files) {
+                NSString *p = [self validateDirectory:file];
+                if (p) {
+                    com.year = [file integerValue];
+                    com.month = 1;
+                    com.day = 1;
+                    NSDate * d = [cal dateFromComponents:com];
+                    NSArray *res = [[CYDataBaseManager sharedManager] queryWorkoutActionStatisticForYear:d];
+                    [dic setObject:res forKey:d];
+                }
+            }
+            dispatch_async(dispatch_get_main_queue(), ^{
+                block(dic);
+            });
+            
+        }else{
+            dispatch_async(dispatch_get_main_queue(), ^{
+                block(nil);
+            });
+        }
+        
+    }];
+}
+
+
+-(void)loadAllMuscleStatistics:(void (^)(NSArray *))block{
+    [self ioProcess:^{
+        NSArray *files = [m_fileManager contentsOfDirectoryAtPath:[self dbPath] error:nil];
+        if (files) {
+            NSMutableDictionary *dic = [NSMutableDictionary new];
+            NSDateComponents *com = [NSDateComponents new];
+            NSCalendar *cal = [NSCalendar currentCalendar];
+            NSMutableArray *arr = [NSMutableArray new];
+            for (NSString *file in files) {
+                NSString *p = [self validateDirectory:file];
+                if (p) {
+                    com.year = [file integerValue];
+                    com.month = 1;
+                    com.day = 1;
+                    NSDate * d = [cal dateFromComponents:com];
+                    NSArray *res = [[CYDataBaseManager sharedManager] queryWorkoutMuscleStatisticForYear:d];
+                    
+                    for(WorkoutStatistic *stat in res){
+                        if (dic[stat.key] != nil) {
+                            WorkoutStatistic *statInDic = dic[stat.key];
+                            double sum = [statInDic.data[key_weight] doubleValue] + [stat.data[key_weight] doubleValue];
+                            statInDic.data[key_weight] = @(sum);
+                        }else{
+                            dic[stat.key] = stat;
+                            [arr addObject:stat];
+                        }
+                    }
+                }
+                
+            }
+            dispatch_async(dispatch_get_main_queue(), ^{
+                block(arr);
+            });
+            
+        }else{
+            dispatch_async(dispatch_get_main_queue(), ^{
+                block(nil);
+            });
+        }
+        
+    }];
+
+}
+
 -(void)releaseRecordCache{
     [[CYDataBaseManager sharedManager] clearRecordsCache];
+}
+
+-(NSString *)validateDirectory:(NSString *)file{
+    if ([file integerValue]) {
+        NSString *path = [[self dbPath] stringByAppendingPathComponent:file];
+        BOOL isDir = NO;
+        if ([m_fileManager fileExistsAtPath:path isDirectory:&isDir] && isDir) {
+            return path;
+        }
+    }
+    
+    return nil;
 }
 
 
@@ -382,6 +474,11 @@ static NSString * const Key_TimeBreak = @"TrackDown_TimeBreak";
     [defaults setObject:@(time) forKey:Key_TimeBreak];
     [defaults synchronize];
     
+}
+
+
+-(void)ioProcess:(dispatch_block_t)block{
+    dispatch_async(self.ioQueue, block);
 }
 
 #pragma mark - Getters

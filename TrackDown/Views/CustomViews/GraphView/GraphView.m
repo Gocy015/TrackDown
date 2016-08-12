@@ -251,7 +251,7 @@
     }
     //upper left year label
     UILabel *yearLabel = [UILabel new];
-    yearLabel.text = [NSString stringWithFormat:@"%lu",self.year];
+    yearLabel.text = self.mainTitle;
     yearLabel.font = [UIFont fontWithName:@"Avenir Next Condensed" size:17];
     yearLabel.textColor = [UIColor whiteColor];
     [yearLabel sizeToFit];

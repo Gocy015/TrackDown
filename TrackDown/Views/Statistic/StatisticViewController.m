@@ -16,6 +16,8 @@
 #import "CYWorkoutManager.h"
 #import "PreDefines.h"
 #import "ExpandableObjectProtocol.h"
+#import "CYPieChart.h"
+#import "PieChartDataObject.h"
 
 /*
  数组里存着[date year]对应的WorkoutStatistic，有重名stat，区别是月份 , 数据按月份升序排列。
@@ -73,10 +75,11 @@
 
 @interface StatisticViewController () <CustomCellDataSource>
 
-@property (nonatomic ,strong) UITableView *tableView;
 @property (nonatomic ,weak) ExpandableTableViewController *tableVC;
+@property (nonatomic ,weak) CYPieChart *chart;
 @property (nonatomic ,strong) NSMutableDictionary *statistic;
 @property (nonatomic ,strong) NSMutableArray *displayArray;
+@property (weak, nonatomic) IBOutlet UISegmentedControl *segment;
 
 @end
 
@@ -100,23 +103,35 @@ static CGFloat cellHeight = 180;
 //    [self.view addSubview:gv];
     
     [self constructTableView];
+    [self constructPieChart];
     WeakSelf();
     
     NSDateComponents *com = [NSDateComponents new];
 
     NSDate *date = [NSDate date];
-    NSCalendar *calendar = [NSCalendar currentCalendar];
-    com.year = [date year] - 1;
-    com.month = [date month] ;
-    com.day = [date day];
-    NSDate *d = [calendar dateFromComponents:com];
+//    NSCalendar *calendar = [NSCalendar currentCalendar];
+//    com.year = [date year] ;
+//    com.month = [date month] ;
+//    com.day = [date day];
+//    NSDate *d = [calendar dateFromComponents:com];
     
-    [[CYWorkoutManager sharedManager] workoutStatisticForYearInDate:d completion:^(NSArray *res, NSDate *date) {
-        [weakSelf groupStatistics:res onDate:date];
+//    [[CYWorkoutManager sharedManager] workoutActionStatisticForYearInDate:d completion:^(NSArray *res, NSDate *date) {
+//        [weakSelf groupStatistics:res onDate:date];
+//    }];
+//    
+//    [[CYWorkoutManager sharedManager] workoutActionStatisticForYearInDate:[NSDate date] completion:^(NSArray *res ,NSDate *date) {
+//        [weakSelf groupStatistics:res onDate:date];
+//    }];
+    
+    //TODO: show loading toast and group things at bg
+    [[CYWorkoutManager sharedManager] loadAllActionStatistics:^(NSDictionary *res) {
+        for (NSDate *key in res.allKeys) {
+            [weakSelf groupStatistics:res[key] onDate:key];
+        }
     }];
     
-    [[CYWorkoutManager sharedManager] workoutStatisticForYearInDate:[NSDate date] completion:^(NSArray *res ,NSDate *date) {
-        [weakSelf groupStatistics:res onDate:date];
+    [[CYWorkoutManager sharedManager] loadAllMuscleStatistics:^(NSArray *res) {
+        [weakSelf configurePieWithStatistics:res];
     }];
     
     self.title = @"训练统计";
@@ -125,7 +140,6 @@ static CGFloat cellHeight = 180;
 
 -(void)viewWillAppear:(BOOL)animated{
     [super viewWillAppear:animated];
-//    [self.view viewWithTag:22].center = self.view.center;
 }
 
 - (void)didReceiveMemoryWarning {
@@ -133,10 +147,45 @@ static CGFloat cellHeight = 180;
     // Dispose of any resources that can be recreated.
 }
 
+-(void)dealloc{
+    NSLog(@"Statistic VC dealloc !");
+}
+
+#pragma mark - Actions
+
+- (IBAction)segmentValueChanged:(UISegmentedControl *)sender {
+    if (![sender isEqual: self.segment]) {
+        return ;
+    }
+    
+    if(self.segment.selectedSegmentIndex == 0){
+        self.tableVC.view.hidden = NO;
+        self.chart.hidden = YES;
+    }else{
+        self.chart.hidden = NO;
+        self.tableVC.view.hidden = YES;
+    }
+}
 
 
 #pragma mark - Helpers
 
+-(void)constructPieChart{
+    CYPieChart *chart = [CYPieChart new];
+    [self.view addSubview:chart];
+    chart.hidden = YES;
+    
+    UIView *v = self.view;
+    
+    [chart mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.center.equalTo(v);
+        make.width.mas_equalTo(220);
+        make.height.mas_equalTo(220);
+    }];
+    
+    self.chart = chart;
+    
+}
 
 -(void)constructTableView{
     ExpandableTableViewController *tbvc = [ExpandableTableViewController new];
@@ -152,7 +201,7 @@ static CGFloat cellHeight = 180;
     UIView *superview = self.view;
     
     [v mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.top.equalTo(superview);
+        make.top.equalTo(self.segment.mas_bottom).offset(20.0);
         make.leading.equalTo(superview.mas_leading);
         make.trailing.equalTo(superview.mas_trailing);
         make.bottom.equalTo(superview.mas_bottom);
@@ -233,6 +282,25 @@ static CGFloat cellHeight = 180;
 }
 
 
+-(void)configurePieWithStatistics:(NSArray *)stats{
+    NSMutableArray *objs = [NSMutableArray new];
+    for (WorkoutStatistic *stat in stats) {
+        PieChartDataObject *pieObj = [PieChartDataObject new];
+        pieObj.title = stat.key;
+        double weight = [stat.data[key_weight] doubleValue];
+        
+        pieObj.value = weight;
+        pieObj.detailText = [NSString stringWithFormat:@"%@已经累计经历了%.2fkg的训练量",stat.key,weight];
+        [objs addObject:pieObj];
+    }
+    
+    self.chart.objects = objs;
+    self.chart.colors = @[[UIColor orangeColor],[UIColor cyanColor],[UIColor darkGrayColor]];
+    
+    [self.chart updateApperance];
+    
+}
+
 #pragma mark - CustomCell DataSource
 
 -(CGFloat)heightForCellAtIndexPath:(NSIndexPath *)indexPath{
@@ -257,7 +325,7 @@ static CGFloat cellHeight = 180;
     DisplayStatistic *stat = self.displayArray[indexPath.section];
     NSDictionary *dic = stat.yearArray[indexPath.row];
     for (NSNumber *num in dic.allKeys) { // only 1 key
-        graph.year = [num integerValue];
+        graph.mainTitle = [NSString stringWithFormat:@"%lu" ,[num unsignedIntegerValue]];
     }
     NSMutableArray *titles = [NSMutableArray new];
     NSMutableArray *points = [NSMutableArray new];

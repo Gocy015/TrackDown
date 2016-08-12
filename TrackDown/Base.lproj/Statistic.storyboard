@@ -56,8 +56,28 @@
                     <view key="view" contentMode="scaleToFill" id="iqe-fc-TQT">
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <segmentedControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="WId-Db-76h">
+                                <rect key="frame" x="247" y="36" width="107" height="29"/>
+                                <segments>
+                                    <segment title="按动作"/>
+                                    <segment title="按部位"/>
+                                </segments>
+                                <color key="tintColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
+                                <connections>
+                                    <action selector="segmentValueChanged:" destination="fla-OI-44v" eventType="valueChanged" id="BdG-wL-4jI"/>
+                                </connections>
+                            </segmentedControl>
+                        </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="WId-Db-76h" firstAttribute="top" secondItem="nCT-Y3-aXS" secondAttribute="bottom" constant="16" id="Otb-h6-XWs"/>
+                            <constraint firstItem="WId-Db-76h" firstAttribute="centerX" secondItem="iqe-fc-TQT" secondAttribute="centerX" id="fps-1t-DcT"/>
+                        </constraints>
                     </view>
+                    <connections>
+                        <outlet property="segment" destination="WId-Db-76h" id="xLq-kB-EiK"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Qtb-eT-xUe" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
