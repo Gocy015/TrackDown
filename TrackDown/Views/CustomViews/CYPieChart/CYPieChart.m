@@ -20,12 +20,13 @@
 @property (nonatomic ,strong) NSMutableArray *paths;
 @property (nonatomic ,strong) NSMutableArray *startAngles;
 @property (nonatomic ,strong) NSMutableArray *titleLabels;
-@property (nonatomic ,weak) HighlightPie *pie;
-@property (nonatomic ,weak) HighlightPie *pie2;
+@property (nonatomic ,strong) NSMutableArray *fillColors;
+@property (nonatomic ,weak) HighlightPie *showPie;
+@property (nonatomic ,weak) HighlightPie *hidePie;
 
 @end
 
-static CGFloat kAnimationDuration = 0.3f;
+static CGFloat kAnimationDuration = 0.22f;
 
 @implementation CYPieChart
 
@@ -64,7 +65,7 @@ static CGFloat kAnimationDuration = 0.3f;
     
     _tapIndex = -1;
     _lastIndex = -1;
-    _moveRadius = 16;
+    _moveRadius = 12;
     _moveScale = 1;
     _sum = 0.0;
 }
@@ -85,10 +86,15 @@ static CGFloat kAnimationDuration = 0.3f;
 - (void)drawRect:(CGRect)rect {
     // Drawing code
     
-    NSLog(@"Draw Rect");
+//    NSLog(@"Draw Rect");
     
     [self.paths removeAllObjects];
     
+    if (self.objects && self.fillColors) {
+        while (self.fillColors.count < self.objects.count) {
+            [self.fillColors addObject:[UIColor darkGrayColor]];
+        }
+    }
     
     CGContextRef context = UIGraphicsGetCurrentContext();
     
@@ -117,7 +123,7 @@ static CGFloat kAnimationDuration = 0.3f;
             
         }else{
             
-            [self.colors[i] setFill];
+            [self.fillColors[i] setFill];
             [shadow appendPath:path];
             
         }
@@ -134,6 +140,20 @@ static CGFloat kAnimationDuration = 0.3f;
     self.layer.shadowPath = shadow.CGPath;
     
 
+}
+
+#pragma mark - Instance Method
+-(void)goNextWithClockwise:(BOOL)clockwise{
+    if (_tapIndex < 0 ) {
+        return;
+    }
+    if (clockwise) {
+        _tapIndex = (_tapIndex + 1) % self.objects.count;
+    }else{
+        _tapIndex = (self.objects.count + _tapIndex - 1) % self.objects.count;
+    }
+    
+    [self switchSelectedPie];
 }
 
 
@@ -158,24 +178,29 @@ static CGFloat kAnimationDuration = 0.3f;
         _tapIndex = -1;
     }
     
+    [self switchSelectedPie];
+}
+
+-(void)switchSelectedPie{
+    
     NSInteger temp = _tapIndex;
     
-    self.pie2.hidden = YES;
-    self.pie2.path = nil;
-    self.pie2.fillColor = nil;
-        
+    self.hidePie.hidden = YES;
+    self.hidePie.path = nil;
+    self.hidePie.fillColor = nil;
+    
     if (_lastIndex >= 0) {
-        self.pie2.fillColor = self.pie.fillColor;
-        self.pie2.path = self.pie.path;
-        self.pie2.transform = self.pie.transform;
-        [self.pie2 setNeedsDisplay];
-        self.pie2.hidden = NO;
-//        UILabel *label = self.titleLabels[_lastIndex];
+        self.hidePie.fillColor = self.showPie.fillColor;
+        self.hidePie.path = self.showPie.path;
+        self.hidePie.transform = self.showPie.transform;
+        [self.hidePie setNeedsDisplay];
+        self.hidePie.hidden = NO;
+        //        UILabel *label = self.titleLabels[_lastIndex];
         [UIView animateWithDuration:kAnimationDuration animations:^{
-            self.pie2.transform = CGAffineTransformIdentity;
+            self.hidePie.transform = CGAffineTransformIdentity;
         } completion:^(BOOL finished) {
             _lastIndex = temp;
-            self.pie2.hidden = YES;
+            self.hidePie.hidden = YES;
             [self setNeedsDisplay];
         }];
     }else{
@@ -184,42 +209,42 @@ static CGFloat kAnimationDuration = 0.3f;
     
     
     
-    self.pie.hidden = YES;
-    self.pie.path = nil;
-    self.pie.fillColor = nil;
-    self.pie.transform = CGAffineTransformIdentity;
+    self.showPie.hidden = YES;
+    self.showPie.path = nil;
+    self.showPie.fillColor = nil;
+    self.showPie.transform = CGAffineTransformIdentity;
     
-    [self setNeedsDisplay];
     
     
     if (_tapIndex >= 0) {
         
-        self.pie.fillColor = self.colors[_tapIndex];
-        self.pie.path = self.paths[_tapIndex];
-        [self.pie setNeedsDisplay];
-        self.pie.hidden = NO;
+        [self setNeedsDisplay];
+        
+        self.showPie.fillColor = self.fillColors[_tapIndex];
+        self.showPie.path = self.paths[_tapIndex];
+        [self.showPie setNeedsDisplay];
+        self.showPie.hidden = NO;
         
         CGFloat range = [self angleForObjectAtIndex:_tapIndex];
         CGFloat start = [self.startAngles[_tapIndex] doubleValue];
         
         CGFloat angle = start + range/2.0;
-       
-        //TODO: -Animate
+        
         CGAffineTransform trans;
-        if ([self.colors count] > 1) {
+        if ([self.fillColors count] > 1) {
             trans = CGAffineTransformMakeTranslation(cos(angle) * self.moveRadius, sin(angle) * self.moveRadius);
             trans = CGAffineTransformScale(trans, self.moveScale, self.moveScale);
         }else{
             trans = CGAffineTransformMakeScale(self.moveScale, self.moveScale);
         }
         [UIView animateWithDuration:kAnimationDuration animations:^{
-            self.pie.transform = trans;
+            self.showPie.transform = trans;
         }];
     }
     [self calculateStartAngles];
     [self setupTitleLabels];
-}
 
+}
 
 -(void)updateApperance{
     [self setNeedsDisplay];
@@ -260,7 +285,7 @@ static CGFloat kAnimationDuration = 0.3f;
         for (NSUInteger i = 0; i < self.objects.count; ++i) {
             
             UILabel *label = [UILabel new];
-            label.font = [UIFont systemFontOfSize:10 weight:UIFontWeightMedium];
+            label.font = [UIFont systemFontOfSize:11 weight:UIFontWeightMedium];
             label.textColor = [UIColor whiteColor];
             label.text = self.objects[i].title;
             label.shadowOffset = CGSizeMake(0, 4);
@@ -337,29 +362,29 @@ static CGFloat kAnimationDuration = 0.3f;
 
 
 
--(HighlightPie *)pie{
-    if (!_pie) {
+-(HighlightPie *)showPie{
+    if (!_showPie) {
         HighlightPie *p = [[HighlightPie alloc] initWithFrame:self.bounds];
         [self addSubview:p];
         p.hidden = YES;
         
-        _pie = p;
+        _showPie = p;
     }
-    [self sendSubviewToBack:_pie];
-    return _pie;
+    [self sendSubviewToBack:_showPie];
+    return _showPie;
 }
 
 
--(HighlightPie *)pie2{
-    if (!_pie2) {
+-(HighlightPie *)hidePie{
+    if (!_hidePie) {
         HighlightPie *p = [[HighlightPie alloc] initWithFrame:self.bounds];
         [self addSubview:p];
         p.hidden = YES;
         
-        _pie2 = p;
+        _hidePie = p;
     }
-    [self sendSubviewToBack:_pie2];
-    return _pie2;
+    [self sendSubviewToBack:_hidePie];
+    return _hidePie;
 }
 
 -(void)setObjects:(NSArray<__kindof PieChartDataObject *> *)objects{
@@ -370,5 +395,10 @@ static CGFloat kAnimationDuration = 0.3f;
     }
 }
 
+-(void)setColors:(NSArray<UIColor *> *)colors{
+    _colors = colors;
+    self.fillColors = [NSMutableArray arrayWithArray:colors];
+    
+}
 
 @end

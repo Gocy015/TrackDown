@@ -20,4 +20,6 @@
 
 -(void)updateApperance;
 
+-(void)goNextWithClockwise:(BOOL)clockwise;
+
 @end

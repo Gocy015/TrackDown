@@ -40,6 +40,9 @@
 
 @end
 
+static const NSInteger leftArrowTag = 21;
+static const NSInteger rightArrowTag = 22;
+
 @implementation DisplayStatistic
 
 -(id)copyWithZone:(NSZone *)zone{
@@ -161,12 +164,29 @@ static CGFloat cellHeight = 180;
     if(self.segment.selectedSegmentIndex == 0){
         self.tableVC.view.hidden = NO;
         self.chart.hidden = YES;
+        [self.view viewWithTag:leftArrowTag].hidden = YES;
+        [self.view viewWithTag:rightArrowTag].hidden = YES;
     }else{
         self.chart.hidden = NO;
+        [self.view viewWithTag:leftArrowTag].hidden = NO;
+        [self.view viewWithTag:rightArrowTag].hidden = NO;
         self.tableVC.view.hidden = YES;
     }
 }
 
+
+-(void)arrowClicked:(UIButton *)sender{
+    switch (sender.tag) {
+        case leftArrowTag:
+            [self.chart goNextWithClockwise:YES];
+            break;
+        case rightArrowTag:
+            [self.chart goNextWithClockwise:NO];
+            break;
+        default:
+            break;
+    }
+}
 
 #pragma mark - Helpers
 
@@ -185,6 +205,44 @@ static CGFloat cellHeight = 180;
     
     self.chart = chart;
     
+    [self constructPieChartIteratorButton];
+    
+}
+
+-(void)constructPieChartIteratorButton{
+    UIButton *left = [UIButton new];
+    [left setImage:[UIImage imageNamed:@"leftArrow"] forState:UIControlStateNormal];
+    left.tag = leftArrowTag;
+    [left addTarget:self action:@selector(arrowClicked:) forControlEvents:UIControlEventTouchUpInside];
+    
+    UIButton *right = [UIButton new];
+    [right setImage:[UIImage imageNamed:@"rightArrow"] forState:UIControlStateNormal];
+    right.tag = rightArrowTag;
+    [right addTarget:self action:@selector(arrowClicked:) forControlEvents:UIControlEventTouchUpInside];
+    
+    [self.view addSubview:left];
+    [self.view addSubview:right];
+    
+    CGFloat w = 38;
+    CGFloat h = 50;
+    
+    UIView *v = self.chart;
+    
+    [left mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.width.mas_equalTo(w);
+        make.height.mas_equalTo(h);
+        make.top.equalTo(v.mas_bottom).offset(-12);
+        make.right.equalTo(v.mas_left).offset(6);
+    }];
+    [right mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.width.mas_equalTo(w);
+        make.height.mas_equalTo(h);
+        make.top.equalTo(v.mas_bottom).offset(-12);
+        make.left.equalTo(v.mas_right).offset(-6);
+    }];
+    
+    left.hidden = YES;
+    right.hidden = YES;
 }
 
 -(void)constructTableView{
@@ -295,7 +353,7 @@ static CGFloat cellHeight = 180;
     }
     
     self.chart.objects = objs;
-    self.chart.colors = @[[UIColor orangeColor],[UIColor cyanColor],[UIColor darkGrayColor]];
+    self.chart.colors = @[[UIColor orangeColor],[UIColor cyanColor]];
     
     [self.chart updateApperance];
     

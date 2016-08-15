@@ -16,6 +16,7 @@
 		C316C6861D547AD2001F9D17 /* GraphView.m in Sources */ = {isa = PBXBuildFile; fileRef = C316C6851D547AD2001F9D17 /* GraphView.m */; };
 		C316C6891D5492F7001F9D17 /* UIColor+Hex.m in Sources */ = {isa = PBXBuildFile; fileRef = C316C6881D5492F7001F9D17 /* UIColor+Hex.m */; };
 		C32E342A1D474359001C1CA2 /* Statistic.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C32E34281D474359001C1CA2 /* Statistic.storyboard */; };
+		C33212791D61681F003749B9 /* PieChartDetailView.m in Sources */ = {isa = PBXBuildFile; fileRef = C33212781D61681F003749B9 /* PieChartDetailView.m */; };
 		C34234DD1D35F0820014348A /* CYDataBaseManager.m in Sources */ = {isa = PBXBuildFile; fileRef = C34234DC1D35F0820014348A /* CYDataBaseManager.m */; };
 		C34234E01D361CE90014348A /* NSDate+Components.m in Sources */ = {isa = PBXBuildFile; fileRef = C34234DF1D361CE90014348A /* NSDate+Components.m */; };
 		C34234E31D363D830014348A /* TrainingViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C34234E21D363D830014348A /* TrainingViewController.m */; };
@@ -84,6 +85,8 @@
 		C316C6871D5492F7001F9D17 /* UIColor+Hex.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIColor+Hex.h"; sourceTree = "<group>"; };
 		C316C6881D5492F7001F9D17 /* UIColor+Hex.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIColor+Hex.m"; sourceTree = "<group>"; };
 		C32E34291D474359001C1CA2 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Statistic.storyboard; sourceTree = "<group>"; };
+		C33212771D61681F003749B9 /* PieChartDetailView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PieChartDetailView.h; sourceTree = "<group>"; };
+		C33212781D61681F003749B9 /* PieChartDetailView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PieChartDetailView.m; sourceTree = "<group>"; };
 		C34234DB1D35F0820014348A /* CYDataBaseManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CYDataBaseManager.h; sourceTree = "<group>"; };
 		C34234DC1D35F0820014348A /* CYDataBaseManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CYDataBaseManager.m; sourceTree = "<group>"; };
 		C34234DE1D361CE90014348A /* NSDate+Components.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSDate+Components.h"; sourceTree = "<group>"; };
@@ -208,6 +211,8 @@
 				C30F156E1D5D78AF0097789A /* CYPieChart.m */,
 				C30F15701D5D78ED0097789A /* HighlightPie.h */,
 				C30F15711D5D78ED0097789A /* HighlightPie.m */,
+				C33212771D61681F003749B9 /* PieChartDetailView.h */,
+				C33212781D61681F003749B9 /* PieChartDetailView.m */,
 			);
 			path = CYPieChart;
 			sourceTree = "<group>";
@@ -626,6 +631,7 @@
 				C39A8D5E1D3380CE00FAF484 /* AddWorkoutViewController.m in Sources */,
 				C385F7821D41F3BF009A08C0 /* RecordListViewController.m in Sources */,
 				C34C95ED1D49A04100E7F5B2 /* SettingsListViewController.m in Sources */,
+				C33212791D61681F003749B9 /* PieChartDetailView.m in Sources */,
 				C34C95F11D49A33800E7F5B2 /* SettingsCell.m in Sources */,
 				C34234E61D3648640014348A /* WorkoutStatistic.m in Sources */,
 				C3AA37AD1D30FE2500D5930E /* CYWorkoutManager.m in Sources */,

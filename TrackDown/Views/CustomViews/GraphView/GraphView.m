@@ -167,7 +167,10 @@
     [linePath stroke];
     
     CGGradientRelease(gradient);
+    CFRelease(cfcolors);
     CGColorSpaceRelease(colorSpace);
+    
+    
     
     [self installLabels];
     
