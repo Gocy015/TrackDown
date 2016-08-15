@@ -14,6 +14,7 @@
     NSInteger _tapIndex;
     NSInteger _lastIndex;
     double _sum;
+    BOOL _isAnimating;
 }
 
 
@@ -65,9 +66,12 @@ static CGFloat kAnimationDuration = 0.22f;
     
     _tapIndex = -1;
     _lastIndex = -1;
+    _sum = 0.0;
+    _isAnimating = NO;
+    
     _moveRadius = 12;
     _moveScale = 1;
-    _sum = 0.0;
+    _titleRadius = 60;
 }
 
 
@@ -86,8 +90,51 @@ static CGFloat kAnimationDuration = 0.22f;
 - (void)drawRect:(CGRect)rect {
     // Drawing code
     
-//    NSLog(@"Draw Rect");
+    //    NSLog(@"Draw Rect");
+#if TARGET_INTERFACE_BUILDER // appearance in IB
+    CGContextRef context = UIGraphicsGetCurrentContext();
     
+    
+    
+    CGPoint center = CGPointMake(self.bounds.size.width /2, self.bounds.size.height/2);
+    CGFloat radius = self.bounds.size.width / 2 ;
+    
+    
+    UIBezierPath *shadow = [UIBezierPath new];
+    
+    self.fillColors = [NSMutableArray arrayWithObjects:[UIColor orangeColor],[UIColor blueColor],[UIColor blackColor],nil];
+    
+    CGContextSaveGState(context);
+    
+    CGFloat lastAngle = M_PI;
+    for (int i = 0; i < 3; ++i) {
+        CGFloat angle = M_PI * 2 / 3;
+        CGFloat startAngle = lastAngle;
+        CGFloat endAngle = startAngle + angle;
+        lastAngle = endAngle;
+        
+        UIBezierPath *path = [UIBezierPath bezierPathWithArcCenter:center radius:radius startAngle:startAngle endAngle:endAngle clockwise:YES];
+        [path addLineToPoint:center];
+        [path closePath];
+        
+        
+        [self.fillColors[i] setFill];
+        [shadow appendPath:path];
+        
+        
+        
+        [path fill];
+        
+        [self.paths addObject:path];
+        lastAngle = endAngle;
+    }
+    
+    CGContextRestoreGState(context);
+    
+    
+    self.layer.shadowPath = shadow.CGPath;
+    
+#else
     [self.paths removeAllObjects];
     
     if (self.objects && self.fillColors) {
@@ -138,13 +185,16 @@ static CGFloat kAnimationDuration = 0.22f;
     
     
     self.layer.shadowPath = shadow.CGPath;
+#endif
     
-
+    
+    
+    
 }
 
 #pragma mark - Instance Method
 -(void)goNextWithClockwise:(BOOL)clockwise{
-    if (_tapIndex < 0 ) {
+    if (_tapIndex < 0 || _isAnimating) {
         return;
     }
     if (clockwise) {
@@ -159,6 +209,9 @@ static CGFloat kAnimationDuration = 0.22f;
 
 #pragma mark - Actions
 -(void)didTap:(UITapGestureRecognizer *)tap{
+    if (_isAnimating) {
+        return ;
+    }
     CGPoint p = [tap locationInView:self];
     BOOL found = NO;
     for (UIBezierPath *path in self.paths) {
@@ -195,11 +248,13 @@ static CGFloat kAnimationDuration = 0.22f;
         self.hidePie.transform = self.showPie.transform;
         [self.hidePie setNeedsDisplay];
         self.hidePie.hidden = NO;
+        _isAnimating = YES;
         //        UILabel *label = self.titleLabels[_lastIndex];
         [UIView animateWithDuration:kAnimationDuration animations:^{
             self.hidePie.transform = CGAffineTransformIdentity;
         } completion:^(BOOL finished) {
             _lastIndex = temp;
+            _isAnimating = NO;
             self.hidePie.hidden = YES;
             [self setNeedsDisplay];
         }];
@@ -241,14 +296,12 @@ static CGFloat kAnimationDuration = 0.22f;
             self.showPie.transform = trans;
         }];
     }
-    [self calculateStartAngles];
     [self setupTitleLabels];
-
+    
 }
 
 -(void)updateApperance{
     [self setNeedsDisplay];
-    [self calculateStartAngles];
     [self setupTitleLabels];
 }
 
@@ -299,7 +352,7 @@ static CGFloat kAnimationDuration = 0.22f;
             CGFloat start = [self.startAngles[i] doubleValue];
             
             CGFloat angle = start + range/2.0;
-            CGPoint offset = CGPointMake(cos(angle) * self.bounds.size.width / 4 , sin(angle) * self.bounds.size.width / 4 );
+            CGPoint offset = CGPointMake(cos(angle) * self.titleRadius , sin(angle) * self.titleRadius);
             CGPoint center = CGPointMake(self.bounds.size.width / 2 , self.bounds.size.height / 2);
             
             label.center = CGPointMake(center.x + offset.x, center.y + offset.y);
@@ -393,6 +446,7 @@ static CGFloat kAnimationDuration = 0.22f;
     for (PieChartDataObject *obj in objects) {
         _sum += obj.value;
     }
+    [self calculateStartAngles];
 }
 
 -(void)setColors:(NSArray<UIColor *> *)colors{
@@ -400,5 +454,6 @@ static CGFloat kAnimationDuration = 0.22f;
     self.fillColors = [NSMutableArray arrayWithArray:colors];
     
 }
+
 
 @end

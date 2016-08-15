@@ -8,8 +8,11 @@
 
 #import <UIKit/UIKit.h>
 
+
 @class PieChartDataObject;
 
+
+IB_DESIGNABLE
 @interface CYPieChart : UIView
 
 @property (nonatomic ,strong) NSArray <__kindof PieChartDataObject *> *objects;
@@ -17,6 +20,7 @@
 
 @property (nonatomic) CGFloat moveRadius;
 @property (nonatomic) CGFloat moveScale;
+@property (nonatomic) CGFloat titleRadius;
 
 -(void)updateApperance;
 
