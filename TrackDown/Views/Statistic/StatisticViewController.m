@@ -355,7 +355,7 @@ static CGFloat cellHeight = 180;
     self.chart.objects = objs;
     self.chart.colors = @[[UIColor orangeColor],[UIColor cyanColor]];
     
-    [self.chart updateApperance];
+    [self.chart updateAppearance];
     
 }
 

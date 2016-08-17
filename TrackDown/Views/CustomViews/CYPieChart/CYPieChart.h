@@ -22,7 +22,7 @@ IB_DESIGNABLE
 @property (nonatomic) CGFloat moveScale;
 @property (nonatomic) CGFloat titleRadius;
 
--(void)updateApperance;
+-(void)updateAppearance;
 
 -(void)goNextWithClockwise:(BOOL)clockwise;
 

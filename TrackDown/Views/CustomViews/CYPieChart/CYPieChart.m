@@ -185,11 +185,7 @@ static CGFloat kAnimationDuration = 0.22f;
     
     
     self.layer.shadowPath = shadow.CGPath;
-#endif
-    
-    
-    
-    
+#endif    
 }
 
 #pragma mark - Instance Method
@@ -300,7 +296,7 @@ static CGFloat kAnimationDuration = 0.22f;
     
 }
 
--(void)updateApperance{
+-(void)updateAppearance{
     [self setNeedsDisplay];
     [self setupTitleLabels];
 }
