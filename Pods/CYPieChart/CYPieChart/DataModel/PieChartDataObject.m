@@ -10,4 +10,12 @@
 
 @implementation PieChartDataObject
 
+-(instancetype)initWithTitle:(NSString *)title value:(CGFloat)value{
+    if (self = [super init]) {
+        _title = title;
+        _value = value;
+    }
+    return self;
+}
+
 @end

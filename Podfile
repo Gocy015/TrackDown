@@ -7,6 +7,7 @@ pod 'FMDB'
 pod 'SDVersion'
 pod 'UCZProgressView'
 pod 'FSCalendar'
-
+pod 'CYPieChart'
+pod 'CYExpandableTableView'
 
 end

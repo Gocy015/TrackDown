@@ -1,0 +1,6 @@
+framework module CYPieChart {
+  umbrella header "CYPieChart-umbrella.h"
+
+  export *
+  module * { export * }
+}

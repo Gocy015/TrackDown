@@ -15,7 +15,7 @@
 #import "SDVersion.h"
 #import "UCZProgressView.h"
 #import "RoundedButton.h"
-#import "ExpandableTableViewController.h"
+#import "CYExpandableTableViewController.h"
 #import "Masonry.h"
 
 @interface TrainingViewController () <TrainingListViewDelegate,UIPopoverPresentationControllerDelegate ,UITextFieldDelegate>{
@@ -42,7 +42,7 @@
 
 //complete view
 @property (weak, nonatomic) IBOutlet UIView *completeView;
-@property (nonatomic ,weak) ExpandableTableViewController *doneTableVC;
+@property (nonatomic ,weak) CYExpandableTableViewController *doneTableVC;
 @property (weak, nonatomic) IBOutlet UILabel *doneLabel;
 @property (weak, nonatomic) IBOutlet RoundedButton *doneButton;
 
@@ -392,7 +392,7 @@
 }
 
 -(void)constructCompleteView{
-    ExpandableTableViewController *tbvc = [ExpandableTableViewController new];
+    CYExpandableTableViewController *tbvc = [CYExpandableTableViewController new];
     UIView *v = tbvc.view;
     
     [self addChildViewController:tbvc];

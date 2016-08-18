@@ -4,6 +4,16 @@
 <dict>
 	<key>SchemeUserState</key>
 	<dict>
+		<key>CYExpandableTableView.xcscheme</key>
+		<dict>
+			<key>isShown</key>
+			<false/>
+		</dict>
+		<key>CYPieChart.xcscheme</key>
+		<dict>
+			<key>isShown</key>
+			<false/>
+		</dict>
 		<key>FMDB.xcscheme</key>
 		<dict>
 			<key>isShown</key>
@@ -37,17 +47,32 @@
 	</dict>
 	<key>SuppressBuildableAutocreation</key>
 	<dict>
+		<key>02B31234347C69B93A26ADB338E21561</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
 		<key>23CF27B2BA6AC7125EFFEDA8C5AA819F</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>27648EB5FD46412685DCBF6A25A4CA41</key>
+		<key>46CC6E29B24CB1B8C362C6414DC37FB7</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>48C32474634F3E571BF3808520AABB5E</key>
+		<key>4F863FF0068B9927004219BF4C117BBD</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>6B5D0B347C70801FC837B18739D28D70</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>6C7FB5B2FC0A245841B6A9E8646371FE</key>
 		<dict>
 			<key>primary</key>
 			<true/>
@@ -57,12 +82,7 @@
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>92F502ACDC15AF3FA6AFF1745425E1C6</key>
-		<dict>
-			<key>primary</key>
-			<true/>
-		</dict>
-		<key>A9A83F63385AA43314397B8DD375464B</key>
+		<key>DC1DF46CB6FB229D75C8B31BC66C4F9D</key>
 		<dict>
 			<key>primary</key>
 			<true/>

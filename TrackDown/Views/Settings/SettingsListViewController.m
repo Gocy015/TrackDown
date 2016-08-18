@@ -8,7 +8,6 @@
 
 #import "SettingsListViewController.h"
 #import "SettingsCell.h"
-#import "BlankFooterView.h"
 #import "SettingsInfo.h"
 #import "SettingsManager.h"
 #import "TimeBreakViewController.h"
@@ -39,9 +38,6 @@ static NSString *const footerReuseId = @"settingsListFooter";
     self.settings = [[SettingsManager sharedManager] getCurrentSettings];
     
     [self.tableView registerNib:[UINib nibWithNibName:@"SettingsCell" bundle:nil] forCellReuseIdentifier:cellReuseId];
-    [self.tableView registerClass:[BlankFooterView class] forHeaderFooterViewReuseIdentifier:headerReuseId];
-    
-    
 
     self.tableView.backgroundColor = [[UIColor grayColor] colorWithAlphaComponent:0.05f];
     
@@ -111,12 +107,12 @@ static NSString *const footerReuseId = @"settingsListFooter";
 //    return footer;
 //}
 
--(UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section{
-    BlankFooterView *header = [tableView dequeueReusableHeaderFooterViewWithIdentifier:headerReuseId];
-    [header setBgColor:[[UIColor grayColor] colorWithAlphaComponent:0.02f]];
-    
-    return header;
-}
+//-(UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section{
+//    BlankFooterView *header = [tableView dequeueReusableHeaderFooterViewWithIdentifier:headerReuseId];
+//    [header setBgColor:[[UIColor grayColor] colorWithAlphaComponent:0.02f]];
+//    
+//    return header;
+//}
 
 
 -(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{

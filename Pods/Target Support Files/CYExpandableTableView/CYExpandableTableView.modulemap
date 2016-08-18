@@ -1,0 +1,6 @@
+framework module CYExpandableTableView {
+  umbrella header "CYExpandableTableView-umbrella.h"
+
+  export *
+  module * { export * }
+}

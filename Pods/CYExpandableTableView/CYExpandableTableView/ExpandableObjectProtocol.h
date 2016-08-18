@@ -12,11 +12,25 @@
 
 @protocol ExpandableObject <NSObject>
 
+
+@required
+-(NSUInteger)countOfSecondaryObjects;
+
+@optional
+/**
+ *  Must be implemented if you use default table view cell.
+ *
+ *  @return return an array of string that describes your secondary object.
+ */
 -(NSArray *)descriptionForSecondaryObjects;
 
--(NSString *)description;
 
--(NSUInteger)countOfSecondaryObjects;
+/**
+ *  Must be implemented if you use default header view.
+ *
+ *  @return return a string that describes your header.
+ */
+-(NSString *)description;
 
 @property (nonatomic ,readwrite) BOOL opened;
 

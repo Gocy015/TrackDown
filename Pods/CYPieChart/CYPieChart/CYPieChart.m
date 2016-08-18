@@ -71,7 +71,10 @@ static CGFloat kAnimationDuration = 0.22f;
     
     _moveRadius = 12;
     _moveScale = 1;
-    _titleRadius = 60;
+    _titlePosition = 0.6;
+    
+    _innerRadius = 0;
+    _sliceBorderWidth = 0;
 }
 
 
@@ -90,14 +93,14 @@ static CGFloat kAnimationDuration = 0.22f;
 - (void)drawRect:(CGRect)rect {
     // Drawing code
     
-    //    NSLog(@"Draw Rect");
+//    NSLog(@"Draw Rect");
 #if TARGET_INTERFACE_BUILDER // appearance in IB
     CGContextRef context = UIGraphicsGetCurrentContext();
     
     
     
     CGPoint center = CGPointMake(self.bounds.size.width /2, self.bounds.size.height/2);
-    CGFloat radius = self.bounds.size.width / 2 ;
+    CGFloat radius = self.bounds.size.width / 2 - _sliceBorderWidth;
     
     
     UIBezierPath *shadow = [UIBezierPath new];
@@ -114,17 +117,27 @@ static CGFloat kAnimationDuration = 0.22f;
         lastAngle = endAngle;
         
         UIBezierPath *path = [UIBezierPath bezierPathWithArcCenter:center radius:radius startAngle:startAngle endAngle:endAngle clockwise:YES];
-        [path addLineToPoint:center];
-        [path closePath];
-        
+        if(_innerRadius > 0 && _innerRadius < radius - 1){
+            [path addArcWithCenter:center radius:_innerRadius startAngle:endAngle endAngle:startAngle clockwise:NO];
+            [path closePath];
+        }
+        else{
+            [path addLineToPoint:center];
+            [path closePath];
+        }
         
         [self.fillColors[i] setFill];
         [shadow appendPath:path];
         
-        
-        
         [path fill];
         
+        
+        if (_sliceBorderColor && _sliceBorderWidth > 0) {
+            [_sliceBorderColor setStroke];
+            shadow.lineWidth = _sliceBorderWidth;
+            [shadow stroke];
+        }
+
         [self.paths addObject:path];
         lastAngle = endAngle;
     }
@@ -148,7 +161,7 @@ static CGFloat kAnimationDuration = 0.22f;
     
     
     CGPoint center = CGPointMake(self.bounds.size.width /2, self.bounds.size.height/2);
-    CGFloat radius = self.bounds.size.width / 2 ;
+    CGFloat radius = self.bounds.size.width / 2 - _sliceBorderWidth;
     
     
     UIBezierPath *shadow = [UIBezierPath new];
@@ -161,8 +174,14 @@ static CGFloat kAnimationDuration = 0.22f;
         CGFloat endAngle = startAngle + angle;
         
         UIBezierPath *path = [UIBezierPath bezierPathWithArcCenter:center radius:radius startAngle:startAngle endAngle:endAngle clockwise:YES];
-        [path addLineToPoint:center];
-        [path closePath];
+        if(_innerRadius > 0 && _innerRadius < radius - 1){
+            [path addArcWithCenter:center radius:_innerRadius startAngle:endAngle endAngle:startAngle clockwise:NO];
+            [path closePath];
+        }
+        else{
+            [path addLineToPoint:center];
+            [path closePath];
+        }
         
         if (_tapIndex == i || _lastIndex == i) {
             
@@ -171,11 +190,20 @@ static CGFloat kAnimationDuration = 0.22f;
         }else{
             
             [self.fillColors[i] setFill];
+            
+            
             [shadow appendPath:path];
             
         }
         
         [path fill];
+        
+        if (_sliceBorderColor && _sliceBorderWidth > 0) {
+            [_sliceBorderColor setStroke];
+            shadow.lineWidth = _sliceBorderWidth;
+            [shadow stroke];
+        }
+
         
         [self.paths addObject:path];
         lastAngle = endAngle;
@@ -185,7 +213,11 @@ static CGFloat kAnimationDuration = 0.22f;
     
     
     self.layer.shadowPath = shadow.CGPath;
-#endif    
+#endif
+    
+    
+    
+
 }
 
 #pragma mark - Instance Method
@@ -237,10 +269,15 @@ static CGFloat kAnimationDuration = 0.22f;
     self.hidePie.hidden = YES;
     self.hidePie.path = nil;
     self.hidePie.fillColor = nil;
+    self.hidePie.borderWidth = 0;
+    self.hidePie.borderColor = nil;
     
     if (_lastIndex >= 0) {
         self.hidePie.fillColor = self.showPie.fillColor;
         self.hidePie.path = self.showPie.path;
+        self.hidePie.borderWidth = self.sliceBorderWidth;
+        self.hidePie.borderColor = self.sliceBorderColor;
+        
         self.hidePie.transform = self.showPie.transform;
         [self.hidePie setNeedsDisplay];
         self.hidePie.hidden = NO;
@@ -263,9 +300,9 @@ static CGFloat kAnimationDuration = 0.22f;
     self.showPie.hidden = YES;
     self.showPie.path = nil;
     self.showPie.fillColor = nil;
+    self.showPie.borderWidth = 0;
+    self.showPie.borderColor = nil;
     self.showPie.transform = CGAffineTransformIdentity;
-    
-    
     
     if (_tapIndex >= 0) {
         
@@ -273,6 +310,9 @@ static CGFloat kAnimationDuration = 0.22f;
         
         self.showPie.fillColor = self.fillColors[_tapIndex];
         self.showPie.path = self.paths[_tapIndex];
+        self.showPie.borderWidth = self.sliceBorderWidth;
+        self.showPie.borderColor = self.sliceBorderColor;
+        
         [self.showPie setNeedsDisplay];
         self.showPie.hidden = NO;
         
@@ -291,18 +331,36 @@ static CGFloat kAnimationDuration = 0.22f;
         [UIView animateWithDuration:kAnimationDuration animations:^{
             self.showPie.transform = trans;
         }];
+        if (self.delegate && [self.delegate respondsToSelector:@selector(pieChart:didSelectPieAtIndex:)]) {
+            [self.delegate pieChart:self didSelectPieAtIndex:_tapIndex];
+        }
     }
     [self setupTitleLabels];
-    
+
 }
 
 -(void)updateAppearance{
+    [self reset];
     [self setNeedsDisplay];
     [self setupTitleLabels];
 }
 
+
+-(void)deselectCurrentPie{
+    if (_tapIndex != -1) {
+        _tapIndex = -1;
+        [self switchSelectedPie];
+    }
+}
 #pragma mark - Helpers
 
+-(void)reset{
+    
+    self.showPie.hidden = YES;
+    self.hidePie.hidden = YES;
+    
+    _tapIndex = _lastIndex = -1;
+}
 
 -(CGFloat)angleForObjectAtIndex:(NSUInteger)idx{
     if (_sum <= 0) {
@@ -347,8 +405,9 @@ static CGFloat kAnimationDuration = 0.22f;
             CGFloat range = [self angleForObjectAtIndex:i];
             CGFloat start = [self.startAngles[i] doubleValue];
             
+            CGFloat radius = self.bounds.size.width / 2;
             CGFloat angle = start + range/2.0;
-            CGPoint offset = CGPointMake(cos(angle) * self.titleRadius , sin(angle) * self.titleRadius);
+            CGPoint offset = CGPointMake(cos(angle) * radius * self.titlePosition, sin(angle) * radius * self.titlePosition);
             CGPoint center = CGPointMake(self.bounds.size.width / 2 , self.bounds.size.height / 2);
             
             label.center = CGPointMake(center.x + offset.x, center.y + offset.y);
@@ -451,5 +510,27 @@ static CGFloat kAnimationDuration = 0.22f;
     
 }
 
+-(void)setInnerRadius:(CGFloat)innerRadius{
+    if (innerRadius < 0) {
+        _innerRadius = 0;
+    }else{
+        _innerRadius = innerRadius;
+    }
+    [self setNeedsDisplay];
+}
 
+-(void)setSliceBorderColor:(UIColor *)sliceBorderColor{
+    _sliceBorderColor = sliceBorderColor;
+    
+    [self setNeedsDisplay];
+}
+
+-(void)setSliceBorderWidth:(CGFloat)sliceBorderWidth{
+    if (sliceBorderWidth < 0) {
+        _sliceBorderWidth = 0;
+    }else{
+        _sliceBorderWidth = sliceBorderWidth;
+    }
+    [self setNeedsDisplay];
+}
 @end

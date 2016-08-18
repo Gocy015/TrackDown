@@ -9,9 +9,6 @@
 /* Begin PBXBuildFile section */
 		7B482C9F2A5ADE9DF6801D66 /* Pods_TrackDown.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6BE352800FFAC88126670760 /* Pods_TrackDown.framework */; };
 		C30C7B871D3DDB3800131A1D /* NoPasteTextField.m in Sources */ = {isa = PBXBuildFile; fileRef = C30C7B861D3DDB3800131A1D /* NoPasteTextField.m */; };
-		C30F156F1D5D78AF0097789A /* CYPieChart.m in Sources */ = {isa = PBXBuildFile; fileRef = C30F156E1D5D78AF0097789A /* CYPieChart.m */; };
-		C30F15721D5D78ED0097789A /* HighlightPie.m in Sources */ = {isa = PBXBuildFile; fileRef = C30F15711D5D78ED0097789A /* HighlightPie.m */; };
-		C30F15761D5D7CB20097789A /* PieChartDataObject.m in Sources */ = {isa = PBXBuildFile; fileRef = C30F15751D5D7CB20097789A /* PieChartDataObject.m */; };
 		C316C67E1D546BBC001F9D17 /* StatisticViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C316C67D1D546BBC001F9D17 /* StatisticViewController.m */; };
 		C316C6861D547AD2001F9D17 /* GraphView.m in Sources */ = {isa = PBXBuildFile; fileRef = C316C6851D547AD2001F9D17 /* GraphView.m */; };
 		C316C6891D5492F7001F9D17 /* UIColor+Hex.m in Sources */ = {isa = PBXBuildFile; fileRef = C316C6881D5492F7001F9D17 /* UIColor+Hex.m */; };
@@ -31,12 +28,8 @@
 		C35CC5651D3A1CF000C6A7F6 /* TrainingListTableViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = C35CC5631D3A1CF000C6A7F6 /* TrainingListTableViewController.xib */; };
 		C37102061D49E0780037C877 /* TimeBreakViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C37102051D49E0780037C877 /* TimeBreakViewController.m */; };
 		C385F7821D41F3BF009A08C0 /* RecordListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C385F7811D41F3BF009A08C0 /* RecordListViewController.m */; };
-		C385F78D1D41F6CC009A08C0 /* ExpandableTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C385F78C1D41F6CC009A08C0 /* ExpandableTableViewController.m */; };
-		C385F7911D41F71E009A08C0 /* ExpandableTableView.xib in Resources */ = {isa = PBXBuildFile; fileRef = C385F7901D41F71E009A08C0 /* ExpandableTableView.xib */; };
-		C385F7941D41F89E009A08C0 /* ClickableHeaderView.m in Sources */ = {isa = PBXBuildFile; fileRef = C385F7931D41F89E009A08C0 /* ClickableHeaderView.m */; };
 		C38F7F241D5827DE00A8A7D9 /* TipView.m in Sources */ = {isa = PBXBuildFile; fileRef = C38F7F231D5827DE00A8A7D9 /* TipView.m */; };
 		C3908C201D4890120082BFE1 /* RoundedButton.m in Sources */ = {isa = PBXBuildFile; fileRef = C3908C1F1D4890120082BFE1 /* RoundedButton.m */; };
-		C3908C231D48AC830082BFE1 /* BlankFooterView.m in Sources */ = {isa = PBXBuildFile; fileRef = C3908C221D48AC830082BFE1 /* BlankFooterView.m */; };
 		C3908C261D48B7F20082BFE1 /* MainNavigationController.m in Sources */ = {isa = PBXBuildFile; fileRef = C3908C251D48B7F20082BFE1 /* MainNavigationController.m */; };
 		C3908C291D48BC080082BFE1 /* UIViewController+NoBackTitle.m in Sources */ = {isa = PBXBuildFile; fileRef = C3908C281D48BC080082BFE1 /* UIViewController+NoBackTitle.m */; };
 		C39A8D581D33774B00FAF484 /* StoryboardManager.m in Sources */ = {isa = PBXBuildFile; fileRef = C39A8D571D33774B00FAF484 /* StoryboardManager.m */; };
@@ -70,15 +63,8 @@
 		921CE8EAE5EC1EC67D9518E0 /* Pods-TrackDown.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-TrackDown.release.xcconfig"; path = "Pods/Target Support Files/Pods-TrackDown/Pods-TrackDown.release.xcconfig"; sourceTree = "<group>"; };
 		C30C7B851D3DDB3800131A1D /* NoPasteTextField.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NoPasteTextField.h; sourceTree = "<group>"; };
 		C30C7B861D3DDB3800131A1D /* NoPasteTextField.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NoPasteTextField.m; sourceTree = "<group>"; };
-		C30F156D1D5D78AF0097789A /* CYPieChart.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CYPieChart.h; sourceTree = "<group>"; };
-		C30F156E1D5D78AF0097789A /* CYPieChart.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CYPieChart.m; sourceTree = "<group>"; };
-		C30F15701D5D78ED0097789A /* HighlightPie.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HighlightPie.h; sourceTree = "<group>"; };
-		C30F15711D5D78ED0097789A /* HighlightPie.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HighlightPie.m; sourceTree = "<group>"; };
-		C30F15741D5D7CB20097789A /* PieChartDataObject.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PieChartDataObject.h; sourceTree = "<group>"; };
-		C30F15751D5D7CB20097789A /* PieChartDataObject.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PieChartDataObject.m; sourceTree = "<group>"; };
 		C316C67C1D546BBC001F9D17 /* StatisticViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = StatisticViewController.h; sourceTree = "<group>"; };
 		C316C67D1D546BBC001F9D17 /* StatisticViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = StatisticViewController.m; sourceTree = "<group>"; };
-		C316C6801D546E1D001F9D17 /* CustomExpandableViewProtocol.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CustomExpandableViewProtocol.h; sourceTree = "<group>"; };
 		C316C6841D547AD2001F9D17 /* GraphView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GraphView.h; sourceTree = "<group>"; };
 		C316C6851D547AD2001F9D17 /* GraphView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GraphView.m; sourceTree = "<group>"; };
 		C316C6871D5492F7001F9D17 /* UIColor+Hex.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIColor+Hex.h"; sourceTree = "<group>"; };
@@ -111,18 +97,10 @@
 		C37102051D49E0780037C877 /* TimeBreakViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TimeBreakViewController.m; sourceTree = "<group>"; };
 		C385F7801D41F3BF009A08C0 /* RecordListViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RecordListViewController.h; sourceTree = "<group>"; };
 		C385F7811D41F3BF009A08C0 /* RecordListViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RecordListViewController.m; sourceTree = "<group>"; };
-		C385F78A1D41F625009A08C0 /* ExpandableObjectProtocol.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ExpandableObjectProtocol.h; sourceTree = "<group>"; };
-		C385F78B1D41F6CC009A08C0 /* ExpandableTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ExpandableTableViewController.h; sourceTree = "<group>"; };
-		C385F78C1D41F6CC009A08C0 /* ExpandableTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ExpandableTableViewController.m; sourceTree = "<group>"; };
-		C385F7901D41F71E009A08C0 /* ExpandableTableView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ExpandableTableView.xib; sourceTree = "<group>"; };
-		C385F7921D41F89E009A08C0 /* ClickableHeaderView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ClickableHeaderView.h; sourceTree = "<group>"; };
-		C385F7931D41F89E009A08C0 /* ClickableHeaderView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ClickableHeaderView.m; sourceTree = "<group>"; };
 		C38F7F221D5827DE00A8A7D9 /* TipView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TipView.h; sourceTree = "<group>"; };
 		C38F7F231D5827DE00A8A7D9 /* TipView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TipView.m; sourceTree = "<group>"; };
 		C3908C1E1D4890120082BFE1 /* RoundedButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RoundedButton.h; sourceTree = "<group>"; };
 		C3908C1F1D4890120082BFE1 /* RoundedButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RoundedButton.m; sourceTree = "<group>"; };
-		C3908C211D48AC830082BFE1 /* BlankFooterView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BlankFooterView.h; sourceTree = "<group>"; };
-		C3908C221D48AC830082BFE1 /* BlankFooterView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BlankFooterView.m; sourceTree = "<group>"; };
 		C3908C241D48B7F20082BFE1 /* MainNavigationController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MainNavigationController.h; sourceTree = "<group>"; };
 		C3908C251D48B7F20082BFE1 /* MainNavigationController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MainNavigationController.m; sourceTree = "<group>"; };
 		C3908C271D48BC080082BFE1 /* UIViewController+NoBackTitle.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIViewController+NoBackTitle.h"; sourceTree = "<group>"; };
@@ -200,27 +178,6 @@
 			name = Pods;
 			sourceTree = "<group>";
 		};
-		C30F156C1D5D787F0097789A /* CYPieChart */ = {
-			isa = PBXGroup;
-			children = (
-				C30F15731D5D7B250097789A /* DataModel */,
-				C30F156D1D5D78AF0097789A /* CYPieChart.h */,
-				C30F156E1D5D78AF0097789A /* CYPieChart.m */,
-				C30F15701D5D78ED0097789A /* HighlightPie.h */,
-				C30F15711D5D78ED0097789A /* HighlightPie.m */,
-			);
-			path = CYPieChart;
-			sourceTree = "<group>";
-		};
-		C30F15731D5D7B250097789A /* DataModel */ = {
-			isa = PBXGroup;
-			children = (
-				C30F15741D5D7CB20097789A /* PieChartDataObject.h */,
-				C30F15751D5D7CB20097789A /* PieChartDataObject.m */,
-			);
-			path = DataModel;
-			sourceTree = "<group>";
-		};
 		C316C67F1D546D33001F9D17 /* GraphView */ = {
 			isa = PBXGroup;
 			children = (
@@ -253,22 +210,6 @@
 				C316C67D1D546BBC001F9D17 /* StatisticViewController.m */,
 			);
 			path = Statistic;
-			sourceTree = "<group>";
-		};
-		C385F7861D41F610009A08C0 /* ExpandableTableView */ = {
-			isa = PBXGroup;
-			children = (
-				C385F78A1D41F625009A08C0 /* ExpandableObjectProtocol.h */,
-				C316C6801D546E1D001F9D17 /* CustomExpandableViewProtocol.h */,
-				C385F78B1D41F6CC009A08C0 /* ExpandableTableViewController.h */,
-				C385F78C1D41F6CC009A08C0 /* ExpandableTableViewController.m */,
-				C385F7901D41F71E009A08C0 /* ExpandableTableView.xib */,
-				C385F7921D41F89E009A08C0 /* ClickableHeaderView.h */,
-				C385F7931D41F89E009A08C0 /* ClickableHeaderView.m */,
-				C3908C211D48AC830082BFE1 /* BlankFooterView.h */,
-				C3908C221D48AC830082BFE1 /* BlankFooterView.m */,
-			);
-			path = ExpandableTableView;
 			sourceTree = "<group>";
 		};
 		C39A8D601D3394CE00FAF484 /* Extensions */ = {
@@ -441,9 +382,7 @@
 		C3C05CF21D3499CE0021C407 /* CustomViews */ = {
 			isa = PBXGroup;
 			children = (
-				C30F156C1D5D787F0097789A /* CYPieChart */,
 				C316C67F1D546D33001F9D17 /* GraphView */,
-				C385F7861D41F610009A08C0 /* ExpandableTableView */,
 				C3C05CF61D34D3C40021C407 /* PopTableViewController.h */,
 				C3C05CF71D34D3C40021C407 /* PopTableViewController.m */,
 				C3C05CFB1D34D5270021C407 /* CheckboxTableViewCell.h */,
@@ -530,7 +469,6 @@
 				C3AA37921D30F3E100D5930E /* Assets.xcassets in Resources */,
 				C3AA37901D30F3E100D5930E /* Main.storyboard in Resources */,
 				C3AA37BD1D3105B500D5930E /* workouts.json in Resources */,
-				C385F7911D41F71E009A08C0 /* ExpandableTableView.xib in Resources */,
 				C34C95E91D499D2B00E7F5B2 /* Settings.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -596,7 +534,6 @@
 				C3C05CF11D348B2A0021C407 /* WorkoutPlanningViewController.m in Sources */,
 				C3908C201D4890120082BFE1 /* RoundedButton.m in Sources */,
 				C37102061D49E0780037C877 /* TimeBreakViewController.m in Sources */,
-				C30F15721D5D78ED0097789A /* HighlightPie.m in Sources */,
 				C34234E01D361CE90014348A /* NSDate+Components.m in Sources */,
 				C34234DD1D35F0820014348A /* CYDataBaseManager.m in Sources */,
 				C3908C261D48B7F20082BFE1 /* MainNavigationController.m in Sources */,
@@ -607,7 +544,6 @@
 				C39A8D581D33774B00FAF484 /* StoryboardManager.m in Sources */,
 				C3AA378A1D30F3E100D5930E /* AppDelegate.m in Sources */,
 				C316C6861D547AD2001F9D17 /* GraphView.m in Sources */,
-				C3908C231D48AC830082BFE1 /* BlankFooterView.m in Sources */,
 				C3AA37C21D310C7B00D5930E /* WorkoutMuscleViewController.m in Sources */,
 				C316C67E1D546BBC001F9D17 /* StatisticViewController.m in Sources */,
 				C3AA37C51D3112DB00D5930E /* MainViewController.m in Sources */,
@@ -615,11 +551,8 @@
 				C3AA37871D30F3E100D5930E /* main.m in Sources */,
 				C3AA37B11D30FECE00D5930E /* TargetMuscle.m in Sources */,
 				C354E28E1D3769230012633C /* ListCountButton.m in Sources */,
-				C385F7941D41F89E009A08C0 /* ClickableHeaderView.m in Sources */,
-				C30F15761D5D7CB20097789A /* PieChartDataObject.m in Sources */,
 				C3C05D031D34EE640021C407 /* UIImage+Resize.m in Sources */,
 				C3C05CF91D34D3C40021C407 /* PopTableViewController.m in Sources */,
-				C30F156F1D5D78AF0097789A /* CYPieChart.m in Sources */,
 				C3AA37BA1D31013200D5930E /* CYWorkoutDataParser.m in Sources */,
 				C3908C291D48BC080082BFE1 /* UIViewController+NoBackTitle.m in Sources */,
 				C39A8D631D3394F200FAF484 /* NSArray+Map.m in Sources */,
@@ -631,7 +564,6 @@
 				C3AA37AD1D30FE2500D5930E /* CYWorkoutManager.m in Sources */,
 				C3C05CFD1D34D5270021C407 /* CheckboxTableViewCell.m in Sources */,
 				C34234E31D363D830014348A /* TrainingViewController.m in Sources */,
-				C385F78D1D41F6CC009A08C0 /* ExpandableTableViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

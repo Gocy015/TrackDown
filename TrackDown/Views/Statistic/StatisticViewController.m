@@ -10,7 +10,7 @@
 #import "GraphView.h"
 #import "NSDate+Components.h"
 #import "CustomExpandableViewProtocol.h"
-#import "ExpandableTableViewController.h"
+#import "CYExpandableTableViewController.h"
 #import "Masonry.h"
 #import "WorkoutStatistic.h"
 #import "CYWorkoutManager.h"
@@ -78,7 +78,7 @@ static const NSInteger rightArrowTag = 22;
 
 @interface StatisticViewController () <CustomCellDataSource>
 
-@property (nonatomic ,weak) ExpandableTableViewController *tableVC;
+@property (nonatomic ,weak) CYExpandableTableViewController *tableVC;
 @property (nonatomic ,weak) CYPieChart *chart;
 @property (nonatomic ,strong) NSMutableDictionary *statistic;
 @property (nonatomic ,strong) NSMutableArray *displayArray;
@@ -246,7 +246,7 @@ static CGFloat cellHeight = 180;
 }
 
 -(void)constructTableView{
-    ExpandableTableViewController *tbvc = [ExpandableTableViewController new];
+    CYExpandableTableViewController *tbvc = [CYExpandableTableViewController new];
     UIView *v = tbvc.view;
     
     [self addChildViewController:tbvc];
@@ -348,7 +348,7 @@ static CGFloat cellHeight = 180;
         double weight = [stat.data[key_weight] doubleValue];
         
         pieObj.value = weight;
-        pieObj.detailText = [NSString stringWithFormat:@"%@已经累计经历了%.2fkg的训练量",stat.key,weight];
+//        pieObj.detailText = [NSString stringWithFormat:@"%@已经累计经历了%.2fkg的训练量",stat.key,weight];
         [objs addObject:pieObj];
     }
     

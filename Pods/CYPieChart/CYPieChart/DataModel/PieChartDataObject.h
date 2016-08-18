@@ -12,6 +12,8 @@
 
 @property (nonatomic) CGFloat value;
 @property (nonatomic ,copy) NSString *title;
-@property (nonatomic ,copy) NSString *detailText;
+
+
+-(instancetype)initWithTitle:(NSString *)title value:(CGFloat)value;
 
 @end

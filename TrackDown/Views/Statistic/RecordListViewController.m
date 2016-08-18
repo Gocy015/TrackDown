@@ -11,7 +11,7 @@
 #import "NSDate+Components.h"
 #import "CYWorkoutManager.h"
 #import "PreDefines.h"
-#import "ExpandableTableViewController.h"
+#import "CYExpandableTableViewController.h"
 #import "Masonry.h"
 #import "TargetMuscle.h"
 
@@ -20,7 +20,7 @@
 @property (nonatomic ,strong)UITableView *tableView;
 @property (weak, nonatomic) IBOutlet FSCalendar *calendar;
 @property (nonatomic ,strong) NSDictionary *currentRecords;
-@property (nonatomic ,weak) ExpandableTableViewController *tableVC;
+@property (nonatomic ,weak) CYExpandableTableViewController *tableVC;
 
 @end
 
@@ -112,7 +112,7 @@
 #pragma mark - Helpers
 
 -(void)constructTableView{
-    ExpandableTableViewController *tbvc = [ExpandableTableViewController new];
+    CYExpandableTableViewController *tbvc = [CYExpandableTableViewController new];
     UIView *v = tbvc.view;
     
     [self addChildViewController:tbvc];

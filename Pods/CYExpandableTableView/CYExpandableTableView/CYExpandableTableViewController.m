@@ -1,30 +1,28 @@
 //
-//  ExpandableTableViewController.m
+//  CYExpandableTableViewController.m
 //  TrackDown
 //
 //  Created by Gocy on 16/7/22.
 //  Copyright © 2016年 Gocy. All rights reserved.
 //
 
-#import "ExpandableTableViewController.h"
-#import "ClickableHeaderView.h"
-#import "BlankFooterView.h"
+#import "CYExpandableTableViewController.h"
+#import "ClickableHeaderView.h" 
 
 static NSString *const cellReuseId = @"secondaryCell";
-static NSString *const headerReusedId = @"clickableHeader";
-static NSString *const footerReusedId = @"blankFooter";
+static NSString *const headerReusedId = @"clickableHeader"; 
 static CGFloat headerHeight = 40.0f;
 
-@interface ExpandableTableViewController () <UITableViewDelegate ,UITableViewDataSource ,ClickableHeaderDelegate>
+@interface CYExpandableTableViewController () <UITableViewDelegate ,UITableViewDataSource ,ClickableHeaderDelegate>
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
 
 @property (nonatomic) NSInteger lastSelectedSection;
 
 @end
 
-@implementation ExpandableTableViewController
 
 
+@implementation CYExpandableTableViewController
 
 #pragma mark - Life Cycle
 
@@ -38,10 +36,13 @@ static CGFloat headerHeight = 40.0f;
 
 -(void)viewDidLoad{
     [super viewDidLoad];
+    [self constructTableView];
+    
+    self.headerSeperatorHeight = 6;
     
     self.tableView.delegate = self;
     self.tableView.dataSource = self;
-//    [self.tableView registerClass:[BlankFooterView class] forHeaderFooterViewReuseIdentifier:footerReusedId];
+    
     
     self.tableView.tableFooterView = [UIView new];
     
@@ -51,15 +52,30 @@ static CGFloat headerHeight = 40.0f;
         [self.tableView registerClass:[UITableViewCell class] forCellReuseIdentifier:cellReuseId];
     }
     
-    if (self.headerViewDataSource) {
-        [self.headerViewDataSource registerHeaderReuseIdForTableView:self.tableView];
-    }else{
-        [self.tableView registerClass:[ClickableHeaderView class] forHeaderFooterViewReuseIdentifier:headerReusedId];
-    }
+    
+    
+    [self.tableView registerClass:[ClickableHeaderView class] forHeaderFooterViewReuseIdentifier:headerReusedId];
+    
     
 }
 
+-(void)dealloc{
+    NSLog(@"CYExpandableTableView Dealloc");
+}
 
+
+#pragma mark - Helpers
+
+-(void)constructTableView{
+    UITableView *tableView = [UITableView new];
+    self.tableView = tableView;
+    
+    tableView.delegate = self;
+    tableView.dataSource = self;
+    
+    [self.view addSubview:tableView];
+    
+}
 
 
 #pragma mark - UITableView Deleagate
@@ -67,6 +83,9 @@ static CGFloat headerHeight = 40.0f;
 
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
+    if (self.tableViewDelegate) {
+        [self.tableViewDelegate tableView:tableView didSelectRowAtIndexPath:indexPath];
+    }
 }
 
 
@@ -88,7 +107,11 @@ static CGFloat headerHeight = 40.0f;
 
 -(CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section{
     if (self.headerViewDataSource) {
-        return [self.headerViewDataSource heightForHeaderViewInSection:section];
+        if (self.headerSeperatorHeight >= 0) {
+            
+            return [self.headerViewDataSource heightForHeaderViewInSection:section] + self.headerSeperatorHeight;
+        }
+        return [self.headerViewDataSource heightForHeaderViewInSection:section] + 6;
     }
     return headerHeight;
 }
@@ -104,18 +127,43 @@ static CGFloat headerHeight = 40.0f;
 
 -(UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section{
     
-    if (self.headerViewDataSource) {
-        return [self.headerViewDataSource tableView:tableView viewForHeaderInSection:section];
-    }
-    
     ClickableHeaderView *header = (ClickableHeaderView *)[tableView dequeueReusableHeaderFooterViewWithIdentifier:headerReusedId];
     
-    header.headerText = [self.data[section] description];
-    
     header.delegate = self;
+    
     header.section = section;
     
     header.opened = [self.data[section] opened];
+    
+    if (self.headerSeperatorColor) {
+        header.seperatorColor = self.headerSeperatorColor;
+    }
+    if (self.headerSeperatorHeight >= 0) {
+        header.seperatorHeight = self.headerSeperatorHeight;
+    }
+    
+    if (self.headerViewDataSource) {
+        UIView *v = [self.headerViewDataSource view:header.customView forHeaderInSection:section];
+        [header installCustomView:v];
+        return header;
+    }
+    
+    if(self.normalHeaderFillColor){
+        header.normalFillColor = self.normalHeaderFillColor;
+    }
+    if (self.normalHeaderTextColor) {
+        header.normalTextColor = self.normalHeaderTextColor;
+    }
+    if (self.selectedHeaderFillColor) {
+        header.selectedFillColor = self.selectedHeaderFillColor;
+    }
+    if (self.selectedHeaderTextColor) {
+        header.selectedTextColor = self.selectedHeaderTextColor;
+    }
+    
+    
+    header.headerText = [self.data[section] description];
+    
     
     return header;
 //    return nil;
@@ -213,12 +261,8 @@ static CGFloat headerHeight = 40.0f;
     }
 }
 
--(void)setHeaderViewDataSource:(id<CustomHeaderViewDataSource>)headerViewDataSource{
-    _headerViewDataSource = headerViewDataSource;
-    if (self.tableView && _headerViewDataSource) {
-        [_headerViewDataSource registerHeaderReuseIdForTableView:self.tableView];
-    }
+-(void)viewDidLayoutSubviews{
+    self.tableView.frame = self.view.bounds;
 }
-
 
 @end

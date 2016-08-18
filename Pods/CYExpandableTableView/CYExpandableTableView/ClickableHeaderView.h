@@ -9,6 +9,7 @@
 #import <UIKit/UIKit.h>
 
 @class ClickableHeaderView;
+@protocol CustomHeaderView;
 
 @protocol ClickableHeaderDelegate <NSObject>
 
@@ -19,17 +20,21 @@
 @interface ClickableHeaderView : UITableViewHeaderFooterView
 
 
+-(void)installCustomView:(UIView *)view;
 
 @property (nonatomic ,weak) id <ClickableHeaderDelegate> delegate;
 @property (nonatomic) NSUInteger section;
 @property (nonatomic) BOOL opened;
-@property (nonatomic ,copy) NSString *headerText; 
+@property (nonatomic ,copy) NSString *headerText;
+@property (nonatomic ,weak) UIView <CustomHeaderView>*customView;
 
 
 @property (nonatomic ,strong) UIColor *normalFillColor;
 @property (nonatomic ,strong) UIColor *normalTextColor;
 @property (nonatomic ,strong) UIColor *selectedFillColor;
 @property (nonatomic ,strong) UIColor *selectedTextColor;
+@property (nonatomic ,strong) UIColor *seperatorColor;
+@property (nonatomic) CGFloat seperatorHeight;
 
 
 @end

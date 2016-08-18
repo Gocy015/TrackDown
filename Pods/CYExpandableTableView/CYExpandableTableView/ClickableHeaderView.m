@@ -8,6 +8,7 @@
 
 #import "ClickableHeaderView.h"
 #import "Masonry.h"
+#import "CustomExpandableViewProtocol.h"
 
 #define Width self.bounds.size.width
 #define Height self.bounds.size.height
@@ -16,6 +17,7 @@
 
 @property (nonatomic ,weak) UILabel *headerLabel;
 @property (nonatomic ,weak) UIView *bgView;
+@property (nonatomic ,weak) UIView *seperatorView;
 
 @end
 
@@ -76,6 +78,24 @@
 }
 
 
+#pragma mark - Instance Method
+
+-(void)installCustomView:(UIView *)view{
+    if (!view || ![view conformsToProtocol:@protocol(CustomHeaderView)]) {
+        self.headerLabel.hidden = NO;
+        return ;
+    }
+    
+    self.headerLabel.hidden = YES;
+    self.customView = (UIView <CustomHeaderView>*)view;
+    if ([view isDescendantOfView:self]) {
+        return ;
+    }
+    [self.bgView addSubview:view];
+    
+}
+
+
 #pragma mark - Helpers
 
 
@@ -86,6 +106,9 @@
     
     _selectedFillColor = [UIColor darkGrayColor];
     _selectedTextColor = [UIColor whiteColor];
+    
+    _seperatorColor = [UIColor whiteColor];
+    _seperatorHeight = 6;
 }
 
 
@@ -93,18 +116,18 @@
     
     UIView *backgroundView         = [[UIView alloc] initWithFrame:CGRectMake(0, 0, Width, Height)];
     
-    backgroundView.backgroundColor = [UIColor whiteColor];
+    backgroundView.backgroundColor = _seperatorColor;
     [self addSubview:backgroundView];
     [backgroundView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.edges.equalTo(self);
     }];
-     
+    _seperatorView = backgroundView;
     
     UIView *contentView         = [[UIView alloc] initWithFrame:CGRectMake(0, 0, Width, Height)];
     contentView.backgroundColor = _normalFillColor;
     [self addSubview:contentView];
     [contentView mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.edges.equalTo(self).insets(UIEdgeInsetsMake(0, 0, 6, 0));
+        make.edges.equalTo(self).insets(UIEdgeInsetsMake(0, 0, _seperatorHeight, 0));
     }];
     _bgView = contentView;
     
@@ -163,8 +186,17 @@
 
 -(void)setOpened:(BOOL)opened{
     
+    
     if (opened == _opened) {
         return;
+    }
+    
+    _opened = opened;
+    
+    if (self.customView) {
+        [self.customView animateOpenChange:opened];
+        
+        return ;
     }
     
     if (opened) {
@@ -188,10 +220,51 @@
         }];
     }
     
-    _opened = opened;
 }
 
 
+-(void)setSeperatorHeight:(CGFloat)seperatorHeight{
+    _seperatorHeight = seperatorHeight;
+    if (seperatorHeight >= 0) {
+        [self.bgView mas_remakeConstraints:^(MASConstraintMaker *make) {
+            make.edges.equalTo(self).insets(UIEdgeInsetsMake(0, 0, seperatorHeight, 0));
+        }];
+    }
+}
+
+-(void)setSeperatorColor:(UIColor *)seperatorColor{
+    _seperatorColor = seperatorColor;
+    _seperatorView.backgroundColor = seperatorColor;
+}
+
+-(void)setNormalFillColor:(UIColor *)normalFillColor{
+    _normalFillColor = normalFillColor;
+    if (!_opened) {
+        self.bgView.backgroundColor = _normalFillColor;
+    }
+}
+
+-(void)setNormalTextColor:(UIColor *)normalTextColor{
+    _normalTextColor = normalTextColor;
+    if (!_opened) {
+        self.headerLabel.textColor = _normalTextColor;
+    }
+}
+
+-(void)setSelectedFillColor:(UIColor *)selectedFillColor{
+    _selectedFillColor = selectedFillColor;
+    if (_opened) {
+        self.bgView.backgroundColor = _selectedFillColor;
+    }
+}
+
+-(void)setSelectedTextColor:(UIColor *)selectedTextColor{
+    _selectedTextColor = selectedTextColor;
+    if (_opened) {
+        self.headerLabel.textColor = _selectedTextColor;
+    }
+    
+}
 -(void)setHeaderText:(NSString *)headerText{
     _headerText = headerText;
     self.headerLabel.text = headerText;

@@ -15,9 +15,14 @@
 @required
 -(CGFloat)heightForHeaderViewInSection:(NSUInteger)section;
 
--(UITableViewHeaderFooterView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSUInteger)section;
+-(UIView *)view:(UIView *)view forHeaderInSection:(NSUInteger)section;
+ 
 
--(void)registerHeaderReuseIdForTableView:(UITableView *)tableView;
+@end
+
+@protocol CustomHeaderView <NSObject>
+
+-(void)animateOpenChange:(BOOL)opened;
 
 @end
 
