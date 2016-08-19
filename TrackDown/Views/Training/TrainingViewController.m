@@ -218,6 +218,18 @@
     if ([_repsTextField.text length] <= 0) {
         return NO;
     }
+    
+    //TODO: Determine input is valid num
+    NSCharacterSet *weightSet = [NSCharacterSet characterSetWithCharactersInString:@"1234567890."];
+    NSCharacterSet *repSet = [NSCharacterSet characterSetWithCharactersInString:@"1234567890"];
+    //移除两端
+    if([[_weightTextField.text stringByTrimmingCharactersInSet:weightSet] length] > 0){
+        return NO;
+    }
+    
+    if([[_repsTextField.text stringByTrimmingCharactersInSet:repSet] length] > 0){
+        return NO;
+    }
     return YES;
 }
 
@@ -242,7 +254,8 @@
         listvc.modalPresentationStyle = UIModalPresentationPopover;
         listvc.popoverPresentationController.barButtonItem = self.navigationItem.rightBarButtonItem;
         listvc.popoverPresentationController.delegate = self;
-        
+        listvc.popoverPresentationController.backgroundColor = [UIColor grayColor];
+        listvc.view.alpha = 0.5;
         
         CGFloat width = 270;
         CGFloat height = MIN(44 * 10,44 * displayWorkouts.count);

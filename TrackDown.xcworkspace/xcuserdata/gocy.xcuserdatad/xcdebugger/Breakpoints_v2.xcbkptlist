@@ -26,11 +26,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "TrackDown/Views/Training/TrainingViewController.m"
-            timestampString = "491296547.460003"
+            timestampString = "493284674.613806"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "304"
-            endingLineNumber = "304"
+            startingLineNumber = "315"
+            endingLineNumber = "315"
             landmarkName = "-forwardToNextActionIfNeeded"
             landmarkType = "5">
          </BreakpointContent>
@@ -42,12 +42,12 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "TrackDown/Views/Training/TrainingViewController.m"
-            timestampString = "491296547.460003"
+            timestampString = "493284674.613806"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "312"
-            endingLineNumber = "312"
-            landmarkName = "-moveActionFromIndex:toIndex:"
+            startingLineNumber = "323"
+            endingLineNumber = "323"
+            landmarkName = "-initAction"
             landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>
@@ -58,11 +58,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "TrackDown/Views/Training/TrainingViewController.m"
-            timestampString = "491296547.460003"
+            timestampString = "493284674.613806"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "313"
-            endingLineNumber = "313"
+            startingLineNumber = "324"
+            endingLineNumber = "324"
             landmarkName = "-moveActionFromIndex:toIndex:"
             landmarkType = "5">
          </BreakpointContent>

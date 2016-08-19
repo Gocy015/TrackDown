@@ -15,10 +15,14 @@
 
 #define m_fileManager [NSFileManager defaultManager]
 
+static const NSUInteger kRecordCacheLimit = 8; //缓存八天训练记录。
+
 @interface CYDataBaseManager ()
 
 @property (nonatomic ,strong) NSString *libPath;
 @property (nonatomic ,strong) NSMutableDictionary *recordCache;
+@property (nonatomic ,strong) NSMutableArray *recordHitQueue;
+
 
 @end
 
@@ -58,6 +62,7 @@ static NSString * const statCount = @"count";
         [self createDataBaseDirIfNeeded];
         [self createCurrentMonthDirIfNeeded];
         _recordCache = [NSMutableDictionary new];
+        _recordHitQueue = [NSMutableArray new];
     }
     return self;
 }
@@ -129,9 +134,13 @@ static NSString * const statCount = @"count";
 
 
 -(NSDictionary *)queryWorkoutRecordsForMonth:(NSDate *)date{
-    if ([_recordCache objectForKey:[self keyForDate:date]] != nil) {
-//TODO: 缓存清理机制
-        return [_recordCache objectForKey:[self keyForDate:date]];
+    NSString *key = [self keyForDate:date];
+    if ([_recordCache objectForKey:key] != nil) {
+        //缓存命中
+        [_recordHitQueue removeObject:key];
+        [_recordHitQueue insertObject:key atIndex:0];
+        
+        return [_recordCache objectForKey:key];
     }
     FMDatabase *db = [self recordsDatabaseForMonthInDate:date];
     NSMutableDictionary *records = [NSMutableDictionary new];
@@ -162,13 +171,22 @@ static NSString * const statCount = @"count";
         [db close];
     }
     
-    [_recordCache setObject:records forKey:[self keyForDate:date]];
+    [_recordCache setObject:records forKey:key];
+    [_recordHitQueue insertObject:key atIndex:0];
+    
+    if (_recordHitQueue.count > kRecordCacheLimit) {
+        [_recordCache removeObjectForKey:[_recordHitQueue lastObject]];
+        [_recordHitQueue removeLastObject];
+    }
+    
     return records;
 }
 
 -(NSArray *)queryWorkoutActionStatisticForYear:(NSDate *)date{
     FMDatabase *db = [self statisticDatabaseForYearInDate:date];
     NSMutableArray *actions = [NSMutableArray new];
+    
+    //TODO: 缓存机制
     
     if ([db open]) {
         NSString *query = [NSString stringWithFormat:@"SELECT * FROM %@ WHERE %@ = ? ORDER BY %@ ASC",statTable,statType,statStoreMonth];
@@ -205,6 +223,8 @@ static NSString * const statCount = @"count";
 -(NSArray *)queryWorkoutMuscleStatisticForYear:(NSDate *)date{
     FMDatabase *db = [self statisticDatabaseForYearInDate:date];
     NSMutableArray *muscles = [NSMutableArray new];
+    
+    //TODO: 缓存机制
     
     if ([db open]) {
         

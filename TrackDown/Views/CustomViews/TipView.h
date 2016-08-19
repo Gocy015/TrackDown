@@ -7,26 +7,16 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "ArrowContainerView.h"
 
-typedef NS_ENUM(NSUInteger ,TriangleDirection){
-    TriangleDirection_Top,
-    TriangleDirection_Left,
-    TriangleDirection_Bottom,
-    TriangleDirection_Right
-};
 
-@interface TipView : UIView
+
+@interface TipView : ArrowContainerView
 
 
 @property (nonatomic ,copy) NSString *tip;
-@property (nonatomic) CGFloat triYPosition;
-@property (nonatomic) CGFloat triXPosition;
-@property (nonatomic) TriangleDirection direction;
 
 -(instancetype)initWithTip:(NSString *)tip triangleDirection:(TriangleDirection)dir triangleXPosition:(CGFloat)xPos triangleYPosition:(CGFloat)yPos;
-
--(void)setShowPoint:(CGPoint)p;
-
-
+ 
 
 @end

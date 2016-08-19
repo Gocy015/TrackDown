@@ -26,6 +26,7 @@ static NSString *const reuseId = @"TrainingListTableCell";
     // self.navigationItem.rightBarButtonItem = self.editButtonItem;
     [self.tableView registerClass:[UITableViewCell class] forCellReuseIdentifier:reuseId];
     self.tableView.tableFooterView = [UIView new];
+    self.tableView.backgroundColor = [UIColor darkGrayColor];
     [self setEditing:YES];
     
 }
@@ -53,7 +54,7 @@ static NSString *const reuseId = @"TrainingListTableCell";
     
     // Configure the cell...
     cell.textLabel.text = self.dataArr[indexPath.row];
-    
+    cell.backgroundColor = [UIColor darkGrayColor];
     
     if (indexPath.row < _currentIndex) {
         [cell.textLabel setTextColor:[UIColor grayColor]];
@@ -63,7 +64,9 @@ static NSString *const reuseId = @"TrainingListTableCell";
         
         [cell.textLabel setTextColor:[UIColor colorWithRed:5.0/255 green:135.0/255 blue:179.0/255 alpha:1]];
     }
-    
+    else{
+        [cell.textLabel setTextColor:[UIColor whiteColor]];
+    }
     return cell;
 }
 

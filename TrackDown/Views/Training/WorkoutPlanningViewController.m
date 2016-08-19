@@ -18,6 +18,7 @@
 #import "PreDefines.h"
 #import "ListCountButton.h"
 #import "TimeBreakViewController.h"
+#import "CYPresentationController.h"
 
 @interface WorkoutPlanningViewController ()<UIPickerViewDataSource ,UIPickerViewDelegate ,UIPopoverPresentationControllerDelegate>
 @property (weak, nonatomic) IBOutlet UIPickerView *actionPicker; 
@@ -111,7 +112,7 @@ static NSString *const tbVCId = @"TimeBreakViewController";
         [self.workoutPlan addObject:_workingMuscle];
     }
     
-    NSLog(@"workout plan today : %@",self.workoutPlan);
+//    NSLog(@"workout plan today : %@",self.workoutPlan);
     
     
     if (self.workoutPlan.count == 0 ) {
@@ -177,6 +178,8 @@ static NSString *const tbVCId = @"TimeBreakViewController";
     PopTableViewController *popVC = [[StoryboardManager mainStoryboard] instantiateViewControllerWithIdentifier:popVCId];
     popVC.checkIndex = -1;
     
+    CYPresentationController *present = [CYPresentationController new];
+    
     BOOL delete = YES;
     
     NSMutableArray *displayWorkouts = [NSMutableArray new];
@@ -218,16 +221,27 @@ static NSString *const tbVCId = @"TimeBreakViewController";
     };
     if (displayWorkouts.count <= 10) {
         
-        popVC.modalPresentationStyle = UIModalPresentationPopover;
-        popVC.popoverPresentationController.barButtonItem = self.navigationItem.rightBarButtonItem;
-        popVC.popoverPresentationController.delegate = self;
+//        popVC.modalPresentationStyle = UIModalPresentationPopover;
+//        popVC.popoverPresentationController.barButtonItem = self.navigationItem.rightBarButtonItem;
+//        popVC.popoverPresentationController.delegate = self;
+//        popVC.popoverPresentationController.backgroundColor = [UIColor grayColor];
+        
+        CGPoint point = self.navigationItem.rightBarButtonItem.customView.center;
+        
+        CGPoint convert = [self.view convertPoint:point toView:[UIApplication sharedApplication].keyWindow];
         
         
         CGFloat width = 230;
         CGFloat height = MIN(44 * 10,44 * displayWorkouts.count);
+        popVC.view.frame = CGRectMake(0, 0, width, height);
         
-        popVC.preferredContentSize = CGSizeMake(width, height);
-        [self presentViewController:popVC animated:YES completion:nil];
+        present.contentController = popVC;
+        present.backgroundFillColor = [UIColor darkGrayColor];
+        present.showPoint = convert;
+        
+//        popVC.preferredContentSize = CGSizeMake(width, height);
+        [present showFrom:self];
+//        [self presentViewController:popVC animated:YES completion:nil];
     }else{
         [self.navigationController pushViewController:popVC animated:YES];
         

@@ -12,6 +12,8 @@
 		C316C67E1D546BBC001F9D17 /* StatisticViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C316C67D1D546BBC001F9D17 /* StatisticViewController.m */; };
 		C316C6861D547AD2001F9D17 /* GraphView.m in Sources */ = {isa = PBXBuildFile; fileRef = C316C6851D547AD2001F9D17 /* GraphView.m */; };
 		C316C6891D5492F7001F9D17 /* UIColor+Hex.m in Sources */ = {isa = PBXBuildFile; fileRef = C316C6881D5492F7001F9D17 /* UIColor+Hex.m */; };
+		C317AF541D66F19D00FA14E6 /* CYPresentationController.m in Sources */ = {isa = PBXBuildFile; fileRef = C317AF531D66F19D00FA14E6 /* CYPresentationController.m */; };
+		C317AF571D66F43100FA14E6 /* ArrowContainerView.m in Sources */ = {isa = PBXBuildFile; fileRef = C317AF561D66F43100FA14E6 /* ArrowContainerView.m */; };
 		C32E342A1D474359001C1CA2 /* Statistic.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C32E34281D474359001C1CA2 /* Statistic.storyboard */; };
 		C34234DD1D35F0820014348A /* CYDataBaseManager.m in Sources */ = {isa = PBXBuildFile; fileRef = C34234DC1D35F0820014348A /* CYDataBaseManager.m */; };
 		C34234E01D361CE90014348A /* NSDate+Components.m in Sources */ = {isa = PBXBuildFile; fileRef = C34234DF1D361CE90014348A /* NSDate+Components.m */; };
@@ -69,6 +71,10 @@
 		C316C6851D547AD2001F9D17 /* GraphView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GraphView.m; sourceTree = "<group>"; };
 		C316C6871D5492F7001F9D17 /* UIColor+Hex.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIColor+Hex.h"; sourceTree = "<group>"; };
 		C316C6881D5492F7001F9D17 /* UIColor+Hex.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIColor+Hex.m"; sourceTree = "<group>"; };
+		C317AF521D66F19D00FA14E6 /* CYPresentationController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CYPresentationController.h; sourceTree = "<group>"; };
+		C317AF531D66F19D00FA14E6 /* CYPresentationController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CYPresentationController.m; sourceTree = "<group>"; };
+		C317AF551D66F43100FA14E6 /* ArrowContainerView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ArrowContainerView.h; sourceTree = "<group>"; };
+		C317AF561D66F43100FA14E6 /* ArrowContainerView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ArrowContainerView.m; sourceTree = "<group>"; };
 		C32E34291D474359001C1CA2 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Statistic.storyboard; sourceTree = "<group>"; };
 		C34234DB1D35F0820014348A /* CYDataBaseManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CYDataBaseManager.h; sourceTree = "<group>"; };
 		C34234DC1D35F0820014348A /* CYDataBaseManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CYDataBaseManager.m; sourceTree = "<group>"; };
@@ -185,6 +191,15 @@
 				C316C6851D547AD2001F9D17 /* GraphView.m */,
 			);
 			path = GraphView;
+			sourceTree = "<group>";
+		};
+		C317AF511D66F18E00FA14E6 /* CYPresentationController */ = {
+			isa = PBXGroup;
+			children = (
+				C317AF521D66F19D00FA14E6 /* CYPresentationController.h */,
+				C317AF531D66F19D00FA14E6 /* CYPresentationController.m */,
+			);
+			path = CYPresentationController;
 			sourceTree = "<group>";
 		};
 		C34C95EA1D49A02F00E7F5B2 /* Settings */ = {
@@ -382,6 +397,7 @@
 		C3C05CF21D3499CE0021C407 /* CustomViews */ = {
 			isa = PBXGroup;
 			children = (
+				C317AF511D66F18E00FA14E6 /* CYPresentationController */,
 				C316C67F1D546D33001F9D17 /* GraphView */,
 				C3C05CF61D34D3C40021C407 /* PopTableViewController.h */,
 				C3C05CF71D34D3C40021C407 /* PopTableViewController.m */,
@@ -395,6 +411,8 @@
 				C3908C1F1D4890120082BFE1 /* RoundedButton.m */,
 				C38F7F221D5827DE00A8A7D9 /* TipView.h */,
 				C38F7F231D5827DE00A8A7D9 /* TipView.m */,
+				C317AF551D66F43100FA14E6 /* ArrowContainerView.h */,
+				C317AF561D66F43100FA14E6 /* ArrowContainerView.m */,
 			);
 			path = CustomViews;
 			sourceTree = "<group>";
@@ -532,6 +550,7 @@
 				C39A8D5B1D337A2E00FAF484 /* WorkoutActionViewController.m in Sources */,
 				C316C6891D5492F7001F9D17 /* UIColor+Hex.m in Sources */,
 				C3C05CF11D348B2A0021C407 /* WorkoutPlanningViewController.m in Sources */,
+				C317AF571D66F43100FA14E6 /* ArrowContainerView.m in Sources */,
 				C3908C201D4890120082BFE1 /* RoundedButton.m in Sources */,
 				C37102061D49E0780037C877 /* TimeBreakViewController.m in Sources */,
 				C34234E01D361CE90014348A /* NSDate+Components.m in Sources */,
@@ -549,6 +568,7 @@
 				C3AA37C51D3112DB00D5930E /* MainViewController.m in Sources */,
 				C34C95F51D49A63F00E7F5B2 /* SettingsInfo.m in Sources */,
 				C3AA37871D30F3E100D5930E /* main.m in Sources */,
+				C317AF541D66F19D00FA14E6 /* CYPresentationController.m in Sources */,
 				C3AA37B11D30FECE00D5930E /* TargetMuscle.m in Sources */,
 				C354E28E1D3769230012633C /* ListCountButton.m in Sources */,
 				C3C05D031D34EE640021C407 /* UIImage+Resize.m in Sources */,

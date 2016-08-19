@@ -168,8 +168,10 @@ static CGFloat cellHeight = 180;
         [self.view viewWithTag:rightArrowTag].hidden = YES;
     }else{
         self.chart.hidden = NO;
-        [self.view viewWithTag:leftArrowTag].hidden = NO;
-        [self.view viewWithTag:rightArrowTag].hidden = NO;
+        if(self.chart.objects.count > 0){
+            [self.view viewWithTag:leftArrowTag].hidden = NO;
+            [self.view viewWithTag:rightArrowTag].hidden = NO;
+        }
         self.tableVC.view.hidden = YES;
     }
 }
@@ -194,6 +196,8 @@ static CGFloat cellHeight = 180;
     CYPieChart *chart = [CYPieChart new];
     [self.view addSubview:chart];
     chart.hidden = YES;
+    chart.sliceBorderColor = [UIColor colorWithRed:0 green:0 blue:0 alpha:0.6];
+    chart.sliceBorderWidth = 1.0f;
     
     UIView *v = self.view;
     

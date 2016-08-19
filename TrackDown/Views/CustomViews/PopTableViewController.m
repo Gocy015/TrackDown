@@ -26,6 +26,8 @@
     self.tableView.dataSource = self;
     self.tableView.delegate = self;
     
+    self.tableView.backgroundColor = [UIColor darkGrayColor];
+    
 }
 
 - (void)didReceiveMemoryWarning {
