@@ -150,8 +150,8 @@ static NSString *const tbVCId = @"TimeBreakViewController";
 
     present.trianglePosition = CGPointMake(0.5, 0.5);
 
-    if(_workouts.count <= 8){
-        
+//    if(_workouts.count <= 8){
+    
 //        popVC.modalPresentationStyle = UIModalPresentationPopover;
 //        popVC.popoverPresentationController.sourceView = self.navigationItem.titleView;
 //        popVC.popoverPresentationController.sourceRect = self.navigationItem.titleView.bounds;
@@ -159,7 +159,7 @@ static NSString *const tbVCId = @"TimeBreakViewController";
         WeakSelf();
         
         CGFloat width = 200;
-        CGFloat height = MIN(44 * 7,44 * _workouts.count);
+        CGFloat height = MIN(44 * 8,44 * _workouts.count);
         CGPoint point = self.navigationItem.titleView.center;
         
         CGPoint convert = [self.view convertPoint:point toView:[UIApplication sharedApplication].keyWindow];
@@ -181,11 +181,11 @@ static NSString *const tbVCId = @"TimeBreakViewController";
         };
         
 //        [self presentViewController:popVC animated:YES completion:nil];
-    }
-    else{
-        [self.navigationController pushViewController:popVC animated:YES];
-        popVC.title = @"目标肌群";
-    }
+//    }
+//    else{
+//        [self.navigationController pushViewController:popVC animated:YES];
+//        popVC.title = @"目标肌群";
+//    }
 }
 
 -(void)tapNaviDetail{
@@ -238,8 +238,8 @@ static NSString *const tbVCId = @"TimeBreakViewController";
 
         
     };
-    if (displayWorkouts.count <= 10) {
-        
+//    if (displayWorkouts.count <= 10) {
+    
 //        popVC.modalPresentationStyle = UIModalPresentationPopover;
 //        popVC.popoverPresentationController.barButtonItem = self.navigationItem.rightBarButtonItem;
 //        popVC.popoverPresentationController.delegate = self;
@@ -262,11 +262,11 @@ static NSString *const tbVCId = @"TimeBreakViewController";
 //        popVC.preferredContentSize = CGSizeMake(width, height);
         [present showFrom:self];
 //        [self presentViewController:popVC animated:YES completion:nil];
-    }else{
-        [self.navigationController pushViewController:popVC animated:YES];
-        
-        popVC.title = @"训练计划";
-    }
+//    }else{
+//        [self.navigationController pushViewController:popVC animated:YES];
+//        
+//        popVC.title = @"训练计划";
+//    }
     
 }
 

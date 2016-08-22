@@ -76,13 +76,15 @@ static const NSInteger rightArrowTag = 22;
 
 @end
 
-@interface StatisticViewController () <CustomCellDataSource>
+@interface StatisticViewController () <CustomCellDataSource ,UISearchBarDelegate ,ExpandableTableViewEventDelegate>
 
 @property (nonatomic ,weak) CYExpandableTableViewController *tableVC;
 @property (nonatomic ,weak) CYPieChart *chart;
 @property (nonatomic ,strong) NSMutableDictionary *statistic;
 @property (nonatomic ,strong) NSMutableArray *displayArray;
+@property (nonatomic ,strong) NSMutableArray *searchArray;
 @property (weak, nonatomic) IBOutlet UISegmentedControl *segment;
+@property (weak, nonatomic) IBOutlet UISearchBar *searchBar;
 
 @end
 
@@ -105,13 +107,13 @@ static CGFloat cellHeight = 180;
 //    gv.toMonth = 11;
 //    [self.view addSubview:gv];
     
+    self.searchBar.delegate = self;
     [self constructTableView];
     [self constructPieChart];
-    WeakSelf();
     
-    NSDateComponents *com = [NSDateComponents new];
-
-    NSDate *date = [NSDate date];
+//    NSDateComponents *com = [NSDateComponents new];
+//
+//    NSDate *date = [NSDate date];
 //    NSCalendar *calendar = [NSCalendar currentCalendar];
 //    com.year = [date year] ;
 //    com.month = [date month] ;
@@ -126,16 +128,8 @@ static CGFloat cellHeight = 180;
 //        [weakSelf groupStatistics:res onDate:date];
 //    }];
     
-    //TODO: show loading toast and group things at bg
-    [[CYWorkoutManager sharedManager] loadAllActionStatistics:^(NSDictionary *res) {
-        for (NSDate *key in res.allKeys) {
-            [weakSelf groupStatistics:res[key] onDate:key];
-        }
-    }];
+    [self loadData];
     
-    [[CYWorkoutManager sharedManager] loadAllMuscleStatistics:^(NSArray *res) {
-        [weakSelf configurePieWithStatistics:res];
-    }];
     
     self.title = @"训练统计";
     
@@ -160,9 +154,10 @@ static CGFloat cellHeight = 180;
     if (![sender isEqual: self.segment]) {
         return ;
     }
-    
+    [self.searchBar resignFirstResponder];
     if(self.segment.selectedSegmentIndex == 0){
         self.tableVC.view.hidden = NO;
+        self.searchBar.hidden = NO;
         self.chart.hidden = YES;
         [self.view viewWithTag:leftArrowTag].hidden = YES;
         [self.view viewWithTag:rightArrowTag].hidden = YES;
@@ -173,6 +168,7 @@ static CGFloat cellHeight = 180;
             [self.view viewWithTag:rightArrowTag].hidden = NO;
         }
         self.tableVC.view.hidden = YES;
+        self.searchBar.hidden = YES;
     }
 }
 
@@ -259,15 +255,103 @@ static CGFloat cellHeight = 180;
     _tableVC = tbvc;
     _tableVC.allowsMutipleSelection = NO;
     _tableVC.cellDataSource = self;
+    _tableVC.eventDelegate = self;
     
     UIView *superview = self.view;
     
     [v mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.top.equalTo(self.segment.mas_bottom).offset(20.0);
+        make.top.equalTo(self.searchBar.mas_bottom).offset(2);
         make.leading.equalTo(superview.mas_leading);
         make.trailing.equalTo(superview.mas_trailing);
         make.bottom.equalTo(superview.mas_bottom);
     }];
+}
+
+
+-(void)loadData{
+    WeakSelf();
+    
+    dispatch_group_t group = dispatch_group_create();
+    
+    dispatch_group_enter(group);
+    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+        
+        [[CYWorkoutManager sharedManager] loadAllActionStatistics:^(NSDictionary *res) {
+            for (NSDate *key in res.allKeys) {
+                [weakSelf groupStatistics:res[key] onDate:key];
+            }
+            dispatch_group_leave(group);
+            NSLog(@"Finish load actions");
+        }];
+        
+    });
+    
+    
+    dispatch_group_enter(group);
+    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+        
+        [[CYWorkoutManager sharedManager] loadAllMuscleStatistics:^(NSArray *res) {
+            [weakSelf configurePieWithStatistics:res];
+            dispatch_group_leave(group);
+            NSLog(@"Finish load muscles");
+        }];
+        
+    });
+    
+    dispatch_group_notify(group, dispatch_get_main_queue(), ^{
+        weakSelf.tableVC.data = [[NSArray alloc] initWithArray:weakSelf.displayArray copyItems:YES];
+        
+        [weakSelf.chart updateAppearance];
+        NSLog(@"Update UI");
+    });
+    
+    
+    //由于读取数据库操作本来就有逻辑是dispatch_async的，所以
+    //用NSOperation Queue并不能保证updateUI正确执行。只能通过回调block来限制updateUI的执行时机。
+    
+//    NSOperationQueue *loadQueue = [[NSOperationQueue alloc] init];
+//    loadQueue.maxConcurrentOperationCount = 2;
+//    
+//    NSBlockOperation *loadActions = [NSBlockOperation blockOperationWithBlock:^{
+//        [[CYWorkoutManager sharedManager] loadAllActionStatistics:^(NSDictionary *res) {
+//            for (NSDate *key in res.allKeys) {
+//                [weakSelf groupStatistics:res[key] onDate:key];
+//            }
+//            NSLog(@"Finish load actions");
+//        }];
+//    }];
+//    
+//    NSBlockOperation *loadMuscles = [NSBlockOperation blockOperationWithBlock:^{
+//        [[CYWorkoutManager sharedManager] loadAllMuscleStatistics:^(NSArray *res) {
+//            [weakSelf configurePieWithStatistics:res];
+//        }];
+//        NSLog(@"Finish load muscles");
+//    }];
+//    
+//    NSBlockOperation *updateUI = [NSBlockOperation blockOperationWithBlock:^{
+//        
+//        [[NSOperationQueue mainQueue] addOperationWithBlock:^{
+//            
+//            weakSelf.tableVC.data = [[NSArray alloc] initWithArray:weakSelf.displayArray copyItems:YES];
+//            
+//            [weakSelf.chart updateAppearance];
+//            NSLog(@"update ui ");
+//        }];
+//    }];
+//    
+//    [updateUI addDependency:loadMuscles];
+//    [updateUI addDependency:loadActions];
+//    
+//    
+//    [loadQueue addOperation:loadMuscles];
+//    [loadQueue addOperation:loadActions];
+//    [loadQueue addOperation:updateUI];
+    
+//    [loadMuscles start];
+//    [loadActions start];
+//    [updateUI start];
+    
+    
 }
 
 
@@ -339,7 +423,7 @@ static CGFloat cellHeight = 180;
         }
     }
     
-    self.tableVC.data = [[NSArray alloc] initWithArray:self.displayArray copyItems:YES];
+//    self.tableVC.data = [[NSArray alloc] initWithArray:self.displayArray copyItems:YES];
     
 }
 
@@ -359,9 +443,46 @@ static CGFloat cellHeight = 180;
     self.chart.objects = objs;
     self.chart.colors = @[[UIColor orangeColor],[UIColor cyanColor]];
     
-    [self.chart updateAppearance];
     
 }
+
+
+#pragma mark - ExpandableTableView Event Delegate
+
+
+-(void)didSelectHeaderAnIndex:(NSUInteger)index{
+    [self.searchBar resignFirstResponder];
+
+}
+-(void)scrollViewDidScroll:(UIScrollView *)scrollView{
+    [self.searchBar resignFirstResponder];
+}
+
+
+#pragma mark - UISearchBar Delegate
+
+-(void)searchBar:(UISearchBar *)searchBar textDidChange:(NSString *)searchText{
+//    NSLog(@"%@",searchText);
+    if ([searchText length] <= 0) {
+        self.searchArray = [NSMutableArray arrayWithArray:self.displayArray];
+    }else{
+        if (!self.searchArray) {
+            self.searchArray = [NSMutableArray arrayWithArray:self.displayArray];
+        }
+        NSMutableArray *res = [NSMutableArray new];
+        for (DisplayStatistic *s in self.searchArray) {
+            if ([s.displayName containsString:searchText]) {
+                [res addObject:s];
+            }
+        }
+        [self.searchArray removeAllObjects];
+        [self.searchArray addObjectsFromArray:res];
+    }
+    
+    self.tableVC.data = [NSArray arrayWithArray:self.searchArray];
+}
+
+
 
 #pragma mark - CustomCell DataSource
 

@@ -26,6 +26,12 @@ static const NSUInteger kRecordCacheLimit = 8; //缓存八天训练记录。
 
 @end
 
+typedef NS_ENUM(NSUInteger ,KeyOption){
+    KeyOption_DayAsKey = 1,
+    KeyOption_MonthAsKey = 1 << 1,
+    KeyOption_YearAsKey = 1 << 2
+};
+
 static NSString * const recordsDB = @"records.db";
 static NSString * const statisticDB = @"statistic.db";
 
@@ -63,6 +69,7 @@ static NSString * const statCount = @"count";
         [self createCurrentMonthDirIfNeeded];
         _recordCache = [NSMutableDictionary new];
         _recordHitQueue = [NSMutableArray new];
+        
     }
     return self;
 }
@@ -134,9 +141,10 @@ static NSString * const statCount = @"count";
 
 
 -(NSDictionary *)queryWorkoutRecordsForMonth:(NSDate *)date{
-    NSString *key = [self keyForDate:date];
+    NSString *key = [self keyForDate:date options:KeyOption_YearAsKey|KeyOption_MonthAsKey];
     if ([_recordCache objectForKey:key] != nil) {
         //缓存命中
+        
         [_recordHitQueue removeObject:key];
         [_recordHitQueue insertObject:key atIndex:0];
         
@@ -183,10 +191,10 @@ static NSString * const statCount = @"count";
 }
 
 -(NSArray *)queryWorkoutActionStatisticForYear:(NSDate *)date{
+    
     FMDatabase *db = [self statisticDatabaseForYearInDate:date];
     NSMutableArray *actions = [NSMutableArray new];
     
-    //TODO: 缓存机制
     
     if ([db open]) {
         NSString *query = [NSString stringWithFormat:@"SELECT * FROM %@ WHERE %@ = ? ORDER BY %@ ASC",statTable,statType,statStoreMonth];
@@ -217,14 +225,15 @@ static NSString * const statCount = @"count";
         [db close];
     }
     
-    return [[NSArray alloc] initWithArray:actions];
+    
+    NSArray *res = [[NSArray alloc] initWithArray:actions];
+    return res;
 }
 
 -(NSArray *)queryWorkoutMuscleStatisticForYear:(NSDate *)date{
     FMDatabase *db = [self statisticDatabaseForYearInDate:date];
     NSMutableArray *muscles = [NSMutableArray new];
     
-    //TODO: 缓存机制
     
     if ([db open]) {
         
@@ -260,11 +269,23 @@ static NSString * const statCount = @"count";
 
 
 -(void)clearRecordsCache{
+    [_recordHitQueue removeAllObjects];
     [_recordCache removeAllObjects];
 }
 
 
+-(void)clearRecordsCacheForKey:(NSString *)key{
+    [_recordHitQueue removeObject:key];
+    [_recordCache removeObjectForKey:key];
+}
+
+
 -(BOOL)storePlanForRecords:(NSArray<TargetMuscle *> *)plan forDate:(NSDate *)date{
+    
+    //当月 records更新，清缓存。
+    NSString *key = [self keyForDate:date options:KeyOption_YearAsKey | KeyOption_MonthAsKey];
+    [self clearRecordsCacheForKey:key];
+    
     
     NSInteger day = [date day];
     FMDatabase *db = [self recordsDatabaseForMonthInDate:date];
@@ -295,8 +316,7 @@ static NSString * const statCount = @"count";
 //            
 //            for (TargetMuscle *m in plan) {
 //                if ([m.muscle isEqualToString:muscleName]) {
-//                    // merge actions
-//                    //TODO: Merge Actions
+//                    // merge actions 
 //                    // simply add at back
 //                    
 //                    [mus.actions addObjectsFromArray:m.actions];
@@ -560,8 +580,23 @@ static NSString * const statCount = @"count";
 }
 
 
--(NSString *)keyForDate:(NSDate *)date{
-    return [NSString stringWithFormat:@"%li-%li-%li",[date year],[date month],[date day]];
+-(NSString *)keyForDate:(NSDate *)date options:(KeyOption)option{
+    NSMutableString *key = [NSMutableString stringWithString:@""];
+    NSString *template = @"%02d";
+    
+    if (option & KeyOption_YearAsKey) {
+        [key appendString:[NSString stringWithFormat:@"%li",[date year]]];
+    }
+
+    if (option & KeyOption_MonthAsKey) {
+        [key appendString:[NSString stringWithFormat:template,[date month]]];
+    }
+
+    if (option & KeyOption_DayAsKey) {
+        [key appendString:[NSString stringWithFormat:template,[date day]]];
+    }
+
+    return [NSString stringWithString:key];
 }
 
 //-(void)test{

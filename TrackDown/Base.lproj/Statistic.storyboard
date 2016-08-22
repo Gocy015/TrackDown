@@ -68,14 +68,22 @@
                                     <action selector="segmentValueChanged:" destination="fla-OI-44v" eventType="valueChanged" id="BdG-wL-4jI"/>
                                 </connections>
                             </segmentedControl>
+                            <searchBar contentMode="redraw" translatesAutoresizingMaskIntoConstraints="NO" id="zgd-8p-VHE">
+                                <rect key="frame" x="0.0" y="72" width="600" height="44"/>
+                                <textInputTraits key="textInputTraits"/>
+                            </searchBar>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
                             <constraint firstItem="WId-Db-76h" firstAttribute="top" secondItem="nCT-Y3-aXS" secondAttribute="bottom" constant="16" id="Otb-h6-XWs"/>
                             <constraint firstItem="WId-Db-76h" firstAttribute="centerX" secondItem="iqe-fc-TQT" secondAttribute="centerX" id="fps-1t-DcT"/>
+                            <constraint firstAttribute="trailing" secondItem="zgd-8p-VHE" secondAttribute="trailing" id="i7j-zR-KNH"/>
+                            <constraint firstItem="zgd-8p-VHE" firstAttribute="leading" secondItem="iqe-fc-TQT" secondAttribute="leading" id="mcI-FG-QlN"/>
+                            <constraint firstItem="zgd-8p-VHE" firstAttribute="top" secondItem="WId-Db-76h" secondAttribute="bottom" constant="8" id="uC9-eR-QZL"/>
                         </constraints>
                     </view>
                     <connections>
+                        <outlet property="searchBar" destination="zgd-8p-VHE" id="RGe-97-AUb"/>
                         <outlet property="segment" destination="WId-Db-76h" id="xLq-kB-EiK"/>
                     </connections>
                 </viewController>

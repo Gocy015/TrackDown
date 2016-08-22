@@ -39,7 +39,9 @@
 #pragma mark - Instance Methods
 
 
-#pragma mark - Helpers#pragma mark - Setters & Getter
+#pragma mark - Helpers
+
+#pragma mark - Setters & Getter
 
 
 -(UILabel *)label{
@@ -63,6 +65,9 @@
     label.text = tip;
     label.textColor = [UIColor whiteColor];
     [label sizeToFit];
+    
+    //refresh rect
+    self.contentView = label;
     
     CGSize labelSize = label.bounds.size;
     

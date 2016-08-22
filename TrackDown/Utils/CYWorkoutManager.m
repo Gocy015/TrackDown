@@ -24,6 +24,8 @@ static const char *ioQueueIdentifier = "gocy.trackdown.io";
 @property (nonatomic ,copy) NSString *libPath;
 @property (nonatomic ,copy) NSMutableArray *workoutTypes;
 @property (nonatomic) dispatch_queue_t ioQueue;
+@property (nonatomic ,strong) NSDictionary *actionStatCache;
+@property (nonatomic ,strong) NSArray *muscleStatCache;
 
 @end
 
@@ -155,6 +157,9 @@ static NSString * const Key_TimeBreak = @"TrackDown_TimeBreak";
     
     
     NSDate *d = [NSDate date];
+    
+    self.actionStatCache = nil;
+    self.muscleStatCache = nil;
     
     [[CYDataBaseManager sharedManager] storeWorkoutPlan:[self mergeConsecutiveMuscle:workoutPlan] forDate:d];
     
@@ -364,6 +369,13 @@ static NSString * const Key_TimeBreak = @"TrackDown_TimeBreak";
 
 
 -(void)loadAllActionStatistics:(void (^)(NSDictionary *))block{
+    
+    if (self.actionStatCache) {
+        block(self.actionStatCache);
+        NSLog(@"Action Statistic Hit Cache !");
+        return ;
+    }
+    
     [self ioProcess:^{
         NSArray *files = [m_fileManager contentsOfDirectoryAtPath:[self dbPath] error:nil];
         if (files) {
@@ -382,7 +394,8 @@ static NSString * const Key_TimeBreak = @"TrackDown_TimeBreak";
                 }
             }
             dispatch_async(dispatch_get_main_queue(), ^{
-                block(dic);
+                self.actionStatCache = [[NSDictionary alloc] initWithDictionary:dic];
+                block(self.actionStatCache);
             });
             
         }else{
@@ -396,6 +409,13 @@ static NSString * const Key_TimeBreak = @"TrackDown_TimeBreak";
 
 
 -(void)loadAllMuscleStatistics:(void (^)(NSArray *))block{
+    
+    if (self.muscleStatCache) {
+        block(self.muscleStatCache);
+        NSLog(@"Muscle Statistic Hit Cache !");
+        return ;
+    }
+    
     [self ioProcess:^{
         NSArray *files = [m_fileManager contentsOfDirectoryAtPath:[self dbPath] error:nil];
         if (files) {
@@ -426,7 +446,8 @@ static NSString * const Key_TimeBreak = @"TrackDown_TimeBreak";
                 
             }
             dispatch_async(dispatch_get_main_queue(), ^{
-                block(arr);
+                self.muscleStatCache = [NSArray arrayWithArray:arr];
+                block(self.muscleStatCache);
             });
             
         }else{

@@ -250,8 +250,8 @@
     listvc.dataArr = displayWorkouts;
     
     CYPresentationController *present = [CYPresentationController new];
-    if (displayWorkouts.count <= 10) {
-        
+//    if (displayWorkouts.count <= 10) {
+    
 //        listvc.modalPresentationStyle = UIModalPresentationPopover;
 //        listvc.popoverPresentationController.barButtonItem = self.navigationItem.rightBarButtonItem;
 //        listvc.popoverPresentationController.delegate = self;
@@ -276,11 +276,11 @@
         
 //        listvc.preferredContentSize = CGSizeMake(width, height);
 //        [self presentViewController:listvc animated:YES completion:nil];
-    }else{
-        [self.navigationController pushViewController:listvc animated:YES];
-        
-        listvc.title = @"训练计划";
-    }
+//    }else{
+//        [self.navigationController pushViewController:listvc animated:YES];
+//        
+//        listvc.title = @"训练计划";
+//    }
     
 //    listvc.view.frame = self.view.bounds;
 //    

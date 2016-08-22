@@ -56,10 +56,12 @@
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
+    
+    [[CYWorkoutManager sharedManager] releaseRecordCache];
 }
 
 -(void)dealloc{
-    [[CYWorkoutManager sharedManager] releaseRecordCache];
+//    [[CYWorkoutManager sharedManager] releaseRecordCache];
 }
 
 /*
