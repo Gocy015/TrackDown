@@ -16,6 +16,7 @@
 #import "UCZProgressView.h"
 #import "RoundedButton.h"
 #import "CYExpandableTableViewController.h"
+#import "CYPresentationController.h"
 #import "Masonry.h"
 
 @interface TrainingViewController () <TrainingListViewDelegate,UIPopoverPresentationControllerDelegate ,UITextFieldDelegate>{
@@ -248,20 +249,33 @@
     listvc.currentIndex =  _actIndex + _muscleIndex ;
     listvc.dataArr = displayWorkouts;
     
-    
+    CYPresentationController *present = [CYPresentationController new];
     if (displayWorkouts.count <= 10) {
         
-        listvc.modalPresentationStyle = UIModalPresentationPopover;
-        listvc.popoverPresentationController.barButtonItem = self.navigationItem.rightBarButtonItem;
-        listvc.popoverPresentationController.delegate = self;
-        listvc.popoverPresentationController.backgroundColor = [UIColor grayColor];
-        listvc.view.alpha = 0.5;
+//        listvc.modalPresentationStyle = UIModalPresentationPopover;
+//        listvc.popoverPresentationController.barButtonItem = self.navigationItem.rightBarButtonItem;
+//        listvc.popoverPresentationController.delegate = self;
+//        listvc.popoverPresentationController.backgroundColor = [UIColor grayColor];
+//        listvc.view.alpha = 0.5;
         
-        CGFloat width = 270;
+        CGFloat width = 252;
         CGFloat height = MIN(44 * 10,44 * displayWorkouts.count);
         
-        listvc.preferredContentSize = CGSizeMake(width, height);
-        [self presentViewController:listvc animated:YES completion:nil];
+        listvc.view.frame = CGRectMake(0, 0 , width, height);
+        
+        
+        CGPoint point = self.navigationItem.rightBarButtonItem.customView.center;
+        CGPoint convert = [self.view convertPoint:point toView:[UIApplication sharedApplication].keyWindow];
+        
+        present.contentController = listvc;
+        present.backgroundFillColor = [UIColor darkGrayColor];
+        present.trianglePosition = CGPointMake(0.9, 0.5);
+        present.showPoint = convert;
+        
+        [present showFrom:self];
+        
+//        listvc.preferredContentSize = CGSizeMake(width, height);
+//        [self presentViewController:listvc animated:YES completion:nil];
     }else{
         [self.navigationController pushViewController:listvc animated:YES];
         

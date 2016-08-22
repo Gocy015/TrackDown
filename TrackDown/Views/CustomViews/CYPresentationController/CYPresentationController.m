@@ -11,6 +11,7 @@
 
 @interface CYPresentationController ()
 @property (nonatomic ,weak) ArrowContainerView *arrContainerView;
+@property (nonatomic ,weak) UIView *backgroundView;
 
 @end
 
@@ -35,6 +36,10 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
+    
+    self.view.backgroundColor = [UIColor clearColor];
+    self.backgroundView.backgroundColor = [UIColor colorWithWhite:0 alpha:0.4];
+    
 }
 
 - (void)didReceiveMemoryWarning {
@@ -54,7 +59,7 @@
 //        self.contentController.view.bounds = CGRectMake(0, 0, self.contentController.preferredContentSize.width, self.contentController.preferredContentSize.height);
         self.arrContainerView.contentView = self.contentController.view;
         self.arrContainerView.backgroundFillColor = self.backgroundFillColor;
-        self.arrContainerView.bounds = CGRectMake(0, 0, self.contentController.view.bounds.size.width + 15, self.contentController.view.bounds.size.height + 10);
+//        self.arrContainerView.bounds = CGRectMake(0, 0, self.contentController.view.bounds.size.width + 15, self.contentController.view.bounds.size.height + 10);
         
         if (![UIApplication sharedApplication].statusBarHidden) {
             self.showPoint = CGPointMake(self.showPoint.x, self.showPoint.y + 20);
@@ -71,14 +76,17 @@
         [vc addChildViewController:self];
         
         UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(didTap:)];
-        [self.view addGestureRecognizer:tap];
+        [self.backgroundView addGestureRecognizer:tap];
         
-        self.view.backgroundColor = [UIColor clearColor];
+        [self doShowAnimationWithCompletion:nil];
         
     }else{
         
         [self.view addSubview:self.contentController.view];
+        self.title = self.contentController.title;
         // simply push
+        
+        
         if (vc.navigationController) {
             [vc.navigationController pushViewController:self animated:YES];
         }else{ //present
@@ -88,8 +96,12 @@
 }
 
 -(void)dismiss{
-    [self removeFromParentViewController];
-    [self.view removeFromSuperview];
+    [self doHideAnimationWithCompletion:^(BOOL finished){
+        [self.contentController removeFromParentViewController];
+        [self.contentController.view removeFromSuperview];
+        [self removeFromParentViewController];
+        [self.view removeFromSuperview];
+    }];
 }
 
 
@@ -122,14 +134,14 @@
 
 -(ArrowContainerView *)arrContainerView{
     if (!_arrContainerView) {
-        ArrowContainerView *arr = [[ArrowContainerView alloc] initWithTriangleDirection:TriangleDirection_Top triangleXPosition:0.92 triangleYPosition:0.5];
+        ArrowContainerView *arr = [[ArrowContainerView alloc] initWithTriangleDirection:TriangleDirection_Top triangleXPosition:_trianglePosition.x triangleYPosition:_trianglePosition.y];
         [self.view addSubview:arr];
         
+        arr.maxTriangleSize = CGSizeMake(10, 8);
         if (self.contentController) {
             arr.contentView = self.contentController.view;
         }
         arr.showPoint = self.showPoint;
-        arr.maxTriangleSize = CGSizeMake(15, 10);
         
         _arrContainerView = arr;
     }
@@ -138,10 +150,52 @@
 }
 
 
+-(UIView *)backgroundView{
+    if (!_backgroundView) {
+        UIView *bg = [[UIView alloc] initWithFrame:self.view.bounds];
+        [self.view addSubview:bg];
+        _backgroundView = bg;
+    }
+    [self.view sendSubviewToBack:_backgroundView];
+    
+    return _backgroundView;
+}
+
 #pragma mark - Helpers
 
 -(void)didTap:(UITapGestureRecognizer *)tap{
     [self dismiss];
+}
+
+
+-(void)doShowAnimationWithCompletion:(void(^)(BOOL finished))completion{
+    UIColor *toColor = self.backgroundView.backgroundColor;
+    self.backgroundView.backgroundColor = [UIColor clearColor];
+    
+    CGPoint arrowCenter = CGPointMake(self.arrContainerView.frame.origin.x + self.arrContainerView.bounds.size.width / 2,self.arrContainerView.frame.origin.y + self.arrContainerView.bounds.size.height / 2);
+    
+    CGAffineTransform trans = CGAffineTransformMakeTranslation( self.showPoint.x - arrowCenter.x , self.showPoint.y - arrowCenter.y );
+    trans = CGAffineTransformScale(trans, 0.01, 0.01);
+    self.arrContainerView.transform = trans;
+    
+    self.view.alpha = 1;
+    
+    [UIView animateWithDuration:0.22 animations:^{
+        
+        self.backgroundView.backgroundColor = toColor;
+    }];
+    
+    [UIView animateWithDuration:0.52 delay:0 usingSpringWithDamping:0.5 initialSpringVelocity:0.7 options:UIViewAnimationOptionCurveEaseInOut animations:^{
+        
+        self.arrContainerView.transform = CGAffineTransformIdentity;
+    } completion:completion];
+}
+
+-(void)doHideAnimationWithCompletion:(void(^)(BOOL finished))completion{
+    [UIView animateWithDuration:0.2 animations:^{
+        self.view.alpha = 0;
+    } completion:completion];
+    
 }
 
 /*

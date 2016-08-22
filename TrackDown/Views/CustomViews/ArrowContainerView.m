@@ -13,6 +13,12 @@
 static const CGFloat kTriangleXPortion = 0.12;
 static const CGFloat kTriangleYPortion = 0.12;
 
+@interface ArrowContainerView (){
+    CGRect _contentRect;
+}
+
+@end
+
 @implementation ArrowContainerView
 
 /*
@@ -34,12 +40,15 @@ static const CGFloat kTriangleYPortion = 0.12;
         
         self.backgroundColor = [UIColor clearColor];
 //        self.alpha = 0.8;
+        CAShapeLayer *mask = [CAShapeLayer layer];
+        self.layer.mask = mask;
     }
     return self;
 }
 
 
 -(void)drawRect:(CGRect)rect{
+    
     
     UIBezierPath *triangle = [self bezierPathForTriangle];
     
@@ -55,7 +64,9 @@ static const CGFloat kTriangleYPortion = 0.12;
     
     CGContextRestoreGState(context);
     
-    
+    CAShapeLayer *mask = (CAShapeLayer *)self.layer.mask;
+    [triangle appendPath:rectangle];
+    mask.path = triangle.CGPath;
     
 }
 
@@ -67,13 +78,35 @@ static const CGFloat kTriangleYPortion = 0.12;
         [_contentView removeFromSuperview];
     }
     if (![contentView isDescendantOfView:self]) {
+        
+//        contentView.translatesAutoresizingMaskIntoConstraints = NO;
         [self addSubview:contentView];
     }
-    contentView.translatesAutoresizingMaskIntoConstraints = NO;
     _contentView = contentView;
+    _contentRect = contentView.frame;
     
     //estimated size
-//    self.bounds = CGRectMake(0, 0, _contentView.bounds.size.width * 1.2, _contentView.bounds.size.height * 1.2);
+    CGFloat eWidth = contentView.frame.size.width;
+    CGFloat eHeight = contentView.frame.size.height;
+    
+    if(_direction == TriangleDirection_Top || _direction == TriangleDirection_Bottom){
+        CGFloat estimatedHeight = eHeight / (1 -kTriangleYPortion);
+        if (estimatedHeight - eHeight > _maxTriangleSize.height) {
+            eHeight = _maxTriangleSize.height + eHeight;
+        }else{
+            eHeight = estimatedHeight;
+        }
+    }else{
+        CGFloat estimatedWidth = eWidth / ( 1 - kTriangleXPortion );
+        if (estimatedWidth - eWidth > _maxTriangleSize.width) {
+            eWidth = _maxTriangleSize.width + eWidth;
+        }else{
+            eWidth = estimatedWidth ;
+        }
+    }
+//    self.clipsToBounds = YES;
+    
+    self.bounds = CGRectMake(0, 0, eWidth, eHeight);
 }
 
 -(void)setShowPoint:(CGPoint)p{
@@ -110,11 +143,15 @@ static const CGFloat kTriangleYPortion = 0.12;
 
 
 -(void)setBounds:(CGRect)bounds{
+    
+    
     [super setBounds:bounds];
+    
+    _contentView.frame = _contentRect;
     
     CGRect rect = [self boundingRectForRoundedRect];
     
-    _contentView.translatesAutoresizingMaskIntoConstraints = YES;
+//    _contentView.translatesAutoresizingMaskIntoConstraints = YES;
     _contentView.frame = CGRectMake(rect.origin.x + (rect.size.width - _contentView.bounds.size.width) / 2.0, rect.origin.y + (rect.size.height - _contentView.bounds.size.height) / 2.0, _contentView.bounds.size.width, _contentView.bounds.size.height);
     
     self.showPoint = self.showPoint; // trigger setter to re-locate
@@ -177,7 +214,7 @@ static const CGFloat kTriangleYPortion = 0.12;
     CGFloat maxHeight = self.bounds.size.height;
     
     
-    UIBezierPath *rectPath = [UIBezierPath bezierPathWithRoundedRect:rect cornerRadius:MIN(maxWidth, maxHeight) * 0.1];
+    UIBezierPath *rectPath = [UIBezierPath bezierPathWithRoundedRect:rect cornerRadius:MIN(10 ,MIN(maxWidth, maxHeight) * 0.1)];
     
     return rectPath;
 }
@@ -189,12 +226,12 @@ static const CGFloat kTriangleYPortion = 0.12;
     CGFloat maxWidth = self.bounds.size.width;
     CGFloat maxHeight = self.bounds.size.height;
     
-    CGFloat w = maxWidth - [self triangleWidth] + 1;
-    CGFloat h = maxHeight - [self triangleHeight] + 1;
+    CGFloat w = maxWidth - [self triangleWidth] ;
+    CGFloat h = maxHeight - [self triangleHeight] ;
     
     switch (self.direction) {
         case TriangleDirection_Top:
-            rect = CGRectMake(0, [self triangleHeight] - 1, maxWidth, h);
+            rect = CGRectMake(0, [self triangleHeight], maxWidth, h);
             break;
         case TriangleDirection_Bottom:
             
@@ -203,7 +240,7 @@ static const CGFloat kTriangleYPortion = 0.12;
             break;
             
         case TriangleDirection_Left:
-            rect = CGRectMake([self triangleWidth] - 1, 0, w, maxHeight);
+            rect = CGRectMake([self triangleWidth], 0, w, maxHeight);
             
             break;
             

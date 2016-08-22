@@ -24,6 +24,8 @@ typedef NS_ENUM(NSUInteger ,PresentationType){
 
 @property (nonatomic) CGPoint showPoint;
 
+@property (nonatomic) CGPoint trianglePosition;
+
 -(void)showFrom:(UIViewController *)vc;
 
 -(void)dismiss;

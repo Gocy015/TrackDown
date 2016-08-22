@@ -145,23 +145,42 @@ static NSString *const tbVCId = @"TimeBreakViewController";
         }]
     ];
     popVC.clickToDismiss = YES;
+    
+    CYPresentationController *present = [CYPresentationController new];
+
+    present.trianglePosition = CGPointMake(0.5, 0.5);
+
     if(_workouts.count <= 8){
         
-        popVC.modalPresentationStyle = UIModalPresentationPopover;
-        popVC.popoverPresentationController.sourceView = self.navigationItem.titleView;
-        popVC.popoverPresentationController.sourceRect = self.navigationItem.titleView.bounds;
-        popVC.popoverPresentationController.delegate = self;
+//        popVC.modalPresentationStyle = UIModalPresentationPopover;
+//        popVC.popoverPresentationController.sourceView = self.navigationItem.titleView;
+//        popVC.popoverPresentationController.sourceRect = self.navigationItem.titleView.bounds;
+//        popVC.popoverPresentationController.delegate = self;
         WeakSelf();
         
         CGFloat width = 200;
         CGFloat height = MIN(44 * 7,44 * _workouts.count);
+        CGPoint point = self.navigationItem.titleView.center;
         
-        popVC.preferredContentSize = CGSizeMake(width, height);
+        CGPoint convert = [self.view convertPoint:point toView:[UIApplication sharedApplication].keyWindow];
+        
+        popVC.view.frame = CGRectMake(0, 0, width, height);
+        
+        present.contentController = popVC;
+        present.backgroundFillColor = [UIColor darkGrayColor];
+        present.showPoint = convert;
+        
+        //        popVC.preferredContentSize = CGSizeMake(width, height);
+        [present showFrom:self];
+        
+        __weak typeof(present) weakPresent = present;
+//        popVC.preferredContentSize = CGSizeMake(width, height);
         popVC.clickblock = ^(NSUInteger index){
             [weakSelf changeCurrentWorkout:index];
+            [weakPresent dismiss];
         };
         
-        [self presentViewController:popVC animated:YES completion:nil];
+//        [self presentViewController:popVC animated:YES completion:nil];
     }
     else{
         [self.navigationController pushViewController:popVC animated:YES];
@@ -238,6 +257,7 @@ static NSString *const tbVCId = @"TimeBreakViewController";
         present.contentController = popVC;
         present.backgroundFillColor = [UIColor darkGrayColor];
         present.showPoint = convert;
+        present.trianglePosition = CGPointMake(0.9, 0.5);
         
 //        popVC.preferredContentSize = CGSizeMake(width, height);
         [present showFrom:self];

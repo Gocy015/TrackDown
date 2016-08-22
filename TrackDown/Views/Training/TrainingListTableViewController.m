@@ -55,6 +55,7 @@ static NSString *const reuseId = @"TrainingListTableCell";
     // Configure the cell...
     cell.textLabel.text = self.dataArr[indexPath.row];
     cell.backgroundColor = [UIColor darkGrayColor];
+    [cell.textLabel setFont:[UIFont systemFontOfSize:14 weight:UIFontWeightLight]];
     
     if (indexPath.row < _currentIndex) {
         [cell.textLabel setTextColor:[UIColor grayColor]];

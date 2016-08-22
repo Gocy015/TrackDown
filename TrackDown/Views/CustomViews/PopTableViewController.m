@@ -28,6 +28,8 @@
     
     self.tableView.backgroundColor = [UIColor darkGrayColor];
     
+    
+    
 }
 
 - (void)didReceiveMemoryWarning {
@@ -65,7 +67,7 @@
     }
     if (_clickToDismiss) {
         
-        [self.presentingViewController dismissViewControllerAnimated:YES completion:nil];
+//        [self.presentingViewController dismissViewControllerAnimated:YES completion:nil];
     }
 }
 
