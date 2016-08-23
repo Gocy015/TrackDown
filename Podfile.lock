@@ -7,6 +7,7 @@ PODS:
   - FMDB/standard (2.6.2)
   - FSCalendar (2.3.0)
   - Masonry (1.0.1)
+  - MBProgressHUD (1.0.0)
   - SDVersion (3.2)
   - UCZProgressView (1.0.2)
 
@@ -16,6 +17,7 @@ DEPENDENCIES:
   - FMDB
   - FSCalendar
   - Masonry
+  - MBProgressHUD
   - SDVersion
   - UCZProgressView
 
@@ -35,9 +37,10 @@ SPEC CHECKSUMS:
   FMDB: 854a0341b4726e53276f2a8996f06f1b80f9259a
   FSCalendar: cbcca5ee332cf8d348db77ccda6b029ced42f84a
   Masonry: a1a931a0d08870ed8ae415a2ea5ea68ebcac77df
+  MBProgressHUD: 4890f671c94e8a0f3cf959aa731e9de2f036d71a
   SDVersion: e8bf034813e40fdd31c002942f78182f46468ee1
   UCZProgressView: 55836987c15ee6efb7cd6dfe297556602ee46c94
 
-PODFILE CHECKSUM: 2010bab31269919bbbaba59d447103eba742f6a9
+PODFILE CHECKSUM: d19ea4410478cadb4522e0d3414fbff298acb720
 
 COCOAPODS: 1.0.1

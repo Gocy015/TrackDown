@@ -18,6 +18,9 @@
 #import "CYExpandableTableViewController.h"
 #import "CYPresentationController.h"
 #import "Masonry.h"
+#import "PreDefines.h"
+#import "UIColor+Hex.h"
+#import "MBProgressHUD.h"
 
 @interface TrainingViewController () <TrainingListViewDelegate,UIPopoverPresentationControllerDelegate ,UITextFieldDelegate>{
     NSUInteger _muscleIndex;
@@ -131,10 +134,28 @@
 }
 
 #pragma mark - Actions
-- (void)endTraining {
-    //TODO: Alert
+- (void)abortTraining { 
+    WeakSelf();
+    UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"确定提前结束训练吗?" message:@"提前结束训练，训练数据将不会被记录!" preferredStyle:UIAlertControllerStyleAlert];
+    UIAlertAction *confirmAbort = [UIAlertAction actionWithTitle:@"结束训练" style:UIAlertActionStyleDestructive handler:^(UIAlertAction * _Nonnull action) {
+        [weakSelf endTraining];
+    }];
+    
+    UIAlertAction *goOn = [UIAlertAction actionWithTitle:@"继续训练" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+        
+    }];
+    
+    [alert addAction:confirmAbort];
+    [alert addAction:goOn];
+    
+    [self presentViewController:alert animated:YES completion:nil];
+}
+
+-(void)endTraining{
+    
     [self.presentingViewController dismissViewControllerAnimated:YES completion:nil];
 }
+
 - (IBAction)goHome:(id)sender {
     [self endTraining];
 }
@@ -147,13 +168,25 @@
     if ([self verifyUserInput]) {
         [_currentAction.weightPerSet addObject:@([_weightTextField.text doubleValue])];
         [_currentAction.repeatsPerSet addObject:@([_repsTextField.text doubleValue])];
+        [self.weightTextField resignFirstResponder];
+        [self.repsTextField resignFirstResponder];
         [self startCountDown:^(BOOL started) {
             if (started) {
                 [self updateUI];
             }
         }];
     }else{
-        //TODO: Alert
+        
+        
+        MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:self.view animated:YES];
+        hud.animationType = MBProgressHUDAnimationZoom;
+        hud.bezelView.style = MBProgressHUDBackgroundStyleBlur;
+        hud.mode = MBProgressHUDModeText;
+        hud.label.text = @"请输入正确的训练数据!";
+        hud.label.font = [UIFont systemFontOfSize:14 weight:UIFontWeightLight];
+        
+        
+        [hud hideAnimated:YES afterDelay:1.6];
     }
     
     
@@ -166,6 +199,11 @@
 #pragma mark - Helpers
 
 -(void)startCountDown:(void(^)(BOOL started))block{
+    
+    if (_expectedRestTime <= 0) {
+        block(YES);
+        return ;
+    }
     
     self.progressView.progress = 0;
     self.countDownLabel.text = [NSString stringWithFormat:@"%li",_expectedRestTime];
@@ -220,7 +258,7 @@
         return NO;
     }
     
-    //TODO: Determine input is valid num
+    // Determine input is valid num
     NSCharacterSet *weightSet = [NSCharacterSet characterSetWithCharactersInString:@"1234567890."];
     NSCharacterSet *repSet = [NSCharacterSet characterSetWithCharactersInString:@"1234567890"];
     //移除两端
@@ -449,9 +487,17 @@
     //    UIImage *resizedImg = [img resize:CGSizeMake(22, 22)];
     
     
-    UIBarButtonItem *end = [[UIBarButtonItem alloc] initWithTitle:@"结束训练" style:UIBarButtonItemStyleDone target:self action:@selector(endTraining)];
+//    UIBarButtonItem *end = [[UIBarButtonItem alloc] initWithTitle:@"结束训练" style:UIBarButtonItemStyleDone target:self action:@selector(abortTraining)];
     
-    self.navigationItem.leftBarButtonItem = end;
+    UIButton *end = [[UIButton alloc] initWithFrame:CGRectMake(-10, 10, 70, 40)];
+    [end setTitleColor:[UIColor colorWithWhite:1 alpha:0.6] forState:UIControlStateNormal];
+    [end setTitle:@"结束训练" forState:UIControlStateNormal];
+    [end.titleLabel setFont:[UIFont systemFontOfSize:16 weight:UIFontWeightMedium]];
+    [end addTarget:self action:@selector(abortTraining) forControlEvents:UIControlEventTouchUpInside];
+    
+    UIBarButtonItem *item = [[UIBarButtonItem alloc] initWithCustomView:end];
+    
+    self.navigationItem.leftBarButtonItem = item;
     
     ListCountButton *btn = [[ListCountButton alloc] initWithFrame:CGRectMake(0, 0, 22, 22)];
     
@@ -472,6 +518,8 @@
 
 -(void)workoutComplete{
     [[CYWorkoutManager sharedManager] didFinishWorkoutPlan:[[NSArray alloc] initWithArray:self.plan copyItems:YES]];
+    
+    self.navigationItem.leftBarButtonItem.customView.hidden = YES;
     
     //show workout complete view
     NSMutableArray *acts = [NSMutableArray new];

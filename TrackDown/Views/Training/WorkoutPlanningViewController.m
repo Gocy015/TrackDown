@@ -19,6 +19,7 @@
 #import "ListCountButton.h"
 #import "TimeBreakViewController.h"
 #import "CYPresentationController.h"
+#import "MBProgressHUD.h"
 
 @interface WorkoutPlanningViewController ()<UIPickerViewDataSource ,UIPickerViewDelegate ,UIPopoverPresentationControllerDelegate>
 @property (weak, nonatomic) IBOutlet UIPickerView *actionPicker; 
@@ -102,9 +103,16 @@ static NSString *const tbVCId = @"TimeBreakViewController";
 
 
 - (IBAction)beginTrainning:(id)sender {
-    if (_workingMuscle.actions == 0 && self.workoutPlan.count == 0) {
-        //TODO: Alert
-        NSLog(@"No Plans Added ! Alert!");
+    if (_workingMuscle.actions.count == 0 && self.workoutPlan.count == 0) {
+        
+        MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:self.view animated:YES];
+        
+        hud.bezelView.style = MBProgressHUDBackgroundStyleBlur;
+        hud.mode = MBProgressHUDModeText;
+        hud.label.text = @"还未添加任何训练!";
+        hud.label.font = [UIFont systemFontOfSize:14 weight:UIFontWeightLight];
+        
+        [hud hideAnimated:YES afterDelay:1.6];
         return ;
     }
     
@@ -313,12 +321,24 @@ static NSString *const tbVCId = @"TimeBreakViewController";
     titleLabel.textColor = [UIColor whiteColor];
     [titleLabel sizeToFit];
     
-    titleLabel.userInteractionEnabled = YES;
+    UIImageView *imgView = [UIImageView new];
+    imgView.contentMode = UIViewContentModeScaleAspectFit;
+    imgView.frame = CGRectMake(titleLabel.bounds.size.width + 6, 0, 16, 16);
+    UIImage *spinArrow = [UIImage imageNamed:@"spinArrow"];
+    imgView.image = spinArrow;
+    
+    UIView *titleView = [UIView new];
+    titleView.frame = CGRectMake(0, 0, CGRectGetMaxX(imgView.frame), 16);
+    
+    [titleView addSubview:titleLabel];
+    [titleView addSubview:imgView];
+    
+    titleView.userInteractionEnabled = YES;
     UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(tapNaviTitle)];
     
-    [titleLabel addGestureRecognizer:tap];
+    [titleView addGestureRecognizer:tap];
     
-    self.navigationItem.titleView = titleLabel;
+    self.navigationItem.titleView = titleView;
 }
 
 -(void)installNaviDetailView{
@@ -366,7 +386,7 @@ static NSString *const tbVCId = @"TimeBreakViewController";
         [self.actionPicker reloadComponent:0];
         [self.actionPicker selectRow:0 inComponent:0 animated:YES];
         
-        ((UILabel *)self.navigationItem.titleView).text = _currentMuscle.muscle;
+        ((UILabel *)self.navigationItem.titleView.subviews.firstObject).text = _currentMuscle.muscle;
     }
 }
 

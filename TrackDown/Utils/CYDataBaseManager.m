@@ -43,6 +43,7 @@ static NSString * const recordData = @"data";
 static NSString * const statTable = @"STATISTICS";
 static NSString * const statType = @"type";
 static NSString * const statKey = @"key";
+static NSString * const statMus = @"muscle";
 static NSString * const statData = @"data";
 static NSString * const statStoreMonth = @"month";
 static NSString * const statStoreDate = @"date";
@@ -96,7 +97,7 @@ static NSString * const statCount = @"count";
     BOOL success = NO;
     FMDatabase *db = [self statisticDatabaseForYearInDate:date];
     if ([db open]) {
-        NSString *create = [NSString stringWithFormat:@"CREATE TABLE IF NOT EXISTS '%@'(%@ integer NOT NULL ,%@ text NOT NULL ,%@ blob NOT NULL ,%@ integer NOT NULL ,%@ integer NOT NULL ,%@ integer NOT NULL);" ,statTable,statType,statKey,statData,statStoreMonth,statStoreDate,statCount];
+        NSString *create = [NSString stringWithFormat:@"CREATE TABLE IF NOT EXISTS '%@'(%@ integer NOT NULL ,%@ text NOT NULL ,%@ blob NOT NULL ,%@ integer NOT NULL ,%@ integer NOT NULL ,%@ integer NOT NULL ,%@ text);" ,statTable,statType,statKey,statData,statStoreMonth,statStoreDate,statCount,statMus];
         if ([db executeUpdate:create]) {
             success = YES;
             NSLog(@"Create Statistic db success");
@@ -205,6 +206,7 @@ static NSString * const statCount = @"count";
             NSUInteger month = [set unsignedLongLongIntForColumn:statStoreMonth];
             NSUInteger count = [set unsignedLongLongIntForColumn:statCount];
             NSString *key = [set stringForColumn:statKey];
+            NSString *mus = [set stringForColumn:statMus];
             NSData *data = [set dataForColumn:statData];
             
             NSDictionary *dic = [NSKeyedUnarchiver unarchiveObjectWithData:data];
@@ -217,6 +219,7 @@ static NSString * const statCount = @"count";
             s.key = key;
             s.data = mDic;
             s.type = StatTypeAction;
+            s.mus = mus;
             
             [actions addObject:s];
             
@@ -462,9 +465,9 @@ static NSString * const statCount = @"count";
          
          */
         for (WorkoutStatistic *s in statToInsert) {
-            NSString *insert = [NSString stringWithFormat:@"INSERT INTO %@ VALUES(?,?,?,?,?,?);",statTable];
+            NSString *insert = [NSString stringWithFormat:@"INSERT INTO %@ VALUES(?,?,?,?,?,?,?);",statTable];
             NSData *sData = [NSKeyedArchiver archivedDataWithRootObject:s.data];
-            [db executeUpdate:insert,@(s.type),s.key,sData,@(month),@(day),@(1)];
+            [db executeUpdate:insert,@(s.type),s.key,sData,@(month),@(day),@(1),s.mus];
         }
         
         for (WorkoutStatistic *s in statToUpdate) {

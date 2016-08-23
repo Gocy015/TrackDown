@@ -77,14 +77,20 @@
 #pragma mark - FSCalendar Delegate
 
 -(void)calendar:(FSCalendar *)calendar didSelectDate:(NSDate *)date{
-    NSLog(@"calendar.select date : %@",date);
+    
+    NSDateFormatter *formatter = [NSDateFormatter new];
+    formatter.dateFormat = @"MM-dd , hh:mm:ss";
+    NSLog(@"calendar.select date : %@",[formatter stringFromDate:date]);
     [self updateTableView];
 }
 
 
 
 -(void)calendarCurrentPageDidChange:(FSCalendar *)calendar{
-    NSLog(@"calendar.currentPage : %@ ",calendar.currentPage);
+    NSDateFormatter *formatter = [NSDateFormatter new];
+    
+    formatter.dateFormat = @"MM-dd , hh:mm:ss";
+    NSLog(@"calendar.currentPage : %@ ",[formatter stringFromDate:calendar.currentPage]);
     [self loadRecords];
 }
 

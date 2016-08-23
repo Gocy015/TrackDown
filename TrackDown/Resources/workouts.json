@@ -14,5 +14,37 @@
         "高位下拉",
         "俯身杠铃划船(正握)"
     ]
+ },
+ {
+ "TargetMuscle":"肩部训练",
+ "WorkoutActions":[
+                   "坐姿哑铃肩推",
+                   "哑铃侧平举",
+                   "反向飞鸟"
+                   ]
+ },
+ {
+ "TargetMuscle":"下肢训练",
+ "WorkoutActions":[
+                   "杠铃深蹲",
+                   "负重箭步走",
+                   "杠铃提踵"
+                   ]
+ },
+ {
+ "TargetMuscle":"手臂训练",
+ "WorkoutActions":[
+                   "绳索下压",
+                   "杠铃臂屈伸",
+                   "杠铃弯举"
+                   ]
+ },
+ {
+ "TargetMuscle":"腹部训练",
+ "WorkoutActions":[
+                   "卷腹机卷腹",
+                   "仰卧抬腿",
+                   "负重俄罗斯旋体"
+                   ]
  }
 ]

@@ -26,11 +26,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "TrackDown/Views/Training/TrainingViewController.m"
-            timestampString = "493530425.574245"
+            timestampString = "493629906.182065"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "329"
-            endingLineNumber = "329"
+            startingLineNumber = "367"
+            endingLineNumber = "367"
             landmarkName = "-forwardToNextActionIfNeeded"
             landmarkType = "5">
          </BreakpointContent>
@@ -42,11 +42,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "TrackDown/Views/Training/TrainingViewController.m"
-            timestampString = "493530425.574245"
+            timestampString = "493629906.182065"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "337"
-            endingLineNumber = "337"
+            startingLineNumber = "375"
+            endingLineNumber = "375"
             landmarkName = "-initAction"
             landmarkType = "5">
          </BreakpointContent>
@@ -58,12 +58,28 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "TrackDown/Views/Training/TrainingViewController.m"
-            timestampString = "493530425.574245"
+            timestampString = "493629906.182065"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "338"
-            endingLineNumber = "338"
+            startingLineNumber = "376"
+            endingLineNumber = "376"
             landmarkName = "-moveActionFromIndex:toIndex:"
+            landmarkType = "5">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "TrackDown/Views/Statistic/RecordListViewController.m"
+            timestampString = "493638792.357244"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "83"
+            endingLineNumber = "83"
+            landmarkName = "-calendar:didSelectDate:"
             landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>

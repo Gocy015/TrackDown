@@ -20,7 +20,7 @@ static NSString * const kTimeTooShortTip = @"再怎么练也稍微要休息几�
 static NSString * const kTimeTooLongTip = @"过长的休息时间容易导致伤病产生!请重新设置间歇时间";
 static NSString * const kInvalidInputTip = @"输入的内容不是有效的时间格式";
 
-static const NSUInteger shortest = 2;
+static const NSUInteger shortest = 0;
 static const NSUInteger longest = 600;
 
 @implementation TimeBreakViewController

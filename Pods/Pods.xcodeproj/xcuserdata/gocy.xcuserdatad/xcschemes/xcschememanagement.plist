@@ -24,6 +24,11 @@
 			<key>isShown</key>
 			<false/>
 		</dict>
+		<key>MBProgressHUD.xcscheme</key>
+		<dict>
+			<key>isShown</key>
+			<false/>
+		</dict>
 		<key>Masonry.xcscheme</key>
 		<dict>
 			<key>isShown</key>
@@ -52,12 +57,12 @@
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>23CF27B2BA6AC7125EFFEDA8C5AA819F</key>
+		<key>21836EDB782FBDB002A0B4559492E5DB</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>46CC6E29B24CB1B8C362C6414DC37FB7</key>
+		<key>23CF27B2BA6AC7125EFFEDA8C5AA819F</key>
 		<dict>
 			<key>primary</key>
 			<true/>
@@ -67,17 +72,22 @@
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>6B5D0B347C70801FC837B18739D28D70</key>
-		<dict>
-			<key>primary</key>
-			<true/>
-		</dict>
-		<key>6C7FB5B2FC0A245841B6A9E8646371FE</key>
-		<dict>
-			<key>primary</key>
-			<true/>
-		</dict>
 		<key>868010619D7E6CBA5C6E6E2874668C85</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>960033A32B994C01AEE7237355DA2E53</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>C6C173CF4CE1FED94BA663EE2F271C8B</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>DBA6001481CEA0EBA031CC5C94508FAA</key>
 		<dict>
 			<key>primary</key>
 			<true/>

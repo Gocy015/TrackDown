@@ -23,6 +23,7 @@ extern NSString *const key_sets;
 
 @property (nonatomic) StatType type;
 @property (nonatomic ,copy) NSString *key;
+@property (nonatomic ,copy) NSString *mus;
 @property (nonatomic ,strong) NSMutableDictionary *data;
 @property (nonatomic) NSUInteger storeDate;
 @property (nonatomic) NSUInteger trainingCount;

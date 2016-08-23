@@ -72,17 +72,61 @@
                                 <rect key="frame" x="0.0" y="72" width="600" height="44"/>
                                 <textInputTraits key="textInputTraits"/>
                             </searchBar>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Xl3-Qb-MrC">
+                                <rect key="frame" x="180" y="221" width="240" height="128"/>
+                                <subviews>
+                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ErK-cd-1NW" customClass="UCZProgressView">
+                                        <rect key="frame" x="102" y="46" width="36" height="36"/>
+                                        <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="0.0" colorSpace="calibratedRGB"/>
+                                        <constraints>
+                                            <constraint firstAttribute="width" constant="36" id="dRn-D4-Eec"/>
+                                            <constraint firstAttribute="height" constant="36" id="v6B-WH-Vda"/>
+                                        </constraints>
+                                        <userDefinedRuntimeAttributes>
+                                            <userDefinedRuntimeAttribute type="boolean" keyPath="indeterminate" value="YES"/>
+                                            <userDefinedRuntimeAttribute type="number" keyPath="radius">
+                                                <real key="value" value="16"/>
+                                            </userDefinedRuntimeAttribute>
+                                            <userDefinedRuntimeAttribute type="color" keyPath="tintColor">
+                                                <color key="value" red="0.17146001214495016" green="0.60945557822838548" blue="0.92856570512820513" alpha="1" colorSpace="calibratedRGB"/>
+                                            </userDefinedRuntimeAttribute>
+                                            <userDefinedRuntimeAttribute type="number" keyPath="lineWidth">
+                                                <real key="value" value="1"/>
+                                            </userDefinedRuntimeAttribute>
+                                        </userDefinedRuntimeAttributes>
+                                    </view>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="正在读取数据 .." textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="HFM-X0-xDX">
+                                        <rect key="frame" x="72" y="94" width="96" height="17"/>
+                                        <fontDescription key="fontDescription" type="system" weight="light" pointSize="14"/>
+                                        <color key="textColor" red="0.1714600121" green="0.60945557819999996" blue="0.92856570510000003" alpha="1" colorSpace="calibratedRGB"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                </subviews>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <constraints>
+                                    <constraint firstItem="HFM-X0-xDX" firstAttribute="top" secondItem="ErK-cd-1NW" secondAttribute="bottom" constant="12" id="4Rd-ic-860"/>
+                                    <constraint firstItem="ErK-cd-1NW" firstAttribute="centerY" secondItem="Xl3-Qb-MrC" secondAttribute="centerY" id="79X-eQ-3GP"/>
+                                    <constraint firstItem="ErK-cd-1NW" firstAttribute="centerX" secondItem="Xl3-Qb-MrC" secondAttribute="centerX" id="LVx-iB-yvg"/>
+                                    <constraint firstItem="HFM-X0-xDX" firstAttribute="centerX" secondItem="Xl3-Qb-MrC" secondAttribute="centerX" id="npy-MJ-CdR"/>
+                                    <constraint firstAttribute="height" constant="128" id="uKO-RU-5s7"/>
+                                    <constraint firstAttribute="width" constant="240" id="xYn-F1-JM4"/>
+                                </constraints>
+                            </view>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
+                            <constraint firstItem="Xl3-Qb-MrC" firstAttribute="centerY" secondItem="iqe-fc-TQT" secondAttribute="centerY" multiplier="0.95" id="AZ1-BK-6uz"/>
                             <constraint firstItem="WId-Db-76h" firstAttribute="top" secondItem="nCT-Y3-aXS" secondAttribute="bottom" constant="16" id="Otb-h6-XWs"/>
                             <constraint firstItem="WId-Db-76h" firstAttribute="centerX" secondItem="iqe-fc-TQT" secondAttribute="centerX" id="fps-1t-DcT"/>
                             <constraint firstAttribute="trailing" secondItem="zgd-8p-VHE" secondAttribute="trailing" id="i7j-zR-KNH"/>
                             <constraint firstItem="zgd-8p-VHE" firstAttribute="leading" secondItem="iqe-fc-TQT" secondAttribute="leading" id="mcI-FG-QlN"/>
                             <constraint firstItem="zgd-8p-VHE" firstAttribute="top" secondItem="WId-Db-76h" secondAttribute="bottom" constant="8" id="uC9-eR-QZL"/>
+                            <constraint firstItem="Xl3-Qb-MrC" firstAttribute="centerX" secondItem="iqe-fc-TQT" secondAttribute="centerX" id="yeD-or-qdv"/>
                         </constraints>
                     </view>
                     <connections>
+                        <outlet property="progressContainer" destination="Xl3-Qb-MrC" id="T9S-aY-FDh"/>
+                        <outlet property="progressView" destination="ErK-cd-1NW" id="EyS-Hj-BSi"/>
                         <outlet property="searchBar" destination="zgd-8p-VHE" id="RGe-97-AUb"/>
                         <outlet property="segment" destination="WId-Db-76h" id="xLq-kB-EiK"/>
                     </connections>

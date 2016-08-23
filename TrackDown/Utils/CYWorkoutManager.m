@@ -247,6 +247,7 @@ static NSString * const Key_TimeBreak = @"TrackDown_TimeBreak";
                 WorkoutStatistic *stat = [WorkoutStatistic new];
                 stat.type = StatTypeAction;
                 stat.key = act.actionName;
+                stat.mus = m.muscle;
                 
                 stat.storeDate = [d day];
                 stat.storeMonth = [d month];

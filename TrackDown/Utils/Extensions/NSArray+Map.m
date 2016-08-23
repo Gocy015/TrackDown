@@ -21,7 +21,7 @@
 -(NSNumber *)sum{
     double sum = 0;
     for (NSObject *obj in self) {
-        NSAssert([obj isKindOfClass:[NSNumber class]], @"calling sum on an non-numeric array");
+        NSAssert([obj isKindOfClass:[NSNumber class]], @"calling [array sum] on non-numeric array");
         sum += [((NSNumber *)obj) doubleValue];
     }
     return @(sum);

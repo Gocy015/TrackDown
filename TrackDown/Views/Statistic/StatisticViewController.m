@@ -18,6 +18,8 @@
 #import "ExpandableObjectProtocol.h"
 #import "CYPieChart.h"
 #import "PieChartDataObject.h"
+#import "UCZProgressView.h"
+#import "UIColor+Hex.h"
 
 /*
  数组里存着[date year]对应的WorkoutStatistic，有重名stat，区别是月份 , 数据按月份升序排列。
@@ -36,6 +38,7 @@
 }
 
 @property (nonatomic ,copy) NSString *displayName;
+@property (nonatomic ,copy) NSString *belongedMuscle;
 @property (nonatomic ,strong) NSMutableArray *yearArray;
 
 @end
@@ -84,7 +87,11 @@ static const NSInteger rightArrowTag = 22;
 @property (nonatomic ,strong) NSMutableArray *displayArray;
 @property (nonatomic ,strong) NSMutableArray *searchArray;
 @property (weak, nonatomic) IBOutlet UISegmentedControl *segment;
+@property (weak, nonatomic) IBOutlet UCZProgressView *progressView;
 @property (weak, nonatomic) IBOutlet UISearchBar *searchBar;
+@property (weak, nonatomic) IBOutlet UIView *progressContainer;
+
+@property (nonatomic ,strong) NSArray *pieColors;
 
 @end
 
@@ -108,6 +115,7 @@ static CGFloat cellHeight = 180;
 //    [self.view addSubview:gv];
     
     self.searchBar.delegate = self;
+    [self initPieColors];
     [self constructTableView];
     [self constructPieChart];
     
@@ -188,6 +196,20 @@ static CGFloat cellHeight = 180;
 
 #pragma mark - Helpers
 
+-(void)initPieColors{
+    self.pieColors = @[[UIColor colorFromHex:@"#e65c00"],
+                       [UIColor colorFromHex:@"#cc0044"],
+                       [UIColor colorFromHex:@"#cc00cc"],
+                       [UIColor colorFromHex:@"#4400cc"],
+                       [UIColor colorFromHex:@"#0000cc"],
+                       [UIColor colorFromHex:@"#0033cc"],
+                       [UIColor colorFromHex:@"#0099cc"],
+                       [UIColor colorFromHex:@"#00cccc"],
+                       [UIColor colorFromHex:@"#339933"],
+                       [UIColor colorFromHex:@"#4d9900"],
+                       ];
+}
+
 -(void)constructPieChart{
     CYPieChart *chart = [CYPieChart new];
     [self.view addSubview:chart];
@@ -267,15 +289,20 @@ static CGFloat cellHeight = 180;
     }];
 }
 
-
 -(void)loadData{
     WeakSelf();
+    
+    [self.view bringSubviewToFront:self.progressView];
+    
+    self.tableVC.view.alpha = self.chart.alpha = 0;
+    [self.view viewWithTag:leftArrowTag].alpha = 0;
+    [self.view viewWithTag:rightArrowTag].alpha = 0;
     
     dispatch_group_t group = dispatch_group_create();
     
     dispatch_group_enter(group);
     dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
-        
+//        sleep(3);
         [[CYWorkoutManager sharedManager] loadAllActionStatistics:^(NSDictionary *res) {
             for (NSDate *key in res.allKeys) {
                 [weakSelf groupStatistics:res[key] onDate:key];
@@ -299,9 +326,27 @@ static CGFloat cellHeight = 180;
     });
     
     dispatch_group_notify(group, dispatch_get_main_queue(), ^{
-        weakSelf.tableVC.data = [[NSArray alloc] initWithArray:weakSelf.displayArray copyItems:YES];
+        weakSelf.searchArray = [NSMutableArray arrayWithArray:weakSelf.displayArray];;
+        weakSelf.tableVC.data = [NSArray arrayWithArray:weakSelf.searchArray];
         
         [weakSelf.chart updateAppearance];
+        
+        weakSelf.progressView.progress = 1;
+        
+        [UIView animateWithDuration:0.22f animations:^{
+            weakSelf.chart.alpha = 1;
+            weakSelf.tableVC.view.alpha = 1;
+            weakSelf.progressContainer.alpha = 0;
+            
+            if (weakSelf.chart.objects.count > 1) {
+                
+                [self.view viewWithTag:leftArrowTag].alpha = 1;
+                [self.view viewWithTag:rightArrowTag].alpha = 1;
+            }
+        } completion:^(BOOL finished) {
+            [weakSelf.progressContainer removeFromSuperview];
+        }];
+        
         NSLog(@"Update UI");
     });
     
@@ -382,6 +427,7 @@ static CGFloat cellHeight = 180;
         if (_statistic[stat.key] == nil) {
             DisplayStatistic *dStat = [DisplayStatistic new];
             dStat.displayName = stat.key;
+            dStat.belongedMuscle = stat.mus;
             dStat.yearArray = [NSMutableArray new];
             NSMutableArray *statArray = [NSMutableArray new];
             [statArray addObject:stat];
@@ -441,7 +487,7 @@ static CGFloat cellHeight = 180;
     }
     
     self.chart.objects = objs;
-    self.chart.colors = @[[UIColor orangeColor],[UIColor cyanColor]];
+    self.chart.colors = [self.pieColors subarrayWithRange:NSMakeRange(0, objs.count)];
     
     
 }
@@ -466,17 +512,12 @@ static CGFloat cellHeight = 180;
     if ([searchText length] <= 0) {
         self.searchArray = [NSMutableArray arrayWithArray:self.displayArray];
     }else{
-        if (!self.searchArray) {
-            self.searchArray = [NSMutableArray arrayWithArray:self.displayArray];
-        }
-        NSMutableArray *res = [NSMutableArray new];
-        for (DisplayStatistic *s in self.searchArray) {
-            if ([s.displayName containsString:searchText]) {
-                [res addObject:s];
+        [self.searchArray removeAllObjects];
+        for (DisplayStatistic *s in self.displayArray) {
+            if ([s.displayName containsString:searchText] || [s.belongedMuscle containsString:searchText]) {
+                [self.searchArray addObject:s];
             }
         }
-        [self.searchArray removeAllObjects];
-        [self.searchArray addObjectsFromArray:res];
     }
     
     self.tableVC.data = [NSArray arrayWithArray:self.searchArray];
@@ -505,7 +546,7 @@ static CGFloat cellHeight = 180;
     }
     [graph hideTip];
     
-    DisplayStatistic *stat = self.displayArray[indexPath.section];
+    DisplayStatistic *stat = self.searchArray[indexPath.section];
     NSDictionary *dic = stat.yearArray[indexPath.row];
     for (NSNumber *num in dic.allKeys) { // only 1 key
         graph.mainTitle = [NSString stringWithFormat:@"%lu" ,[num unsignedIntegerValue]];
