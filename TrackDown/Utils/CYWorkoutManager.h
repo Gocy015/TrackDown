@@ -33,11 +33,11 @@ extern NSString *const n_DeleteActionSuccessNotification;
 -(NSArray *)getWorkoutRecordsFromDate:(NSDate *)from toDate:(NSDate *)to;
 
 
--(void)addTargetMuscle:(TargetMuscle *)targetMuscle writeToDiskImmediatly:(BOOL)writeNow;
+-(void)addTargetMuscle:(TargetMuscle *)targetMuscle writeToDiskImmediatly:(BOOL)writeNow completion:(void(^)(BOOL success))completion;
 -(void)deleteTargetMuscle:(TargetMuscle *)targetMuscle writeToDiskImmediately:(BOOL)writeNow;
 
 
--(void)addAction:(WorkoutAction *)act toMuscle:(TargetMuscle *)m writeToDiskImmediatly:(BOOL)writeNow;
+-(void)addAction:(WorkoutAction *)act toMuscle:(TargetMuscle *)m writeToDiskImmediatly:(BOOL)writeNow completion:(void(^)(BOOL success))completion;
 -(void)deleteAction:(WorkoutAction *)act fromMuscle:(TargetMuscle *)m writeToDiskImmediatly:(BOOL)writeNow;
 
 -(void)didFinishWorkoutPlan:(NSArray <TargetMuscle *>*)workoutPlan;

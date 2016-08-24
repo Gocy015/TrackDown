@@ -26,6 +26,7 @@
 		C34C95F51D49A63F00E7F5B2 /* SettingsInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = C34C95F41D49A63F00E7F5B2 /* SettingsInfo.m */; };
 		C34C95F81D49A94600E7F5B2 /* SettingsManager.m in Sources */ = {isa = PBXBuildFile; fileRef = C34C95F71D49A94600E7F5B2 /* SettingsManager.m */; };
 		C354E28E1D3769230012633C /* ListCountButton.m in Sources */ = {isa = PBXBuildFile; fileRef = C354E28D1D3769230012633C /* ListCountButton.m */; };
+		C35C2A441D6D3CF400E1DA49 /* MBProgressHUD+DefaultHUD.m in Sources */ = {isa = PBXBuildFile; fileRef = C35C2A431D6D3CF400E1DA49 /* MBProgressHUD+DefaultHUD.m */; };
 		C35CC5641D3A1CF000C6A7F6 /* TrainingListTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C35CC5621D3A1CF000C6A7F6 /* TrainingListTableViewController.m */; };
 		C35CC5651D3A1CF000C6A7F6 /* TrainingListTableViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = C35CC5631D3A1CF000C6A7F6 /* TrainingListTableViewController.xib */; };
 		C37102061D49E0780037C877 /* TimeBreakViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C37102051D49E0780037C877 /* TimeBreakViewController.m */; };
@@ -96,6 +97,8 @@
 		C34C95F71D49A94600E7F5B2 /* SettingsManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SettingsManager.m; sourceTree = "<group>"; };
 		C354E28C1D3769230012633C /* ListCountButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ListCountButton.h; sourceTree = "<group>"; };
 		C354E28D1D3769230012633C /* ListCountButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ListCountButton.m; sourceTree = "<group>"; };
+		C35C2A421D6D3CF400E1DA49 /* MBProgressHUD+DefaultHUD.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "MBProgressHUD+DefaultHUD.h"; sourceTree = "<group>"; };
+		C35C2A431D6D3CF400E1DA49 /* MBProgressHUD+DefaultHUD.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "MBProgressHUD+DefaultHUD.m"; sourceTree = "<group>"; };
 		C35CC5611D3A1CF000C6A7F6 /* TrainingListTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TrainingListTableViewController.h; sourceTree = "<group>"; };
 		C35CC5621D3A1CF000C6A7F6 /* TrainingListTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TrainingListTableViewController.m; sourceTree = "<group>"; };
 		C35CC5631D3A1CF000C6A7F6 /* TrainingListTableViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = TrainingListTableViewController.xib; sourceTree = "<group>"; };
@@ -240,6 +243,8 @@
 				C3908C281D48BC080082BFE1 /* UIViewController+NoBackTitle.m */,
 				C316C6871D5492F7001F9D17 /* UIColor+Hex.h */,
 				C316C6881D5492F7001F9D17 /* UIColor+Hex.m */,
+				C35C2A421D6D3CF400E1DA49 /* MBProgressHUD+DefaultHUD.h */,
+				C35C2A431D6D3CF400E1DA49 /* MBProgressHUD+DefaultHUD.m */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -558,6 +563,7 @@
 				C3908C261D48B7F20082BFE1 /* MainNavigationController.m in Sources */,
 				C34C95F81D49A94600E7F5B2 /* SettingsManager.m in Sources */,
 				C3AA37B41D30FEED00D5930E /* WorkoutAction.m in Sources */,
+				C35C2A441D6D3CF400E1DA49 /* MBProgressHUD+DefaultHUD.m in Sources */,
 				C30C7B871D3DDB3800131A1D /* NoPasteTextField.m in Sources */,
 				C35CC5641D3A1CF000C6A7F6 /* TrainingListTableViewController.m in Sources */,
 				C39A8D581D33774B00FAF484 /* StoryboardManager.m in Sources */,

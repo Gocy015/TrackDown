@@ -19,7 +19,7 @@
 #import "ListCountButton.h"
 #import "TimeBreakViewController.h"
 #import "CYPresentationController.h"
-#import "MBProgressHUD.h"
+#import "MBProgressHUD+DefaultHUD.h"
 
 @interface WorkoutPlanningViewController ()<UIPickerViewDataSource ,UIPickerViewDelegate ,UIPopoverPresentationControllerDelegate>
 @property (weak, nonatomic) IBOutlet UIPickerView *actionPicker; 
@@ -105,14 +105,7 @@ static NSString *const tbVCId = @"TimeBreakViewController";
 - (IBAction)beginTrainning:(id)sender {
     if (_workingMuscle.actions.count == 0 && self.workoutPlan.count == 0) {
         
-        MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:self.view animated:YES];
-        
-        hud.bezelView.style = MBProgressHUDBackgroundStyleBlur;
-        hud.mode = MBProgressHUDModeText;
-        hud.label.text = @"还未添加任何训练!";
-        hud.label.font = [UIFont systemFontOfSize:14 weight:UIFontWeightLight];
-        
-        [hud hideAnimated:YES afterDelay:1.6];
+        [MBProgressHUD textHUDAddedTo:self.view text:@"还未添加任何训练!" animated:YES];
         return ;
     }
     

@@ -27,6 +27,8 @@ static const char *ioQueueIdentifier = "gocy.trackdown.io";
 @property (nonatomic ,strong) NSDictionary *actionStatCache;
 @property (nonatomic ,strong) NSArray *muscleStatCache;
 
+@property (nonatomic ,strong) NSMutableDictionary *actionsMap;
+
 @end
 
 NSString *const n_WriteToDiskSuccessNotification = @"n_WriteToDiskSuccessNotification";
@@ -84,9 +86,10 @@ static NSString * const Key_TimeBreak = @"TrackDown_TimeBreak";
 }
 
 
--(void)addTargetMuscle:(TargetMuscle *)targetMuscle writeToDiskImmediatly:(BOOL)writeNow{
+-(void)addTargetMuscle:(TargetMuscle *)targetMuscle writeToDiskImmediatly:(BOOL)writeNow completion:(void (^)(BOOL))completion{
     for (TargetMuscle *m in _workoutTypes) {
         if ([m.muscle isEqualToString:targetMuscle.muscle]) {
+            completion(NO); //duplicate muscle
             return;
         }
     }
@@ -94,6 +97,7 @@ static NSString * const Key_TimeBreak = @"TrackDown_TimeBreak";
     [_workoutTypes addObject:targetMuscle];
     
     [[NSNotificationCenter defaultCenter] postNotificationName:n_AddMuscleSuccessNotification object:targetMuscle];
+    completion(YES);
     if (writeNow) {
         [self saveCurrentWorkoutToDisk];
     }
@@ -104,6 +108,9 @@ static NSString * const Key_TimeBreak = @"TrackDown_TimeBreak";
         if ([m.muscle isEqualToString:targetMuscle.muscle]) {//add actions
             index = [_workoutTypes indexOfObject:m];
             [_workoutTypes removeObject:m];
+            for (WorkoutAction *act in m.actions) {
+                [_actionsMap removeObjectForKey:act.actionName];
+            }
             break;
         }
     }
@@ -114,8 +121,14 @@ static NSString * const Key_TimeBreak = @"TrackDown_TimeBreak";
 }
 
 
--(void)addAction:(WorkoutAction *)act toMuscle:(TargetMuscle *)targetMuscle writeToDiskImmediatly:(BOOL)writeNow{
+-(void)addAction:(WorkoutAction *)act toMuscle:(TargetMuscle *)targetMuscle writeToDiskImmediatly:(BOOL)writeNow completion:(void (^)(BOOL))completion{
     BOOL found = NO;
+    
+    if ([_actionsMap objectForKey:act.actionName] != nil) {
+        completion(NO);
+        return ;
+    }
+    
     for (TargetMuscle *m in _workoutTypes) {
         if ([m.muscle isEqualToString:targetMuscle.muscle]) {//add actions
             found = YES;
@@ -128,6 +141,7 @@ static NSString * const Key_TimeBreak = @"TrackDown_TimeBreak";
         [_workoutTypes addObject:targetMuscle];
     }
     [[NSNotificationCenter defaultCenter] postNotificationName:n_AddActionSuccessNotification object:act];
+    completion(YES);
     if (writeNow) {
         [self saveCurrentWorkoutToDisk];
     }
@@ -135,9 +149,10 @@ static NSString * const Key_TimeBreak = @"TrackDown_TimeBreak";
 -(void)deleteAction:(WorkoutAction *)act fromMuscle:(TargetMuscle *)targetMuscle writeToDiskImmediatly:(BOOL)writeNow{
     NSInteger index = -1;
     for (TargetMuscle *m in _workoutTypes) {
-        if ([m.muscle isEqualToString:targetMuscle.muscle]) {//add actions
+        if ([m.muscle isEqualToString:targetMuscle.muscle]) {
             index = [m.actions indexOfObject:act];
             [m.actions removeObject:act];
+            [_actionsMap removeObjectForKey:act.actionName];
             break;
         }
     }
@@ -285,6 +300,13 @@ static NSString * const Key_TimeBreak = @"TrackDown_TimeBreak";
     if (!_workoutTypes) {
         NSArray *workouts = [[CYWorkoutDataParser defaultParser] parseWorkoutTypesFromFile:[self workoutTypePath]];
         _workoutTypes = [NSMutableArray arrayWithArray:workouts];
+        
+        _actionsMap = [NSMutableDictionary new];
+        for (TargetMuscle *m in _workoutTypes) {
+            for (WorkoutAction *act in m.actions) {
+                [_actionsMap setObject:@(1) forKey:act.actionName];
+            }
+        }
     }
     
     return [NSArray arrayWithArray: _workoutTypes];

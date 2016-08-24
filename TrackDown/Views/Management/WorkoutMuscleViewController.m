@@ -133,6 +133,8 @@ static NSString * const addVCId = @"AddWorkoutViewController";
 
 
 -(BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath{
+    //避免数据紊乱，不准删！
+    return NO;
     return YES;
 }
 

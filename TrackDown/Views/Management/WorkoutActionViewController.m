@@ -137,6 +137,7 @@ static NSString * const addVCId = @"AddWorkoutViewController";
 
 
 -(BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath{
+    return NO;
     return YES;
 }
 

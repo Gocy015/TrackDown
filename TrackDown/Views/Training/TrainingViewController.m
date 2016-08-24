@@ -20,7 +20,7 @@
 #import "Masonry.h"
 #import "PreDefines.h"
 #import "UIColor+Hex.h"
-#import "MBProgressHUD.h"
+#import "MBProgressHUD+DefaultHUD.h"
 
 @interface TrainingViewController () <TrainingListViewDelegate,UIPopoverPresentationControllerDelegate ,UITextFieldDelegate>{
     NSUInteger _muscleIndex;
@@ -93,6 +93,10 @@
 //    self.restView.backgroundColor = [UIColor colorWithPatternImage:image];
 }
 
+-(void)dealloc{
+    NSLog(@"Training VC Dealloc ！");
+}
+
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
@@ -152,7 +156,10 @@
 }
 
 -(void)endTraining{
-    
+    if(self.countDownLink){
+        [self.countDownLink invalidate];
+        self.countDownLink = nil;
+    }
     [self.presentingViewController dismissViewControllerAnimated:YES completion:nil];
 }
 
@@ -176,17 +183,8 @@
             }
         }];
     }else{
+        [MBProgressHUD textHUDAddedTo:self.view text:@"请输入正确的训练数据!" animated:YES];
         
-        
-        MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:self.view animated:YES];
-        hud.animationType = MBProgressHUDAnimationZoom;
-        hud.bezelView.style = MBProgressHUDBackgroundStyleBlur;
-        hud.mode = MBProgressHUDModeText;
-        hud.label.text = @"请输入正确的训练数据!";
-        hud.label.font = [UIFont systemFontOfSize:14 weight:UIFontWeightLight];
-        
-        
-        [hud hideAnimated:YES afterDelay:1.6];
     }
     
     

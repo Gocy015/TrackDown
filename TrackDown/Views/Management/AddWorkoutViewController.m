@@ -12,6 +12,7 @@
 #import "Masonry.h"
 #import "PreDefines.h"
 #import "CYWorkoutManager.h"
+#import "MBProgressHUD+DefaultHUD.h"
 
 @interface AddWorkoutViewController() <UITextFieldDelegate>
 @property (weak, nonatomic) IBOutlet UITextField *muscleTextField;
@@ -32,6 +33,10 @@
     
     [self addGestures];
     
+}
+
+-(void)dealloc{
+    NSLog(@"Add Workout VC Dealloc");
 }
 
 -(void)viewWillAppear:(BOOL)animated{
@@ -73,15 +78,27 @@
             _muscle = [TargetMuscle new];
             _muscle.muscle = _muscleTextField.text;
             _muscle.actions = [NSMutableArray new];
-            [[CYWorkoutManager sharedManager] addTargetMuscle:_muscle writeToDiskImmediatly:YES];
+            [[CYWorkoutManager sharedManager] addTargetMuscle:_muscle writeToDiskImmediatly:YES completion:^(BOOL success) {
+                if (success) {
+                    [self.presentingViewController dismissViewControllerAnimated:YES completion:nil];
+                }else{
+                    
+                    [MBProgressHUD textHUDAddedTo:self.view text:@"已存在重名肌群!" animated:YES];
+                }
+            }];
         }
         else{
             WorkoutAction *act = [WorkoutAction new];
             act.actionName = _actionTextField.text;
-            [[CYWorkoutManager sharedManager] addAction:act toMuscle:_muscle writeToDiskImmediatly:YES];
+            [[CYWorkoutManager sharedManager] addAction:act toMuscle:_muscle writeToDiskImmediatly:YES completion:^(BOOL success) {
+                if (success) {
+                    [self.presentingViewController dismissViewControllerAnimated:YES completion:nil];
+                }else{
+                    [MBProgressHUD textHUDAddedTo:self.view text:@"已存在重名训练!" animated:YES];
+                }
+            }];
         }
         
-        [self.presentingViewController dismissViewControllerAnimated:YES completion:nil];
     }
     else{
         NSLog(@"Text not pass checking");
@@ -114,7 +131,8 @@
         for (WorkoutAction *action in _muscle.actions) {
             if ([action.actionName isEqualToString:_actionTextField.text]) {
                 pass = NO;
-                NSLog(@"Duplicate action! %@" , action.actionName);
+                
+                [MBProgressHUD textHUDAddedTo:self.view text:@"已存在重名训练!" animated:YES];
                 break;
             }
         }

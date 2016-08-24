@@ -26,11 +26,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "TrackDown/Views/Training/TrainingViewController.m"
-            timestampString = "493629906.182065"
+            timestampString = "493698646.14423"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "367"
-            endingLineNumber = "367"
+            startingLineNumber = "362"
+            endingLineNumber = "362"
             landmarkName = "-forwardToNextActionIfNeeded"
             landmarkType = "5">
          </BreakpointContent>
@@ -42,11 +42,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "TrackDown/Views/Training/TrainingViewController.m"
-            timestampString = "493629906.182065"
+            timestampString = "493698646.14423"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "375"
-            endingLineNumber = "375"
+            startingLineNumber = "370"
+            endingLineNumber = "370"
             landmarkName = "-initAction"
             landmarkType = "5">
          </BreakpointContent>
@@ -58,12 +58,12 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "TrackDown/Views/Training/TrainingViewController.m"
-            timestampString = "493629906.182065"
+            timestampString = "493698646.14423"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "376"
-            endingLineNumber = "376"
-            landmarkName = "-moveActionFromIndex:toIndex:"
+            startingLineNumber = "371"
+            endingLineNumber = "371"
+            landmarkName = "-initAction"
             landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>
@@ -80,6 +80,22 @@
             startingLineNumber = "83"
             endingLineNumber = "83"
             landmarkName = "-calendar:didSelectDate:"
+            landmarkType = "5">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "TrackDown/Views/Management/AddWorkoutViewController.m"
+            timestampString = "493698732.929604"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "82"
+            endingLineNumber = "82"
+            landmarkName = "-confirmAdd:"
             landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>
