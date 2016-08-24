@@ -11,6 +11,7 @@
 #import "SettingsInfo.h"
 #import "SettingsManager.h"
 #import "TimeBreakViewController.h"
+#import "AboutViewController.h"
 #import "StoryboardManager.h"
 
 
@@ -65,6 +66,7 @@ static NSString *const footerReuseId = @"settingsListFooter";
             break;
             
         case SettingType_About:
+            [self jumpToAboutVC];
             break;
         default:
             break;
@@ -132,6 +134,15 @@ static NSString *const footerReuseId = @"settingsListFooter";
     TimeBreakViewController *tbvc = [[StoryboardManager storyboardWithIdentifier:@"Settings"] instantiateViewControllerWithIdentifier:@"TimeBreakViewController"];
     
     [self.navigationController pushViewController:tbvc animated:YES];
+}
+
+
+-(void)jumpToAboutVC{
+    
+    AboutViewController *abvc = [[StoryboardManager storyboardWithIdentifier:@"Settings"] instantiateViewControllerWithIdentifier:@"AboutViewController"];
+    
+    [self.navigationController pushViewController:abvc animated:YES];
+    
 }
 
 @end

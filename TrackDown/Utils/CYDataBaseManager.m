@@ -361,7 +361,7 @@ static NSString * const statCount = @"count";
     NSMutableArray *statToUpdate = [NSMutableArray new];
 
     if ([db open]) {
-        NSString *queryForAct = [NSString stringWithFormat:@"SELECT * FROM %@ WHERE %@ = ? AND %@ = ? AND %@ = ?;",statTable,statType,statKey,statStoreMonth];
+        NSString *queryForAct = [NSString stringWithFormat:@"SELECT * FROM %@ WHERE %@ = ? AND %@ = ? AND %@ = ? AND %@ = ?;",statTable,statType,statKey,statStoreMonth,statMus];
         NSString *queryForMus = [NSString stringWithFormat:@"SELECT * FROM %@ WHERE %@ = ? AND %@ = ?;",statTable,statType,statKey];
         FMResultSet *set = nil;
         for(WorkoutStatistic *s in stat){// costly?
@@ -382,7 +382,7 @@ static NSString * const statCount = @"count";
             
             }else{
                 
-                set = [db executeQuery:queryForAct,@(s.type),s.key,@(s.storeMonth)];
+                set = [db executeQuery:queryForAct,@(s.type),s.key,@(s.storeMonth),s.mus];
                 
                 if(set.next){
                     NSData *data = [set objectForColumnName:statData];

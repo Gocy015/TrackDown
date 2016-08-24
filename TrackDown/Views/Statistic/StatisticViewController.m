@@ -93,6 +93,9 @@ static const NSInteger rightArrowTag = 22;
 
 @property (nonatomic ,strong) NSArray *pieColors;
 
+
+@property (nonatomic) dispatch_group_t loadGroup;
+
 @end
 
 static NSString * const kCellReuseId = @"statisticCell";
@@ -298,34 +301,37 @@ static CGFloat cellHeight = 180;
     [self.view viewWithTag:leftArrowTag].alpha = 0;
     [self.view viewWithTag:rightArrowTag].alpha = 0;
     
-    dispatch_group_t group = dispatch_group_create();
+    if (!self.loadGroup) {
+        
+        self.loadGroup = dispatch_group_create();
+    }
     
-    dispatch_group_enter(group);
+    dispatch_group_enter(self.loadGroup);
     dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
 //        sleep(3);
         [[CYWorkoutManager sharedManager] loadAllActionStatistics:^(NSDictionary *res) {
             for (NSDate *key in res.allKeys) {
                 [weakSelf groupStatistics:res[key] onDate:key];
             }
-            dispatch_group_leave(group);
+            dispatch_group_leave(weakSelf.loadGroup);
             NSLog(@"Finish load actions");
         }];
         
     });
     
     
-    dispatch_group_enter(group);
+    dispatch_group_enter(self.loadGroup);
     dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
         
         [[CYWorkoutManager sharedManager] loadAllMuscleStatistics:^(NSArray *res) {
             [weakSelf configurePieWithStatistics:res];
-            dispatch_group_leave(group);
+            dispatch_group_leave(weakSelf.loadGroup);
             NSLog(@"Finish load muscles");
         }];
         
     });
     
-    dispatch_group_notify(group, dispatch_get_main_queue(), ^{
+    dispatch_group_notify(self.loadGroup, dispatch_get_main_queue(), ^{
         weakSelf.searchArray = [NSMutableArray arrayWithArray:weakSelf.displayArray];;
         weakSelf.tableVC.data = [NSArray arrayWithArray:weakSelf.searchArray];
         
