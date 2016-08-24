@@ -45,6 +45,8 @@
 
 static const NSInteger leftArrowTag = 21;
 static const NSInteger rightArrowTag = 22;
+static const NSInteger descriptionLabelTag = 23;
+static const double kUnitChangeBoundary = 200000; // 20 tons
 
 @implementation DisplayStatistic
 
@@ -79,7 +81,7 @@ static const NSInteger rightArrowTag = 22;
 
 @end
 
-@interface StatisticViewController () <CustomCellDataSource ,UISearchBarDelegate ,ExpandableTableViewEventDelegate>
+@interface StatisticViewController () <CustomCellDataSource ,UISearchBarDelegate ,ExpandableTableViewEventDelegate ,CYPieChartDelegate>
 
 @property (nonatomic ,weak) CYExpandableTableViewController *tableVC;
 @property (nonatomic ,weak) CYPieChart *chart;
@@ -90,6 +92,8 @@ static const NSInteger rightArrowTag = 22;
 @property (weak, nonatomic) IBOutlet UCZProgressView *progressView;
 @property (weak, nonatomic) IBOutlet UISearchBar *searchBar;
 @property (weak, nonatomic) IBOutlet UIView *progressContainer;
+
+@property (nonatomic ,strong) NSArray <WorkoutStatistic *>*muscleStats;
 
 @property (nonatomic ,strong) NSArray *pieColors;
 
@@ -172,12 +176,17 @@ static CGFloat cellHeight = 180;
         self.chart.hidden = YES;
         [self.view viewWithTag:leftArrowTag].hidden = YES;
         [self.view viewWithTag:rightArrowTag].hidden = YES;
+        [self.view viewWithTag:descriptionLabelTag].hidden = YES;
+        
+        
     }else{
         self.chart.hidden = NO;
         if(self.chart.objects.count > 0){
             [self.view viewWithTag:leftArrowTag].hidden = NO;
             [self.view viewWithTag:rightArrowTag].hidden = NO;
         }
+        
+        [self.view viewWithTag:descriptionLabelTag].hidden = NO;
         self.tableVC.view.hidden = YES;
         self.searchBar.hidden = YES;
     }
@@ -199,18 +208,21 @@ static CGFloat cellHeight = 180;
 
 #pragma mark - Helpers
 
+
 -(void)initPieColors{
-    self.pieColors = @[[UIColor colorFromHex:@"#e65c00"],
-                       [UIColor colorFromHex:@"#cc0044"],
-                       [UIColor colorFromHex:@"#cc00cc"],
-                       [UIColor colorFromHex:@"#4400cc"],
-                       [UIColor colorFromHex:@"#0000cc"],
-                       [UIColor colorFromHex:@"#0033cc"],
-                       [UIColor colorFromHex:@"#0099cc"],
-                       [UIColor colorFromHex:@"#00cccc"],
-                       [UIColor colorFromHex:@"#339933"],
-                       [UIColor colorFromHex:@"#4d9900"],
+    self.pieColors = @[
+                       [UIColor colorFromHex:@"#e73069"],
+                       [UIColor colorFromHex:@"#ee534f"],
+                       [UIColor colorFromHex:@"#ff8c53"],
+                       [UIColor colorFromHex:@"#ffc851"],
+                       [UIColor colorFromHex:@"#fff35f"],
+                       [UIColor colorFromHex:@"#01c48c"],
+                       [UIColor colorFromHex:@"#74a9bb"],
+                       [UIColor colorFromHex:@"#0489a8"],
+                       [UIColor colorFromHex:@"#4b4b67"],
+                       [UIColor colorFromHex:@"#582e60"],
                        ];
+ 
 }
 
 -(void)constructPieChart{
@@ -219,6 +231,7 @@ static CGFloat cellHeight = 180;
     chart.hidden = YES;
     chart.sliceBorderColor = [UIColor colorWithRed:0 green:0 blue:0 alpha:0.6];
     chart.sliceBorderWidth = 1.0f;
+    chart.delegate = self;
     
     UIView *v = self.view;
     
@@ -231,6 +244,27 @@ static CGFloat cellHeight = 180;
     self.chart = chart;
     
     [self constructPieChartIteratorButton];
+    [self constructPieChartDescriptionLabel];
+    
+}
+
+
+-(void)constructPieChartDescriptionLabel{
+    UILabel *label = [UILabel new];
+    label.font = [UIFont systemFontOfSize:14 weight:UIFontWeightLight];
+    label.text = @"";
+    label.textColor = [UIColor grayColor];
+    [label sizeToFit];
+    label.tag = descriptionLabelTag;
+    
+    [self.view addSubview:label];
+    
+    UIView *v = [self.view viewWithTag:leftArrowTag];
+    
+    [label mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.centerX.equalTo(self.view);
+        make.top.equalTo(v.mas_bottom).offset(22);
+    }];
     
 }
 
@@ -495,6 +529,7 @@ static CGFloat cellHeight = 180;
     self.chart.objects = objs;
     self.chart.colors = [self.pieColors subarrayWithRange:NSMakeRange(0, objs.count)];
     
+    self.muscleStats = [NSArray arrayWithArray:stats];
     
 }
 
@@ -508,6 +543,23 @@ static CGFloat cellHeight = 180;
 }
 -(void)scrollViewDidScroll:(UIScrollView *)scrollView{
     [self.searchBar resignFirstResponder];
+}
+
+
+#pragma mark - CYPieChart Delegate
+-(void)pieChart:(CYPieChart *)pieChart didSelectPieAtIndex:(NSInteger)index{
+    NSLog(@"%@ , 累计重量: %0.2fkg" ,self.muscleStats[index].key ,[self.muscleStats[index].data[key_weight] doubleValue]);
+    NSString *mus = self.muscleStats[index].key;
+    double weight = [self.muscleStats[index].data[key_weight] doubleValue];
+    NSString *unit = @"kg";
+    if (weight > kUnitChangeBoundary) {
+        weight = weight / 1000.0;
+        unit = @"tons";
+    }
+    
+    UILabel *label = [self.view viewWithTag:descriptionLabelTag];
+    label.text = [NSString stringWithFormat:@"%@ , 累计重量: %0.2f %@" ,mus ,weight,unit];
+    [label sizeToFit];
 }
 
 

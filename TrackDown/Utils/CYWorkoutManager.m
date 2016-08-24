@@ -246,7 +246,10 @@ static NSString * const Key_TimeBreak = @"TrackDown_TimeBreak";
                 NSNumber *actWeight = [act.weightPerSet sum];
                 
                 //cal weight of muscle
-                weight = weight + actWeight.doubleValue;
+                for (int i = 0; i < act.weightPerSet.count; ++i) {
+                    weight = weight + [act.weightPerSet[i] doubleValue] * [act.repeatsPerSet[i] doubleValue];
+                }
+                
                 
                 NSNumber *actReps = [act.repeatsPerSet sum];
                 
@@ -267,7 +270,10 @@ static NSString * const Key_TimeBreak = @"TrackDown_TimeBreak";
                 stat.storeDate = [d day];
                 stat.storeMonth = [d month];
                 NSNumber *actWeight = [act.weightPerSet sum];
-                weight = weight + actWeight.doubleValue;
+                
+                for (int i = 0; i < act.weightPerSet.count; ++i) {
+                    weight = weight + [act.weightPerSet[i] doubleValue] * [act.repeatsPerSet[i] doubleValue];
+                }
                 stat.data = [NSMutableDictionary dictionaryWithDictionary:@{key_weight:actWeight,key_sets:@(act.sets),key_reps:[act.repeatsPerSet sum]}];
                 [actionDic setObject:stat forKey:act.actionName];
                 [statArr addObject:stat];

@@ -21,6 +21,7 @@
 @property (weak, nonatomic) IBOutlet FSCalendar *calendar;
 @property (nonatomic ,strong) NSDictionary *currentRecords;
 @property (nonatomic ,weak) CYExpandableTableViewController *tableVC;
+@property (nonatomic ,weak) UILabel *placeholder;
 
 @end
 
@@ -43,6 +44,8 @@
     
     
     [self constructTableView];
+    [self constructPlaceholder];
+    
     [self loadRecords];
     
 }
@@ -119,6 +122,24 @@
 
 #pragma mark - Helpers
 
+-(void)constructPlaceholder{
+    UILabel *label = [UILabel new];
+    label.font = [UIFont systemFontOfSize:14 weight:UIFontWeightLight];
+    label.text = @"当前日期暂无训练记录";
+    label.textColor = [UIColor grayColor];
+    [label sizeToFit];
+    
+    self.placeholder = label;
+    
+    [self.view addSubview:label];
+    
+    [label mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.centerX.equalTo(self.view);
+        make.centerY.equalTo(self.view).offset(26);
+    }];
+    
+}
+
 -(void)constructTableView{
     CYExpandableTableViewController *tbvc = [CYExpandableTableViewController new];
     UIView *v = tbvc.view;
@@ -163,6 +184,8 @@
         }
         _tableVC.data = [NSArray arrayWithArray:arr];;
     }
+    
+    self.placeholder.hidden = _tableVC.data.count > 0;
 }
 
 

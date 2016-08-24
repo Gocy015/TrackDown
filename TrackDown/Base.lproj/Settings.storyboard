@@ -221,13 +221,13 @@
                                 </constraints>
                             </view>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Vas-BQ-cYL">
-                                <rect key="frame" x="16" y="237" width="568" height="144"/>
-                                <mutableString key="text">        TrackDown 是一款旨在为用户提供训练记录的应用，提供了自定义添加训练动作、记录每日训练、统计训练数据等功能。
+                                <rect key="frame" x="16" y="241" width="568" height="144"/>
+                                <string key="text">        TrackDown 是一款旨在为用户提供训练记录的应用，提供了自定义添加训练动作、记录每日训练、统计训练数据等功能。
 
         由于TrackDown是一款个人开发软件，因此仍有许多的缺陷与不足，如果在使用过程中，您遇到了任何的问题或是有任何的建议，欢迎发送邮件至 : track_down@163.com 进行反馈 !
 
         TrackDown 的开发受益于许多开源库，因此TrackDown也是一个开源项目，如果您觉得项目中有您感兴趣的地方，欢迎访问 :https://github.com/Gocy015/TrackDown 查看源码，如果您愿意帮助TrackDown变得更好，欢迎在Github上提交Pull Request ! 
-	</mutableString>
+	</string>
                                 <fontDescription key="fontDescription" type="system" weight="light" pointSize="12"/>
                                 <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                 <nil key="highlightedColor"/>
@@ -239,7 +239,7 @@
                             <constraint firstItem="KEd-jQ-4yq" firstAttribute="centerX" secondItem="4Lq-ml-mFH" secondAttribute="centerX" id="EPe-O0-L4A"/>
                             <constraint firstItem="p6v-GE-v3h" firstAttribute="top" secondItem="KEd-jQ-4yq" secondAttribute="bottom" constant="26" id="JGK-dD-NNa"/>
                             <constraint firstItem="EYs-Q4-Wrb" firstAttribute="centerX" secondItem="p6v-GE-v3h" secondAttribute="centerX" id="MRd-z3-YFv"/>
-                            <constraint firstItem="Vas-BQ-cYL" firstAttribute="top" secondItem="EYs-Q4-Wrb" secondAttribute="bottom" constant="22" id="N6g-km-j3b"/>
+                            <constraint firstItem="Vas-BQ-cYL" firstAttribute="top" secondItem="EYs-Q4-Wrb" secondAttribute="bottom" constant="26" id="N6g-km-j3b"/>
                             <constraint firstItem="4Lq-ml-mFH" firstAttribute="centerX" secondItem="eMn-JA-Tsr" secondAttribute="centerX" id="Qi0-er-ohC"/>
                             <constraint firstItem="p6v-GE-v3h" firstAttribute="centerX" secondItem="eMn-JA-Tsr" secondAttribute="centerX" id="T3J-QT-Ozq"/>
                             <constraint firstItem="EYs-Q4-Wrb" firstAttribute="top" secondItem="p6v-GE-v3h" secondAttribute="bottom" constant="26" id="WjK-yK-4Ds"/>
