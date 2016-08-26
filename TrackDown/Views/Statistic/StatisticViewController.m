@@ -551,10 +551,10 @@ static CGFloat cellHeight = 180;
     NSLog(@"%@ , 累计重量: %0.2fkg" ,self.muscleStats[index].key ,[self.muscleStats[index].data[key_weight] doubleValue]);
     NSString *mus = self.muscleStats[index].key;
     double weight = [self.muscleStats[index].data[key_weight] doubleValue];
-    NSString *unit = @"kg";
+    NSString *unit = @"千克";
     if (weight > kUnitChangeBoundary) {
         weight = weight / 1000.0;
-        unit = @"tons";
+        unit = @"吨";
     }
     
     UILabel *label = [self.view viewWithTag:descriptionLabelTag];

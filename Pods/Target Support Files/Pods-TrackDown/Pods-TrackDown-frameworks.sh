@@ -85,6 +85,7 @@ strip_invalid_archs() {
 
 if [[ "$CONFIGURATION" == "Debug" ]]; then
   install_framework "$BUILT_PRODUCTS_DIR/CYExpandableTableView/CYExpandableTableView.framework"
+  install_framework "$BUILT_PRODUCTS_DIR/CYGuidanceView/CYGuidanceView.framework"
   install_framework "$BUILT_PRODUCTS_DIR/CYPieChart/CYPieChart.framework"
   install_framework "$BUILT_PRODUCTS_DIR/FMDB/FMDB.framework"
   install_framework "$BUILT_PRODUCTS_DIR/FSCalendar/FSCalendar.framework"
@@ -95,6 +96,7 @@ if [[ "$CONFIGURATION" == "Debug" ]]; then
 fi
 if [[ "$CONFIGURATION" == "Release" ]]; then
   install_framework "$BUILT_PRODUCTS_DIR/CYExpandableTableView/CYExpandableTableView.framework"
+  install_framework "$BUILT_PRODUCTS_DIR/CYGuidanceView/CYGuidanceView.framework"
   install_framework "$BUILT_PRODUCTS_DIR/CYPieChart/CYPieChart.framework"
   install_framework "$BUILT_PRODUCTS_DIR/FMDB/FMDB.framework"
   install_framework "$BUILT_PRODUCTS_DIR/FSCalendar/FSCalendar.framework"

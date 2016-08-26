@@ -12,7 +12,9 @@
 #import "StoryboardManager.h"
 #import "WorkoutActionViewController.h"
 #import "AddWorkoutViewController.h"
-
+#import "CYGuidanceView.h"
+#import "CYGuidanceManager.h"
+#import "UILabel+ConstraintSize.h"
 
 @interface WorkoutMuscleViewController ()<UITableViewDelegate,UITableViewDataSource>
 @property (weak, nonatomic) IBOutlet UITableView *workoutTableView;
@@ -44,6 +46,11 @@ static NSString * const addVCId = @"AddWorkoutViewController";
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
+}
+
+-(void)viewDidAppear:(BOOL)animated{
+    [super viewDidAppear:animated];
+    [self showGuidance];
 }
 
 -(void)dealloc{
@@ -93,6 +100,36 @@ static NSString * const addVCId = @"AddWorkoutViewController";
 -(void)constructNaviAddButton{
     UIBarButtonItem *add = [[UIBarButtonItem alloc]initWithBarButtonSystemItem:UIBarButtonSystemItemAdd target:self action:@selector(addNewTargetMuscle)];
     self.navigationItem.rightBarButtonItem = add;
+}
+
+-(void)showGuidance{
+    if ([CYGuidanceManager shouldShowGuidance:GuideType_Managment]) {
+        UIWindow *window = [UIApplication sharedApplication].keyWindow;
+        
+        CYGuidanceView *guide = [CYGuidanceView new];
+        
+        GuideInfo *addInfo = [GuideInfo new];
+        
+        UIView *itemView = (UIView *)[self.navigationItem.rightBarButtonItem valueForKey:@"view" ];
+        
+        CGRect addRect =  [self.view convertRect: itemView.frame toView:window];
+        addRect = CGRectMake(addRect.origin.x, addRect.origin.y + 20, addRect.size.width, addRect.size.height);
+        
+        addInfo.guideRect = CGRectInset(addRect, -2, -2);
+        UILabel *addLabel = [UILabel mediumLabelWithSize:15];
+        addLabel.text = @"点击这里添加新的肌群";
+        [addLabel sizeToFit];
+        addInfo.guideDescriptionView = addLabel;
+        addInfo.cornerRadius = 6;
+        addInfo.relativePosition = CGPointMake(itemView.frame.size.width + 3 - addLabel.bounds.size.width, itemView.frame.size.height + 6);
+        
+        [guide addStep:@[addInfo]];
+        guide.hintText = @"点击屏幕以继续";
+        
+        [guide showInView:window animated:YES];
+        
+        [CYGuidanceManager updateGuidance:GuideType_Managment withShowStatus:YES];
+    }
 }
 
 #pragma mark - UITableView DataSource

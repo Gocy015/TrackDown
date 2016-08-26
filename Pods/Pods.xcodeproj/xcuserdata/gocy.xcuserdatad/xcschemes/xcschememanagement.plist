@@ -9,6 +9,11 @@
 			<key>isShown</key>
 			<false/>
 		</dict>
+		<key>CYGuidanceView.xcscheme</key>
+		<dict>
+			<key>isShown</key>
+			<false/>
+		</dict>
 		<key>CYPieChart.xcscheme</key>
 		<dict>
 			<key>isShown</key>
@@ -57,12 +62,17 @@
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>21836EDB782FBDB002A0B4559492E5DB</key>
+		<key>23CF27B2BA6AC7125EFFEDA8C5AA819F</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>23CF27B2BA6AC7125EFFEDA8C5AA819F</key>
+		<key>33CE8B0BB211136100AC74CB9300096A</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>4649A34EDD7D7A4AC4BE1B61B77CF452</key>
 		<dict>
 			<key>primary</key>
 			<true/>
@@ -72,17 +82,17 @@
 			<key>primary</key>
 			<true/>
 		</dict>
+		<key>69AE44D1FD1A698BCDF522EA7CA0D56A</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
 		<key>868010619D7E6CBA5C6E6E2874668C85</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>960033A32B994C01AEE7237355DA2E53</key>
-		<dict>
-			<key>primary</key>
-			<true/>
-		</dict>
-		<key>C6C173CF4CE1FED94BA663EE2F271C8B</key>
+		<key>C16944D23EF289E2D713E9E81D815958</key>
 		<dict>
 			<key>primary</key>
 			<true/>

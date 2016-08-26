@@ -1,6 +1,7 @@
 PODS:
   - CYExpandableTableView (0.0.2):
     - Masonry
+  - CYGuidanceView (0.0.1)
   - CYPieChart (0.0.1)
   - FMDB (2.6.2):
     - FMDB/standard (= 2.6.2)
@@ -8,11 +9,12 @@ PODS:
   - FSCalendar (2.3.0)
   - Masonry (1.0.1)
   - MBProgressHUD (1.0.0)
-  - SDVersion (3.2)
+  - SDVersion (3.3)
   - UCZProgressView (1.0.2)
 
 DEPENDENCIES:
   - CYExpandableTableView (from `https://github.com/Gocy015/CYExpandableTableView.git`, tag `0.0.2`)
+  - CYGuidanceView
   - CYPieChart
   - FMDB
   - FSCalendar
@@ -33,14 +35,15 @@ CHECKOUT OPTIONS:
 
 SPEC CHECKSUMS:
   CYExpandableTableView: 2a8d3f3ceccfcdfe6cf6d985eeec39d2a3e77f53
+  CYGuidanceView: 20f9a6ff204f21ceea2e83d937497f9aab56f74d
   CYPieChart: 0c522b81b6b242e7e803d353830236ef7dc7f611
   FMDB: 854a0341b4726e53276f2a8996f06f1b80f9259a
   FSCalendar: cbcca5ee332cf8d348db77ccda6b029ced42f84a
   Masonry: a1a931a0d08870ed8ae415a2ea5ea68ebcac77df
   MBProgressHUD: 4890f671c94e8a0f3cf959aa731e9de2f036d71a
-  SDVersion: e8bf034813e40fdd31c002942f78182f46468ee1
+  SDVersion: 0a8fd4c6d535bcada4dac8a5672dec222f2424bd
   UCZProgressView: 55836987c15ee6efb7cd6dfe297556602ee46c94
 
-PODFILE CHECKSUM: d19ea4410478cadb4522e0d3414fbff298acb720
+PODFILE CHECKSUM: 9f4b526dd43f1165f81456193e4c01de785ceab0
 
 COCOAPODS: 1.0.1

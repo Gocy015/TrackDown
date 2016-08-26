@@ -31,6 +31,7 @@
 		C35CC5641D3A1CF000C6A7F6 /* TrainingListTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C35CC5621D3A1CF000C6A7F6 /* TrainingListTableViewController.m */; };
 		C35CC5651D3A1CF000C6A7F6 /* TrainingListTableViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = C35CC5631D3A1CF000C6A7F6 /* TrainingListTableViewController.xib */; };
 		C37102061D49E0780037C877 /* TimeBreakViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C37102051D49E0780037C877 /* TimeBreakViewController.m */; };
+		C37FA72F1D6E8C4E007F644A /* CYGuidanceManager.m in Sources */ = {isa = PBXBuildFile; fileRef = C37FA72E1D6E8C4E007F644A /* CYGuidanceManager.m */; };
 		C385F7821D41F3BF009A08C0 /* RecordListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C385F7811D41F3BF009A08C0 /* RecordListViewController.m */; };
 		C38F7F241D5827DE00A8A7D9 /* TipView.m in Sources */ = {isa = PBXBuildFile; fileRef = C38F7F231D5827DE00A8A7D9 /* TipView.m */; };
 		C3908C201D4890120082BFE1 /* RoundedButton.m in Sources */ = {isa = PBXBuildFile; fileRef = C3908C1F1D4890120082BFE1 /* RoundedButton.m */; };
@@ -58,6 +59,7 @@
 		C3C05CF91D34D3C40021C407 /* PopTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C3C05CF71D34D3C40021C407 /* PopTableViewController.m */; };
 		C3C05CFD1D34D5270021C407 /* CheckboxTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = C3C05CFC1D34D5270021C407 /* CheckboxTableViewCell.m */; };
 		C3C05D031D34EE640021C407 /* UIImage+Resize.m in Sources */ = {isa = PBXBuildFile; fileRef = C3C05D021D34EE640021C407 /* UIImage+Resize.m */; };
+		C3D8EA631D6EDEB6004E25B2 /* UILabel+ConstraintSize.m in Sources */ = {isa = PBXBuildFile; fileRef = C3D8EA621D6EDEB6004E25B2 /* UILabel+ConstraintSize.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -107,6 +109,8 @@
 		C35CC5631D3A1CF000C6A7F6 /* TrainingListTableViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = TrainingListTableViewController.xib; sourceTree = "<group>"; };
 		C37102041D49E0780037C877 /* TimeBreakViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TimeBreakViewController.h; sourceTree = "<group>"; };
 		C37102051D49E0780037C877 /* TimeBreakViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TimeBreakViewController.m; sourceTree = "<group>"; };
+		C37FA72D1D6E8C4E007F644A /* CYGuidanceManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CYGuidanceManager.h; sourceTree = "<group>"; };
+		C37FA72E1D6E8C4E007F644A /* CYGuidanceManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CYGuidanceManager.m; sourceTree = "<group>"; };
 		C385F7801D41F3BF009A08C0 /* RecordListViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RecordListViewController.h; sourceTree = "<group>"; };
 		C385F7811D41F3BF009A08C0 /* RecordListViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RecordListViewController.m; sourceTree = "<group>"; };
 		C38F7F221D5827DE00A8A7D9 /* TipView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TipView.h; sourceTree = "<group>"; };
@@ -158,6 +162,8 @@
 		C3C05CFC1D34D5270021C407 /* CheckboxTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CheckboxTableViewCell.m; sourceTree = "<group>"; };
 		C3C05D011D34EE640021C407 /* UIImage+Resize.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIImage+Resize.h"; sourceTree = "<group>"; };
 		C3C05D021D34EE640021C407 /* UIImage+Resize.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIImage+Resize.m"; sourceTree = "<group>"; };
+		C3D8EA611D6EDEB6004E25B2 /* UILabel+ConstraintSize.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UILabel+ConstraintSize.h"; sourceTree = "<group>"; };
+		C3D8EA621D6EDEB6004E25B2 /* UILabel+ConstraintSize.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UILabel+ConstraintSize.m"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -250,6 +256,8 @@
 				C316C6881D5492F7001F9D17 /* UIColor+Hex.m */,
 				C35C2A421D6D3CF400E1DA49 /* MBProgressHUD+DefaultHUD.h */,
 				C35C2A431D6D3CF400E1DA49 /* MBProgressHUD+DefaultHUD.m */,
+				C3D8EA611D6EDEB6004E25B2 /* UILabel+ConstraintSize.h */,
+				C3D8EA621D6EDEB6004E25B2 /* UILabel+ConstraintSize.m */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -334,6 +342,8 @@
 				C3AA37AC1D30FE2500D5930E /* PathDefines.h */,
 				C34C95F61D49A94600E7F5B2 /* SettingsManager.h */,
 				C34C95F71D49A94600E7F5B2 /* SettingsManager.m */,
+				C37FA72D1D6E8C4E007F644A /* CYGuidanceManager.h */,
+				C37FA72E1D6E8C4E007F644A /* CYGuidanceManager.m */,
 			);
 			path = Utils;
 			sourceTree = "<group>";
@@ -556,6 +566,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				C3D8EA631D6EDEB6004E25B2 /* UILabel+ConstraintSize.m in Sources */,
 				C38F7F241D5827DE00A8A7D9 /* TipView.m in Sources */,
 				C39A8D5B1D337A2E00FAF484 /* WorkoutActionViewController.m in Sources */,
 				C316C6891D5492F7001F9D17 /* UIColor+Hex.m in Sources */,
@@ -568,6 +579,7 @@
 				C3908C261D48B7F20082BFE1 /* MainNavigationController.m in Sources */,
 				C34C95F81D49A94600E7F5B2 /* SettingsManager.m in Sources */,
 				C3AA37B41D30FEED00D5930E /* WorkoutAction.m in Sources */,
+				C37FA72F1D6E8C4E007F644A /* CYGuidanceManager.m in Sources */,
 				C35C2A441D6D3CF400E1DA49 /* MBProgressHUD+DefaultHUD.m in Sources */,
 				C30C7B871D3DDB3800131A1D /* NoPasteTextField.m in Sources */,
 				C35CC5641D3A1CF000C6A7F6 /* TrainingListTableViewController.m in Sources */,

@@ -20,6 +20,9 @@
 #import "TimeBreakViewController.h"
 #import "CYPresentationController.h"
 #import "MBProgressHUD+DefaultHUD.h"
+#import "CYGuidanceView.h"
+#import "CYGuidanceManager.h"
+#import "UILabel+ConstraintSize.h"
 
 @interface WorkoutPlanningViewController ()<UIPickerViewDataSource ,UIPickerViewDelegate ,UIPopoverPresentationControllerDelegate>
 @property (weak, nonatomic) IBOutlet UIPickerView *actionPicker; 
@@ -60,15 +63,27 @@ static NSString *const tbVCId = @"TimeBreakViewController";
     [self installNaviDetailView];
     [self decorateButton:self.addButton];
     [self decorateButton:self.timeBreakButton];
+    
 }
 
 -(void)viewWillAppear:(BOOL)animated{
     [super viewWillAppear:animated];
+    
+}
+
+-(void)viewDidAppear:(BOOL)animated{
+    [super viewDidAppear:animated];
+    
+    [self showGuidance];
 }
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
+}
+
+-(void)dealloc{
+//    NSLog(@"%@",self.view.subviews);
 }
 
 /*
@@ -272,6 +287,77 @@ static NSString *const tbVCId = @"TimeBreakViewController";
 }
 
 #pragma mark - Helpers
+
+
+-(void)showGuidance{
+    if ([CYGuidanceManager shouldShowGuidance:GuideType_Planning]) {
+        
+        
+        CYGuidanceView *guide = [CYGuidanceView new];
+        
+        UIWindow *window = [UIApplication sharedApplication].keyWindow;
+        
+        CGRect titleRect = [window convertRect:self.navigationItem.titleView.frame toView:window];
+        CGRect listRect =  [self.view convertRect:self.navigationItem.rightBarButtonItem.customView.frame toView:window];
+        
+        //status bar height
+        titleRect = CGRectMake(titleRect.origin.x, titleRect.origin.y + 20, titleRect.size.width, titleRect.size.height);
+        listRect = CGRectMake(listRect.origin.x, listRect.origin.y + 20, listRect.size.width, listRect.size.height);
+        
+//        GuideInfo *titleInfo = [GuideInfo new];
+//        titleInfo.guideRect = CGRectInset(titleRect, -6, -4);
+        UILabel *titleLabel = [self generateDefaultLabelWithText:@"点击可切换目标肌群" fontSize:16];
+//        [titleLabel resizeWithConstraintSize:CGSizeMake(70, CGFLOAT_MAX)];
+//        titleInfo.guideDescriptionView = titleLabel;
+//        titleInfo.relativePosition = CGPointMake((self.navigationItem.titleView.frame.size.width - titleLabel.bounds.size.width) / 2 + 3, self.navigationItem.titleView.frame.size.height + 6);
+//        titleInfo.cornerRadius = 6;
+        
+        GuideInfo *titleInfo = [[GuideInfo alloc] initWithGuideRect:CGRectInset(titleRect, -6, -4) descriptionView:titleLabel verticalPosition:VerticalPosition_Bottom horizontalPosition:HorizontalPosition_Middle cornerRadius:6];;
+        
+        GuideInfo *listInfo = [GuideInfo new];
+        listInfo.guideRect = CGRectInset(listRect, -6, -2);
+        UILabel *listLabel = [self generateDefaultLabelWithText:@"点击这里查看训练列表" fontSize:16];
+//        [listLabel resizeWithConstraintSize:CGSizeMake(70, CGFLOAT_MAX)];
+        listInfo.guideDescriptionView = listLabel;
+        listInfo.relativePosition = CGPointMake(self.navigationItem.rightBarButtonItem.customView.frame.size.width - listLabel.bounds.size.width + 3, self.navigationItem.rightBarButtonItem.customView.frame.size.height + 6);
+        listInfo.cornerRadius = 6;
+        
+//        GuideInfo *pickerInfo = [GuideInfo new];
+//        pickerInfo.guideRect = [self.view convertRect:CGRectInset(self.actionPicker.frame, 0, 0) toView:window];
+        UILabel *pickerLabel = [self generateDefaultLabelWithText:@"在这里选择训练动作" fontSize:16];
+        
+//        pickerInfo.guideDescriptionView = pickerLabel;
+//        pickerInfo.relativePosition = CGPointMake(self.actionPicker.frame.size.width / 2 - pickerLabel.bounds.size.width / 2, self.actionPicker.frame.size.height+2);
+//        pickerInfo.cornerRadius = 10;
+        GuideInfo *pickerInfo = [[GuideInfo alloc] initWithGuideRect:[self.view convertRect:CGRectInset(self.actionPicker.frame, 0, 0) toView:window] descriptionView:pickerLabel verticalPosition:VerticalPosition_Bottom horizontalPosition:HorizontalPosition_Middle cornerRadius:10];
+        
+//        GuideInfo *addInfo = [GuideInfo new];
+//        addInfo.guideRect = [self.view convertRect:CGRectInset(self.addButton.frame, -8 , -4) toView:window];
+        UILabel *addLabel = [self generateDefaultLabelWithText:@"在这里添加训练动作" fontSize:16];
+//        addInfo.guideDescriptionView = addLabel;
+//        addInfo.relativePosition = CGPointMake(self.addButton.frame.size.width / 2 - addLabel.bounds.size.width / 2 + 4 , -(4 + addLabel.bounds.size.height));
+//        addInfo.cornerRadius = 10;
+        GuideInfo *addInfo = [[GuideInfo alloc] initWithGuideRect:[self.view convertRect:CGRectInset(self.addButton.frame, -8 , -4) toView:window] descriptionView:addLabel verticalPosition:VerticalPosition_Top horizontalPosition:HorizontalPosition_Middle cornerRadius:8];
+        
+        [guide addStep:@[titleInfo]];
+        [guide addStep:@[listInfo]];
+        [guide addStep:@[pickerInfo]];
+        [guide addStep:@[addInfo]];
+        
+        guide.hintText = @"点击屏幕以继续";
+        
+        [guide showInView:window animated:YES];
+        
+        [CYGuidanceManager updateGuidance:GuideType_Planning withShowStatus:YES];
+    }
+}
+
+-(UILabel *)generateDefaultLabelWithText:(NSString *)text fontSize:(CGFloat)size{
+    UILabel *label = [UILabel mediumLabelWithSize:size];
+    label.text = text;
+    [label sizeToFit];
+    return label;
+}
 
 -(void)installComponentHeader{
     UILabel *actHeader = [UILabel new];

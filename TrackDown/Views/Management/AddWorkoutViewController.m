@@ -82,7 +82,7 @@
                 if (success) {
                     [self.presentingViewController dismissViewControllerAnimated:YES completion:nil];
                 }else{
-                    
+                    _muscle = nil;
                     [MBProgressHUD textHUDAddedTo:self.view text:@"已存在重名肌群!" animated:YES];
                 }
             }];

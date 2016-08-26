@@ -1,0 +1,6 @@
+framework module CYGuidanceView {
+  umbrella header "CYGuidanceView-umbrella.h"
+
+  export *
+  module * { export * }
+}
