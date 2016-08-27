@@ -182,13 +182,13 @@
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <label hidden="YES" opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="300" verticalHuggingPriority="251" text="√" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="4qR-vd-sEi">
-                                                    <rect key="frame" x="23" y="11" width="12" height="21"/>
+                                                    <rect key="frame" x="20" y="11" width="12" height="21"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                     <color key="textColor" red="0.96862745100000003" green="0.96862745100000003" blue="0.96862745100000003" alpha="1" colorSpace="calibratedRGB"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="iNg-Nl-KE9">
-                                                    <rect key="frame" x="25" y="12" width="557" height="20"/>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" lineBreakMode="middleTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="iNg-Nl-KE9">
+                                                    <rect key="frame" x="22" y="12" width="503" height="20"/>
                                                     <fontDescription key="fontDescription" type="system" weight="light" pointSize="16"/>
                                                     <color key="textColor" red="0.96862745100000003" green="0.96862745100000003" blue="0.96862745100000003" alpha="1" colorSpace="calibratedRGB"/>
                                                     <nil key="highlightedColor"/>
@@ -200,14 +200,22 @@
                                                         <constraint firstAttribute="height" constant="1" id="ggI-PA-Ism"/>
                                                     </constraints>
                                                 </view>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="252" verticalHuggingPriority="251" text="x 10 组" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="MFY-Xn-irD">
+                                                    <rect key="frame" x="533" y="12" width="49" height="20"/>
+                                                    <fontDescription key="fontDescription" type="system" weight="light" pointSize="16"/>
+                                                    <color key="textColor" red="0.96862745100000003" green="0.96862745100000003" blue="0.96862745100000003" alpha="1" colorSpace="calibratedRGB"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
                                             </subviews>
                                             <color key="backgroundColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
                                             <constraints>
                                                 <constraint firstItem="iNg-Nl-KE9" firstAttribute="centerY" secondItem="4qR-vd-sEi" secondAttribute="centerY" id="6bs-3H-ewO"/>
                                                 <constraint firstAttribute="trailingMargin" secondItem="Cyw-JL-eug" secondAttribute="trailing" constant="2" id="BVL-Kh-DTc"/>
                                                 <constraint firstItem="4qR-vd-sEi" firstAttribute="centerY" secondItem="QWC-F4-iAM" secondAttribute="centerY" id="CHF-kh-shR"/>
-                                                <constraint firstItem="4qR-vd-sEi" firstAttribute="leading" secondItem="QWC-F4-iAM" secondAttribute="leadingMargin" constant="15" id="PRe-9h-YQz"/>
-                                                <constraint firstAttribute="trailingMargin" secondItem="iNg-Nl-KE9" secondAttribute="trailing" constant="10" id="Ubx-Nb-vJk"/>
+                                                <constraint firstItem="MFY-Xn-irD" firstAttribute="centerY" secondItem="QWC-F4-iAM" secondAttribute="centerY" id="FPN-JN-91X"/>
+                                                <constraint firstAttribute="trailingMargin" secondItem="MFY-Xn-irD" secondAttribute="trailing" constant="10" id="L9X-HP-ArI"/>
+                                                <constraint firstItem="MFY-Xn-irD" firstAttribute="leading" secondItem="iNg-Nl-KE9" secondAttribute="trailing" constant="8" id="LMY-CN-mkg"/>
+                                                <constraint firstItem="4qR-vd-sEi" firstAttribute="leading" secondItem="QWC-F4-iAM" secondAttribute="leadingMargin" constant="12" id="PRe-9h-YQz"/>
                                                 <constraint firstItem="Cyw-JL-eug" firstAttribute="leading" secondItem="QWC-F4-iAM" secondAttribute="leadingMargin" constant="2" id="gtD-PF-TTX"/>
                                                 <constraint firstAttribute="bottom" secondItem="Cyw-JL-eug" secondAttribute="bottom" constant="1" id="hKB-j5-ckJ"/>
                                                 <constraint firstItem="iNg-Nl-KE9" firstAttribute="leading" secondItem="4qR-vd-sEi" secondAttribute="trailing" constant="-10" id="j0B-s5-2cR"/>
@@ -216,6 +224,7 @@
                                         <connections>
                                             <outlet property="checkLabel" destination="4qR-vd-sEi" id="YfF-Qx-Hf9"/>
                                             <outlet property="contentLabel" destination="iNg-Nl-KE9" id="V33-7V-6WI"/>
+                                            <outlet property="groupLabel" destination="MFY-Xn-irD" id="KgR-SS-31u"/>
                                             <outlet property="hDistance" destination="j0B-s5-2cR" id="OHG-pD-K9Q"/>
                                         </connections>
                                     </tableViewCell>

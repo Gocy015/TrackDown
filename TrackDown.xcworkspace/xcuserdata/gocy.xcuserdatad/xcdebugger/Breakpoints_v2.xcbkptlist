@@ -74,11 +74,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "TrackDown/Utils/CYWorkoutManager.m"
-            timestampString = "493720976.777162"
+            timestampString = "493973121.729102"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "250"
-            endingLineNumber = "250"
+            startingLineNumber = "260"
+            endingLineNumber = "260"
             landmarkName = "-convertPlanIntoStatistics:"
             landmarkType = "5">
          </BreakpointContent>

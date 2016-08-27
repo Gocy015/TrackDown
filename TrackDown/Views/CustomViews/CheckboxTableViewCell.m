@@ -11,6 +11,7 @@
 @interface CheckboxTableViewCell ()
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *hDistance;
 @property (weak, nonatomic) IBOutlet UILabel *checkLabel;
+@property (weak, nonatomic) IBOutlet UILabel *groupLabel;
 
 @property (weak, nonatomic) IBOutlet UILabel *contentLabel;
 @end
@@ -21,6 +22,9 @@
 - (void)awakeFromNib {
     [super awakeFromNib];
     // Initialization code
+    
+    [_contentLabel setFont:[UIFont systemFontOfSize:14 weight:UIFontWeightLight]];
+    [_groupLabel setFont:[UIFont systemFontOfSize:14 weight:UIFontWeightLight]];
 }
 
 - (void)setSelected:(BOOL)selected animated:(BOOL)animated {
@@ -38,6 +42,10 @@
 
 -(void)setText:(NSString *)text{
     _contentLabel.text = text;
+}
+
+-(void)setGroup:(NSString *)group{
+    _groupLabel.text = group;
 }
 
 @end

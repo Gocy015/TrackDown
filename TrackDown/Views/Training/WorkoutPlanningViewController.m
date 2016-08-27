@@ -218,11 +218,14 @@ static NSString *const tbVCId = @"TimeBreakViewController";
     BOOL delete = YES;
     
     NSMutableArray *displayWorkouts = [NSMutableArray new];
+    NSMutableArray *displayGroups = [NSMutableArray new];
     [self resetWorkingMuscle:YES];
     for (TargetMuscle *m in self.workoutPlan) {
         for (WorkoutAction *act in m.actions) {
-            NSString *displayString = [NSString stringWithFormat:@"%@ x %li组",act.actionName,(unsigned long)act.sets];
+            NSString *displayString = [NSString stringWithFormat:@"%@",act.actionName];
+            NSString *displayGroup = [NSString stringWithFormat:@"x %li组",(unsigned long)act.sets];
             [displayWorkouts addObject:displayString];
+            [displayGroups addObject:displayGroup];
         }
     }
     if (displayWorkouts.count == 0) {
@@ -232,6 +235,7 @@ static NSString *const tbVCId = @"TimeBreakViewController";
     
     popVC.clickToDismiss = NO;
     popVC.dataArray = [NSMutableArray arrayWithArray:displayWorkouts];
+    popVC.subDataArray = [NSMutableArray arrayWithArray:displayGroups];
     popVC.allowsDeletion = delete;
     
     WeakSelf();
@@ -361,13 +365,13 @@ static NSString *const tbVCId = @"TimeBreakViewController";
 
 -(void)installComponentHeader{
     UILabel *actHeader = [UILabel new];
-    actHeader.font = [UIFont systemFontOfSize:22.0 weight:5.0];
+    actHeader.font = [UIFont systemFontOfSize:20 weight:UIFontWeightMedium];
     actHeader.text = @"训练动作";
     actHeader.textAlignment = NSTextAlignmentCenter;
     
     
     UILabel *setHeader = [UILabel new];
-    setHeader.font = [UIFont systemFontOfSize:22.0 weight:5.0];
+    setHeader.font = [UIFont systemFontOfSize:20.0 weight:UIFontWeightMedium];
     setHeader.text = @"组数";
     setHeader.textAlignment = NSTextAlignmentCenter;
 
@@ -376,18 +380,17 @@ static NSString *const tbVCId = @"TimeBreakViewController";
     [self.view addSubview:setHeader];
     
     __weak UIView *picker = _actionPicker;
-    __weak UIView *superview = self.view;
     
     [actHeader mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.width.equalTo(superview.mas_width).multipliedBy(actPortion);
-        make.leading.equalTo(superview.mas_leading);
-        make.bottom.equalTo(picker.mas_top).offset(-6);
+        make.width.equalTo(picker.mas_width).multipliedBy(actPortion);
+        make.leading.equalTo(picker.mas_leading);
+        make.bottom.equalTo(picker.mas_top).offset(-2);
     }];
     
     [setHeader mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.width.equalTo(superview.mas_width).multipliedBy(1 - actPortion);
+        make.width.equalTo(picker.mas_width).multipliedBy(1 - actPortion);
         make.leading.equalTo(actHeader.mas_trailing);
-        make.bottom.equalTo(picker.mas_top).offset(-6);
+        make.bottom.equalTo(picker.mas_top).offset(-2);
     }];
 }
 
@@ -493,6 +496,39 @@ static NSString *const tbVCId = @"TimeBreakViewController";
         return pickerView.frame.size.width * actPortion;
     }
     return pickerView.frame.size.width * (1 - actPortion);
+}
+
+-(UIView *)pickerView:(UIPickerView *)pickerView viewForRow:(NSInteger)row forComponent:(NSInteger)component reusingView:(UIView *)view{
+    UILabel *label = nil;
+    if (view && [view isKindOfClass:[UILabel class]]) {
+        label = (UILabel *)view;
+    }else{
+        
+        
+        label = [UILabel new];
+    }
+    
+    if(component == 0){
+        
+        label.text = [_currentMuscle.actions objectAtIndex:row].actionName;
+    }else{
+        
+        label.text = [NSString stringWithFormat:@"%li",row + 1];
+    }
+    label.font = [UIFont systemFontOfSize:16 weight:UIFontWeightLight];
+    
+    [label sizeToFit];
+    
+    if (label.bounds.size.width > [pickerView rowSizeForComponent:component].width) {
+        label.frame = CGRectMake(0, 0, [pickerView rowSizeForComponent:component].width, label.bounds.size.height);
+        label.lineBreakMode = NSLineBreakByTruncatingMiddle;
+    }
+    else{
+        label.frame = CGRectMake(([pickerView rowSizeForComponent:component].width - label.bounds.size.width) / 2, 0, label.bounds.size.width, label.bounds.size.height);
+    }
+    
+    
+    return label;
 }
 #pragma mark - UIPickerView Delegate
 //-(UIView *)pickerView:(UIPickerView *)pickerView viewForRow:(NSInteger)row forComponent:(NSInteger)component reusingView:(UIView *)view{

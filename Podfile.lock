@@ -14,7 +14,7 @@ PODS:
 
 DEPENDENCIES:
   - CYExpandableTableView (from `https://github.com/Gocy015/CYExpandableTableView.git`, tag `0.0.2`)
-  - CYGuidanceView
+  - CYGuidanceView (from `https://github.com/Gocy015/CYGuidanceView.git`, tag `0.0.1`)
   - CYPieChart
   - FMDB
   - FSCalendar
@@ -27,11 +27,17 @@ EXTERNAL SOURCES:
   CYExpandableTableView:
     :git: https://github.com/Gocy015/CYExpandableTableView.git
     :tag: 0.0.2
+  CYGuidanceView:
+    :git: https://github.com/Gocy015/CYGuidanceView.git
+    :tag: 0.0.1
 
 CHECKOUT OPTIONS:
   CYExpandableTableView:
     :git: https://github.com/Gocy015/CYExpandableTableView.git
     :tag: 0.0.2
+  CYGuidanceView:
+    :git: https://github.com/Gocy015/CYGuidanceView.git
+    :tag: 0.0.1
 
 SPEC CHECKSUMS:
   CYExpandableTableView: 2a8d3f3ceccfcdfe6cf6d985eeec39d2a3e77f53
@@ -44,6 +50,6 @@ SPEC CHECKSUMS:
   SDVersion: 0a8fd4c6d535bcada4dac8a5672dec222f2424bd
   UCZProgressView: 55836987c15ee6efb7cd6dfe297556602ee46c94
 
-PODFILE CHECKSUM: 9f4b526dd43f1165f81456193e4c01de785ceab0
+PODFILE CHECKSUM: 12f02cee0032c65c72d239528aa85b8ab324b4c0
 
 COCOAPODS: 1.0.1

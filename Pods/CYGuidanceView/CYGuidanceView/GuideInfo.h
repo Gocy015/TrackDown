@@ -34,7 +34,13 @@ typedef NS_ENUM(NSUInteger , HorizontalPosition){
 @property (nonatomic) CGPoint relativePosition;
 @property (nonatomic) CGFloat cornerRadius;
 
+/**
+ *  Built-in relative vertical position ,this value will be ignored if property relativePosition is set to non-zero value.
+ */
 @property (nonatomic) VerticalPosition vPos;
+/**
+ *  Built-in relative horizontal position ,this value will be ignored if property relativePosition is set to non-zero value.
+ */
 @property (nonatomic) HorizontalPosition hPos;
 
 @end

@@ -11,6 +11,7 @@
 @interface PopTableViewController : UIViewController
 
 @property (nonatomic ,strong) NSMutableArray *dataArray;
+@property (nonatomic ,strong) NSMutableArray *subDataArray;
 @property (nonatomic) NSInteger checkIndex;
 @property (nonatomic) void (^clickblock)(NSUInteger);
 

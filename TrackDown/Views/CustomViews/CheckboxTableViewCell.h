@@ -14,5 +14,6 @@
 
 -(void)showChecked:(BOOL)show;
 -(void)setText:(NSString *)text;
+-(void)setGroup:(NSString *)group;
 
 @end

@@ -120,6 +120,17 @@ static NSString * const Key_TimeBreak = @"TrackDown_TimeBreak";
     }
 }
 
+-(void)updateMuscleActions:(TargetMuscle *)targetMuscle{
+    for (TargetMuscle *m in _workoutTypes) {
+        if ([m.muscle isEqualToString:targetMuscle.muscle]) {//add actions
+            m.actions = [NSMutableArray arrayWithArray:targetMuscle.actions];
+            break;
+        }
+    }
+    
+    [self saveCurrentWorkoutToDisk];
+    
+}
 
 -(void)addAction:(WorkoutAction *)act toMuscle:(TargetMuscle *)targetMuscle writeToDiskImmediatly:(BOOL)writeNow completion:(void (^)(BOOL))completion{
     BOOL found = NO;
@@ -132,12 +143,13 @@ static NSString * const Key_TimeBreak = @"TrackDown_TimeBreak";
     for (TargetMuscle *m in _workoutTypes) {
         if ([m.muscle isEqualToString:targetMuscle.muscle]) {//add actions
             found = YES;
-            [m.actions addObject:act];
+//            [m.actions addObject:act];
+            [m.actions insertObject:act atIndex:0];
             break;
         }
     }
     if (!found) {//new muscle
-        [targetMuscle.actions addObject:act];
+        [targetMuscle.actions insertObject:act atIndex:0];
         [_workoutTypes addObject:targetMuscle];
     }
     [[NSNotificationCenter defaultCenter] postNotificationName:n_AddActionSuccessNotification object:act];

@@ -103,7 +103,7 @@ static NSString * const addVCId = @"AddWorkoutViewController";
 }
 
 -(void)showGuidance{
-    if ([CYGuidanceManager shouldShowGuidance:GuideType_Managment]) {
+    if ([CYGuidanceManager shouldShowGuidance:GuideType_MuscleManagement]) {
         UIWindow *window = [UIApplication sharedApplication].keyWindow;
         
         CYGuidanceView *guide = [CYGuidanceView new];
@@ -128,7 +128,7 @@ static NSString * const addVCId = @"AddWorkoutViewController";
         
         [guide showInView:window animated:YES];
         
-        [CYGuidanceManager updateGuidance:GuideType_Managment withShowStatus:YES];
+        [CYGuidanceManager updateGuidance:GuideType_MuscleManagement withShowStatus:YES];
     }
 }
 

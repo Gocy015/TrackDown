@@ -55,6 +55,13 @@
     
     [cell setText:self.dataArray[indexPath.row]];
     
+    if ([self.subDataArray count] > indexPath.row) {
+        [cell setGroup:self.subDataArray[indexPath.row]];
+    }else{
+        
+        [cell setGroup:@""];
+    }
+    
     return cell;
 }
 

@@ -79,7 +79,11 @@
     self.snapShot = [img copy];
     
     [self gotoStep:_currentStep];
-    self.frame = view.bounds;
+    
+    
+    self.frame = CGRectMake(0, 0, view.bounds.size.width, view.bounds.size.height);
+        
+    
     [view addSubview:self];
     if (animate) {
         self.alpha = 0;

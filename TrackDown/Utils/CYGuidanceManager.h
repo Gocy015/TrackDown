@@ -10,9 +10,10 @@
 
 typedef NS_ENUM(NSUInteger ,GuideType){
     GuideType_Planning = 1,
-    GuideType_Managment = 2,
+    GuideType_MuscleManagement = 2,
     GuideType_Records = 3,
-    GuideType_Statistic = 4
+    GuideType_Statistic = 4,
+    GuideType_ActionManagement = 5
 };
 
 @interface CYGuidanceManager : NSObject
