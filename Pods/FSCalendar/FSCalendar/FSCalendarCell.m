@@ -391,7 +391,7 @@
     if (self.dateIsSelected || self.isSelected) {
         return _preferredEventSelectionColors ?: @[_appearance.eventSelectionColor];
     }
-    return _preferredEventDefaultColors ?: @[_appearance.eventSelectionColor];
+    return _preferredEventDefaultColors ?: @[_appearance.eventDefaultColor];
 }
 
 - (FSCalendarCellShape)cellShape
@@ -420,7 +420,7 @@
 
 OFFSET_PROPERTY(preferredTitleOffset, PreferredTitleOffset, _appearance.titleOffset);
 OFFSET_PROPERTY(preferredSubtitleOffset, PreferredSubtitleOffset, _appearance.subtitleOffset);
-OFFSET_PROPERTY(preferredImageOffset, PreferredImageOffset, _appearance.subtitleOffset);
+OFFSET_PROPERTY(preferredImageOffset, PreferredImageOffset, _appearance.imageOffset);
 OFFSET_PROPERTY(preferredEventOffset, PreferredEventOffset, _appearance.eventOffset);
 
 #undef OFFSET_PROPERTY

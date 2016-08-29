@@ -238,8 +238,9 @@ static CGFloat cellHeight = 180;
     [chart mas_makeConstraints:^(MASConstraintMaker *make) {
         make.center.equalTo(v);
         make.width.mas_equalTo(220);
-        make.height.mas_equalTo(220);
+        make.height.mas_equalTo(300);
     }];
+    
     
     self.chart = chart;
     
@@ -516,16 +517,26 @@ static CGFloat cellHeight = 180;
 
 -(void)configurePieWithStatistics:(NSArray *)stats{
     NSMutableArray *objs = [NSMutableArray new];
+    double sum = 0;
+    double min = DBL_MAX;
     for (WorkoutStatistic *stat in stats) {
         PieChartDataObject *pieObj = [PieChartDataObject new];
         pieObj.title = stat.key;
         double weight = [stat.data[key_weight] doubleValue];
+        sum += weight;
+        if (min > weight) {
+            min = weight;
+        }
         
         pieObj.value = weight;
 //        pieObj.detailText = [NSString stringWithFormat:@"%@已经累计经历了%.2fkg的训练量",stat.key,weight];
         [objs addObject:pieObj];
     }
-    
+    if (min / sum < 1.0 / 9.0) {
+        self.chart.titleLayout = TitleLayout_Bottom;
+    }else{
+        self.chart.titleLayout = TitleLayout_Inside;
+    }
     self.chart.objects = objs;
     self.chart.colors = [self.pieColors subarrayWithRange:NSMakeRange(0, objs.count)];
     
@@ -555,6 +566,10 @@ static CGFloat cellHeight = 180;
     if (weight > kUnitChangeBoundary) {
         weight = weight / 1000.0;
         unit = @"吨";
+    }
+    if (weight > kUnitChangeBoundary) {
+        weight = weight / 1000.0;
+        unit = @"千吨";
     }
     
     UILabel *label = [self.view viewWithTag:descriptionLabelTag];

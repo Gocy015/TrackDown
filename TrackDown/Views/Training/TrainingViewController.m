@@ -489,7 +489,7 @@
     
     UIButton *end = [[UIButton alloc] initWithFrame:CGRectMake(-10, 10, 170, 40)];
     [end setTitleColor:[UIColor colorWithWhite:1 alpha:0.6] forState:UIControlStateNormal];
-    [end setTitle:@"结束训练11111111111111111" forState:UIControlStateNormal];
+    [end setTitle:@"结束训练" forState:UIControlStateNormal];
     [end.titleLabel setFont:[UIFont systemFontOfSize:16 weight:UIFontWeightMedium]];
     [end addTarget:self action:@selector(abortTraining) forControlEvents:UIControlEventTouchUpInside];
     

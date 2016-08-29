@@ -2,11 +2,11 @@ PODS:
   - CYExpandableTableView (0.0.2):
     - Masonry
   - CYGuidanceView (0.0.1)
-  - CYPieChart (0.0.1)
+  - CYPieChart (0.0.2)
   - FMDB (2.6.2):
     - FMDB/standard (= 2.6.2)
   - FMDB/standard (2.6.2)
-  - FSCalendar (2.3.0)
+  - FSCalendar (2.3.1)
   - Masonry (1.0.1)
   - MBProgressHUD (1.0.0)
   - SDVersion (3.3)
@@ -42,9 +42,9 @@ CHECKOUT OPTIONS:
 SPEC CHECKSUMS:
   CYExpandableTableView: 2a8d3f3ceccfcdfe6cf6d985eeec39d2a3e77f53
   CYGuidanceView: 20f9a6ff204f21ceea2e83d937497f9aab56f74d
-  CYPieChart: 0c522b81b6b242e7e803d353830236ef7dc7f611
+  CYPieChart: 7a175b827025bcfb14d3199431fb690d66db06d1
   FMDB: 854a0341b4726e53276f2a8996f06f1b80f9259a
-  FSCalendar: cbcca5ee332cf8d348db77ccda6b029ced42f84a
+  FSCalendar: 6a68532ec1228e389c3c7274e3410b78702f77b6
   Masonry: a1a931a0d08870ed8ae415a2ea5ea68ebcac77df
   MBProgressHUD: 4890f671c94e8a0f3cf959aa731e9de2f036d71a
   SDVersion: 0a8fd4c6d535bcada4dac8a5672dec222f2424bd
