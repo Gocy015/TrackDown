@@ -342,29 +342,26 @@ static CGFloat cellHeight = 180;
     }
     
     dispatch_group_enter(self.loadGroup);
-    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
-//        sleep(3);
-        [[CYWorkoutManager sharedManager] loadAllActionStatistics:^(NSDictionary *res) {
-            for (NSDate *key in res.allKeys) {
-                [weakSelf groupStatistics:res[key] onDate:key];
-            }
-            dispatch_group_leave(weakSelf.loadGroup);
-            NSLog(@"Finish load actions");
-        }];
-        
-    });
-    
-    
     dispatch_group_enter(self.loadGroup);
-    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
-        
-        [[CYWorkoutManager sharedManager] loadAllMuscleStatistics:^(NSArray *res) {
-            [weakSelf configurePieWithStatistics:res];
-            dispatch_group_leave(weakSelf.loadGroup);
-            NSLog(@"Finish load muscles");
-        }];
-        
-    });
+    //直接enter两次，避免async跑得快，先leaveGroup
+//        sleep(3);
+    
+    [[CYWorkoutManager sharedManager] loadAllActionStatistics:^(NSDictionary *res) {
+        for (NSDate *key in res.allKeys) {
+            [weakSelf groupStatistics:res[key] onDate:key];
+        }
+        dispatch_group_leave(weakSelf.loadGroup);
+        NSLog(@"Finish load actions");
+    }];
+    
+    
+    
+    
+    [[CYWorkoutManager sharedManager] loadAllMuscleStatistics:^(NSArray *res) {
+        [weakSelf configurePieWithStatistics:res];
+        dispatch_group_leave(weakSelf.loadGroup);
+        NSLog(@"Finish load muscles");
+    }];
     
     dispatch_group_notify(self.loadGroup, dispatch_get_main_queue(), ^{
         weakSelf.searchArray = [NSMutableArray arrayWithArray:weakSelf.displayArray];;
