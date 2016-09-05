@@ -182,7 +182,12 @@ static NSString * const Key_TimeBreak = @"TrackDown_TimeBreak";
     NSArray *arr = [[NSArray alloc] initWithArray:workoutPlan copyItems:YES];//avoid conflict
     
     
-    
+//    NSCalendar *cal = [NSCalendar currentCalendar];
+//    NSDateComponents *com = [NSDateComponents new];
+//    com.year = [NSDate date].year;
+//    com.month = [NSDate date].month + 1;
+//    com.day = [NSDate date].day;
+//    NSDate *d = [cal dateFromComponents:com];
     NSDate *d = [NSDate date];
     
     self.actionStatCache = nil;

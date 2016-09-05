@@ -9,13 +9,13 @@ PODS:
   - FSCalendar (2.3.1)
   - Masonry (1.0.1)
   - MBProgressHUD (1.0.0)
-  - SDVersion (3.3)
+  - SDVersion (3.5)
   - UCZProgressView (1.0.2)
 
 DEPENDENCIES:
   - CYExpandableTableView (from `https://github.com/Gocy015/CYExpandableTableView.git`, tag `0.0.2`)
   - CYGuidanceView (from `https://github.com/Gocy015/CYGuidanceView.git`, tag `0.0.1`)
-  - CYPieChart
+  - CYPieChart (from `https://github.com/Gocy015/CYPieChart.git`, tag `master`)
   - FMDB
   - FSCalendar
   - Masonry
@@ -30,6 +30,9 @@ EXTERNAL SOURCES:
   CYGuidanceView:
     :git: https://github.com/Gocy015/CYGuidanceView.git
     :tag: 0.0.1
+  CYPieChart:
+    :git: https://github.com/Gocy015/CYPieChart.git
+    :tag: master
 
 CHECKOUT OPTIONS:
   CYExpandableTableView:
@@ -38,6 +41,9 @@ CHECKOUT OPTIONS:
   CYGuidanceView:
     :git: https://github.com/Gocy015/CYGuidanceView.git
     :tag: 0.0.1
+  CYPieChart:
+    :git: https://github.com/Gocy015/CYPieChart.git
+    :tag: master
 
 SPEC CHECKSUMS:
   CYExpandableTableView: 2a8d3f3ceccfcdfe6cf6d985eeec39d2a3e77f53
@@ -47,9 +53,9 @@ SPEC CHECKSUMS:
   FSCalendar: 6a68532ec1228e389c3c7274e3410b78702f77b6
   Masonry: a1a931a0d08870ed8ae415a2ea5ea68ebcac77df
   MBProgressHUD: 4890f671c94e8a0f3cf959aa731e9de2f036d71a
-  SDVersion: 0a8fd4c6d535bcada4dac8a5672dec222f2424bd
+  SDVersion: 73adb37feaf9ddaca41b88f4095325d4d583af7e
   UCZProgressView: 55836987c15ee6efb7cd6dfe297556602ee46c94
 
-PODFILE CHECKSUM: 12f02cee0032c65c72d239528aa85b8ab324b4c0
+PODFILE CHECKSUM: 9cacebe2455a64f24101d6e219c73ec73360ca63
 
 COCOAPODS: 1.0.1

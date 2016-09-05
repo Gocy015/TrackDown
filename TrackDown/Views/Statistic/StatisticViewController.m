@@ -233,6 +233,18 @@ static CGFloat cellHeight = 180;
     chart.sliceBorderWidth = 1.0f;
     chart.delegate = self;
     
+    chart.colors = self.pieColors;
+    
+    chart.titleViewAnimationBlock = ^(TitleView * v, BOOL showing){
+        if (showing) {
+            v.backgroundColor = [UIColor darkGrayColor];
+            v.titleColor = [UIColor whiteColor];
+        }else{
+            v.backgroundColor = [UIColor clearColor];
+            v.titleColor = [UIColor blackColor];
+        }
+    };
+    
     UIView *v = self.view;
     
     [chart mas_makeConstraints:^(MASConstraintMaker *make) {
@@ -535,7 +547,7 @@ static CGFloat cellHeight = 180;
         self.chart.titleLayout = TitleLayout_Inside;
     }
     self.chart.objects = objs;
-    self.chart.colors = [self.pieColors subarrayWithRange:NSMakeRange(0, objs.count)];
+    
     
     self.muscleStats = [NSArray arrayWithArray:stats];
     

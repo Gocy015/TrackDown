@@ -461,7 +461,7 @@ static NSString * const statCount = @"count";
         
         
         /*
-         statType,statKey,statData,statStoreDate,statCount
+         statType,statKey,statData,statStoreMonth,statStoreDate,statCount,statMus
          
          */
         for (WorkoutStatistic *s in statToInsert) {
@@ -471,10 +471,18 @@ static NSString * const statCount = @"count";
         }
         
         for (WorkoutStatistic *s in statToUpdate) {
-            NSString *update = [NSString stringWithFormat:@"UPDATE %@ SET %@ = ? ,%@ = ? ,%@ = ? ,%@ = ? WHERE %@ = ? AND %@ = ?",statTable,statData,statStoreMonth,statStoreDate,statCount,statType,statKey];
-            NSData *sData = [NSKeyedArchiver archivedDataWithRootObject:s.data];
+            NSString *update = nil;
             
-            [db executeUpdate:update ,sData,@(s.storeMonth),@(s.storeDate),@(s.trainingCount),@(s.type),s.key];
+            NSData *sData = [NSKeyedArchiver archivedDataWithRootObject:s.data];
+            if (s.type == StatTypeMuscle) {
+                update = [NSString stringWithFormat:@"UPDATE %@ SET %@ = ? ,%@ = ? ,%@ = ? ,%@ = ? WHERE %@ = ? AND %@ = ?;",statTable,statData,statStoreMonth,statStoreDate,statCount,statType,statKey];
+                
+                [db executeUpdate:update ,sData,@(s.storeMonth),@(s.storeDate),@(s.trainingCount),@(s.type),s.key];
+            }else{
+                update = [NSString stringWithFormat:@"UPDATE %@ SET %@ = ? ,%@ = ? ,%@ = ? ,%@ = ? WHERE %@ = ? AND %@ = ? AND %@ = ? AND %@ = ?;",statTable,statData,statStoreMonth,statStoreDate,statCount,statType,statKey,statStoreMonth,statMus];
+                [db executeUpdate:update ,sData,@(s.storeMonth),@(s.storeDate),@(s.trainingCount),@(s.type),s.key,@(s.storeMonth),s.mus];
+            }
+            
             
         }
         [db close];
