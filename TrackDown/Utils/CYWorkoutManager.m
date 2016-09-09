@@ -550,9 +550,12 @@ static NSString * const Key_TimeBreak = @"TrackDown_TimeBreak";
 
 #pragma mark - Getters
 -(dispatch_queue_t)ioQueue{
-    if (!_ioQueue) {
+
+    static dispatch_once_t onceToken;
+    dispatch_once(&onceToken, ^{
         _ioQueue = dispatch_queue_create(ioQueueIdentifier, DISPATCH_QUEUE_CONCURRENT);
-    }
+    });
+ 
     return _ioQueue;
 }
 
